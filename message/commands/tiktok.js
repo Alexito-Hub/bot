@@ -47,7 +47,7 @@ module.exports = {
         }
       } else {
         console.log('Error al obtener información');
-        v.reply(`¿? ${!args[0]}`);
+        v.reply(`¿?`);
       }
     } catch (error) {
       console.log('Error:', error);
