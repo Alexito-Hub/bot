@@ -29,24 +29,24 @@ module.exports = {
                     sock.sendMessage(m.chat, {
                         video: { url: result.video.noWatermark },
                         mimetype: 'video/mp4',
-                        caption: `ㅤ *- - TIK TOK*
-*Autor:* ${result.author.name}
-*Like:* ${result.information.likeCount}
-*Comentarios:* ${result.information.commentCount}
-*Fecha:* ${result.information.created_at}
-*Titulo:* ${result.information.title}`
+                        caption: `ㅤ *⋯⋯ TIK TOK ⋯⋯*
+ ∘ *Autor:* ${result.author.name}
+ ∘ *Likes:* ${result.information.likeCount}
+ ∘ *Comentarios:* ${result.information.commentCount}
+ ∘ *Fecha:* ${result.information.created_at}
+ ∘ *Titulo:* ${result.information.title}`
                     }, {quoted:m});
                 } else if (result.type === 'images') {
                     for (const image of result.images) {
                         sock.sendMessage(m.chat, {
                             image: { url: image.url.url, mimetype: 'image/jpeg' },
-                            caption: `¡Listo! - *🧃 ${formattedResponseTime} ms*`
+                            caption: `᳃ ¡Listo! - *🧃 ${formattedResponseTime} ms*`
                         }, {quoted:m});
           }
         }
       } else {
-        console.log('Error al obtener información de TikTok');
-        v.reply('Parece que hubo un problema, inténtalo de nuevo');
+        console.log('Error al obtener información');
+        v.reply(`¿? ${!args[0]}`);
       }
     } catch (error) {
       console.log('Error:', error);
