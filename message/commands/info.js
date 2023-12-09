@@ -25,14 +25,15 @@ module.exports = {
             const serverInfo = {
                 '𝙸𝙳': `*${process.pid}*`,
                 '𝙾𝚂': `*${os.type()}*`,
-                '𝙰𝚛𝚌𝚑𝚞𝚝𝚎𝚌𝚝𝚞𝚛𝚎': `*${os.arch()}*`,
+                '𝙰𝚛𝚌𝚑𝚒𝚝𝚎𝚌𝚝𝚞𝚛𝚎': `*${os.arch()}*`,
                 '𝚂𝚝𝚘𝚛𝚊𝚐𝚎': `*${await getStorageInfo()}*`,
                 '𝚁𝙰𝙼': `*${await getRamUsage()}*`,
                 '𝙽𝚘𝚍𝚎 𝚓𝚜': `*${process.version}*`,
                 '𝚁𝚞𝚗𝚝𝚒𝚖𝚎': `*[ ${formattedTime} ]*`,
                 '𝚂𝚙𝚎𝚎𝚍': `*${formattedResponseTime} ms*`,
-                '𝙾𝚠𝚗𝚎𝚛': `*ziooo_zip*`
-                
+                '𝙾𝚠𝚗𝚎𝚛': `*ziooo*`,
+                '𝙰𝚙𝚒': ['Felix', 'Alexito'],
+                '𝙳𝚎𝚙𝚎𝚗𝚍𝚎𝚗𝚌𝚒𝚎𝚜': ['@WhiskeySockets/Baileys', '++++']
             };
 
             // Construir y enviar el mensaje de información
