@@ -32,8 +32,8 @@ module.exports = {
                 '𝚁𝚞𝚗𝚝𝚒𝚖𝚎': `*[ ${formattedTime} ]*`,
                 '𝚂𝚙𝚎𝚎𝚍': `*${formattedResponseTime} ms*`,
                 '𝙾𝚠𝚗𝚎𝚛': `*ziooo*`,
-                '𝙰𝚙𝚒': ['Felix', 'Alexito'],
-                '𝙳𝚎𝚙𝚎𝚗𝚍𝚎𝚗𝚌𝚒𝚎𝚜': ['@WhiskeySockets/Baileys', '++++']
+                '𝙰𝚙𝚒': ['Felix'],
+                '𝙻𝚒𝚋𝚛𝚎𝚛𝚒𝚊': ['@WhiskeySockets/Baileys']
             };
 
             // Construir y enviar el mensaje de información
