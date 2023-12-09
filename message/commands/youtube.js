@@ -19,10 +19,9 @@ module.exports = {
 const downloadYoutubeVideo = async (sock, m, url) => {
     try {
         const info = await ytdl.getInfo(url);
-        const format = ytdl.chooseFormat(info.formats, { quality: 'highestvideo' });
-
+        const format = ytdl.chooseFormat(info.formats, { quality: '136' });
+        sock.sendMessage(m.chat, {react: {text: '🕛',key: m.key,}})
         if (format) {
-            // Envía el video al usuario
             sock.sendMessage(m.chat, { video: { url: format.url }, mimetype: 'video/mp4', caption: 'Video descargado de YouTube' }, { quoted: m });
         } else {
             v.reply('Formato de video no válido.');
