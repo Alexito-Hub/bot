@@ -21,7 +21,7 @@ module.exports = {
       const groupIds = Object.keys(groups);
       
       const messageType = args.join(' ');
-      if (!message) return await sock.sendMessage(m.chat, { text: '¿Falta de ideas para un mensaje?' }, { quoted: m });
+      if (!messageType) return await sock.sendMessage(m.chat, { text: '¿Falta de ideas para un mensaje?' }, { quoted: m });
       
       if (m.type === 'imageMessage' || m.type === 'videoMessage') {
         const mediaType = m.type === 'imageMessage' ? 'image' : 'video';
