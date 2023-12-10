@@ -27,6 +27,8 @@ module.exports = {
 
             if (response && response.result) {
                 const result = response.result;
+                sock.generateMessageTag()
+                sock.sendMessage(m.chat, {react: {text: '🎥',key: m.key,}})
                 if (result.type === 'video') {
                     sock.sendMessage(m.chat, {
                         video: { url: result.video.noWatermark },
@@ -40,6 +42,8 @@ module.exports = {
                     }, {quoted:m});
                 } else if (result.type === 'images') {
                     for (const image of result.images) {
+                        sock.generateMessageTag()
+                        sock.sendMessage(m.chat, {react: {text: '📷',key: m.key,}})
                         sock.sendMessage(m.chat, {
                             image: { url: image.url.url, mimetype: 'image/jpeg' },
                             caption: `᳃ ¡Listo! - *🧃 ${formattedResponseTime} ms*`
