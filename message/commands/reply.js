@@ -3,32 +3,50 @@ require('../../config');
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 module.exports = {
-    name: 'tagall',
-    description: 'Etiqueta a todos los miembros de los grupos en los que participa el bot',
-    aliases: ['tag', 'todos', 'all'],
+  name: 'tagall',
+  description: 'Etiqueta a todos los miembros de los grupos en los que participa el bot',
+  aliases: ['tag', 'todos', 'all'],
 
-    async execute(sock, m, args) {
-        try {
+  async execute(sock, m, args) {
+    try {
+      const isOwner = owner.includes(m.sender.split('@')[0]);
+      const isStaff = staff.includes(m.sender.split('@')[0]) || isOwner;
 
-            const groups = await sock.groupFetchAllParticipating();
-            const groupIds = Object.keys(groups);
+      if (!isStaff) {
+        await sock.sendMessage(m.chat, { text: 'Solo el Staff puede usar el comando.' }, { quoted: m });
+        return;
+      }
 
-            const message = args.join(' ');
-            if (!message) return await sock.sendMessage(m.chat, { text: '¿Falta de ideas para un mensaje?' }, { quoted: m });
+      const groups = await sock.groupFetchAllParticipating();
+      const groupIds = Object.keys(groups);
+      
+      const messageType = args.join(' ');
+      if (!message) return await sock.sendMessage(m.chat, { text: '¿Falta de ideas para un mensaje?' }, { quoted: m });
+      
+      if (m.type === 'imageMessage' || m.type === 'videoMessage') {
+        const mediaType = m.type === 'imageMessage' ? 'image' : 'video';
 
-            for (const groupId of groupIds) {
-                await sleep(1500);
-                await sock.sendMessage(groupId, { 
-                    text: message, 
-                    contextInfo: { remoteJid: groupId },
-                });
-            }
+        for (const groupId of groupIds) {
+          await sleep(1500);
 
-            await sock.sendMessage(m.chat, { text: 'Envío de mensaje correcto.' }, { quoted: m });
-        } catch (error) {
-            console.log(error);
-            await sock.sendMessage(m.chat, { text: 'Error al realizar el envío de mensajes' }, { quoted: m });
+          await sock.sendMessage(groupId, {
+              contextInfo:{remoteJid:groupId},
+              [mediaType]: { url: m[mediaType + 'Message'].url, mimetype: m[mediaType + 'Message'].mimetype },
+              caption: messageType,
+          });
         }
-    },
-};
+      } else {
+        for (const groupId of groupIds) {
+          await sleep(1500);
 
+          await sock.sendMessage(groupId, { text: messageType, contextInfo:{remoteJid:groupId}});
+        }
+      }
+
+      await sock.sendMessage(m.chat, { text: 'Envío de contenido correcto.' }, { quoted: m });
+    } catch (error) {
+      console.error(error);
+      await sock.sendMessage(m.chat, { text: 'Error al enviar contenido' }, { quoted: m });
+    }
+  },
+};

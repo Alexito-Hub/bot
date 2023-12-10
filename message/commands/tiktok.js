@@ -16,7 +16,6 @@ module.exports = {
             const tiktokUrl = args[0];
             const response = await fetchJson(`https://star-apis.teamfx.repl.co/api/downloader/tiktok?url=${tiktokUrl}&apikey=StarAPI`);
             
-            sock.generateMessageTag()
             sock.sendMessage(m.chat, {react: {text: '🕛',key: m.key,}})
             
             function roundTime(time) {
