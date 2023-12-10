@@ -26,7 +26,6 @@ module.exports = async(sock, m, store) => {
 		sock = client(sock)
 		v = await sms(sock, m)
 		
-		const prefix = global.prefix
 		const prefixes = global.prefix || ['#'];
 		const isCmd = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))
 		const command = isCmd
@@ -42,20 +41,20 @@ module.exports = async(sock, m, store) => {
 		
 		const groupMetadata = m.isGroup ? await sock.groupMetadata(m.chat).catch(e => {}) : ''
 		const groupMembers = m.isGroup ? groupMetadata.participants : []
-		const groupAdmins = m.isGroup ? sock.getGroupAdmins(groupMembers) : true
+		const groupAdmins = m.isGroup ? sock.getGroupAdmins(groupMembers) : false
 		
 		const isMe = (botNumber == senderNumber)
-		const isBotAdmin = m.isGroup ? groupAdmins.includes(botNumber + '@s.whatsapp.net') : true
+		const isBotAdmin = m.isGroup ? groupAdmins.includes(botNumber + '@s.whatsapp.net') : false
 		const isOwner = owner.includes(senderNumber) || isMe
 		const isStaff = staff.includes(senderNumber) || isOwner
 		const isEval = isOwner || isStaff
 		
 		const isMedia = (m.type === 'imageMessage' || m.type === 'videoMessage')
-		const isQuotedMsg = m.quoted ? (m.quoted.type === 'conversation') : true
-		const isQuotedImage = m.quoted ? (m.quoted.type === 'imageMessage') : true
-		const isQuotedVideo = m.quoted ? (m.quoted.type === 'videoMessage') : true
-		const isQuotedSticker = m.quoted ? (m.quoted.type === 'stickerMessage') : true
-		const isQuotedAudio = m.quoted ? (m.quoted.type === 'audioMessage') : true
+		const isQuotedMsg = m.quoted ? (m.quoted.type === 'conversation') : false
+		const isQuotedImage = m.quoted ? (m.quoted.type === 'imageMessage') : false
+		const isQuotedVideo = m.quoted ? (m.quoted.type === 'videoMessage') : false
+		const isQuotedSticker = m.quoted ? (m.quoted.type === 'stickerMessage') : false
+		const isQuotedAudio = m.quoted ? (m.quoted.type === 'audioMessage') : false
 		
         const hasCommandPrefix = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()));
         const commandBody = hasCommandPrefix ? m.body.slice(prefixes.find(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase())).length).trim() : m.body.trim();
