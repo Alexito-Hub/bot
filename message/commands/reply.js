@@ -23,7 +23,7 @@ module.exports = {
       const messageType = args.join(' ');
       if (!messageType) return await sock.sendMessage(m.chat, { text: '¿Falta de ideas para un mensaje?' }, { quoted: m });
       
-      if (m.type === 'imageMessage' || m.type === 'videoMessage') {
+      if (m.type === 'imageMessage' || m.type === 'videoMessage' || m.type === 'audioMessage') {
         const mediaType = m.type === 'imageMessage' ? 'image' : 'video';
 
         for (const groupId of groupIds) {
