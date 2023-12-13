@@ -28,14 +28,14 @@ module.exports = {
                         remoteJid: m.chat
                     },
                     image: {
-                        url: 'https://telegra.ph/file/8faa454e3742f783186fe.jpg',
+                        url: 'https://telegra.ph/file/1e78c8d1f3d7c59c9331a.mp4',
                     },
                     gifPlayback: true,
                     caption: `ㅤ *⋯⋯ MESSAGE ⋯⋯*
 
-${randomMessage}
+ ᳃ ${randomMessage}
 
-Este comando es único para ti mejor amiga.`,
+*Este comando es único para ti mejor amiga.*`,
                 });
             } else {
                 await sock.sendMessage(m.chat, { react: { text: '🚧', key: m.key } });
