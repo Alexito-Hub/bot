@@ -1,33 +1,55 @@
-const ytdl = require('ytdl-core')
+const ytdl = require('ytdl-core');
 
 module.exports = {
     name: 'youtube',
-    description: 'Descarga un video de YouTube',
-    aliases: ['yt', 'download'],
-
+    description: 'Descarga video o audio de YouTube',
+    aliases: ['yt'],
+    
     async execute(sock, m, args) {
-        if (args.length !== 1) {
-            v.reply('*youtube <url>*');
-            return;
-        }
+        try {
+            if (!args[0]) {
+                sock.sendMessage(m.chat, { text: '*youtube <URL> --audio*' }, { quoted: m });
+                return;
+            }
 
-        const youtubeUrl = args[0];
-        downloadYoutubeVideo(sock, m, youtubeUrl);
-    }
-};
+            const youtubeUrl = args[0];
+            const isAudio = args.includes('--audio') || args.includes('-a');
 
-const downloadYoutubeVideo = async (sock, m, url) => {
-    try {
-        const info = await ytdl.getInfo(url);
-        const format = ytdl.chooseFormat(info.formats, { quality: '136' });
-        sock.sendMessage(m.chat, {react: {text: '🕛',key: m.key,}})
-        if (format) {
-            sock.sendMessage(m.chat, { video: { url: format.url }, mimetype: 'video/mp4', caption: 'Video descargado de YouTube' }, { quoted: m });
-        } else {
-            v.reply('Formato de video no válido.');
+            const info = await ytdl.getInfo(youtubeUrl);
+            const format = isAudio ? ytdl.chooseFormat(info.formats, { quality: 'highestaudio' }) : ytdl.chooseFormat(info.formats, { quality: 'highest' });
+
+            if (!format) {
+                sock.sendMessage(m.chat, { text: 'No se pudo obtener el formato del video o audio.' }, { quoted: m });
+                return;
+            }
+
+            // Descargar el video o audio
+            const readableStream = ytdl.downloadFromInfo(info, { format });
+
+            // Subir el video o audio a la conversación
+            if (isAudio) {
+                sock.sendMessage(m.chat, {
+                    audio: {
+                        url: format.url,
+                        mimetype: 'audio/mp4', // Puedes ajustar el tipo MIME según la necesidad
+                        ptt: true
+                    },
+                    quoted: m
+                });
+            } else {
+                sock.sendMessage(m.chat, {
+                    video: {
+                        url: format.url,
+                        mimetype: 'video/mp4', // Puedes ajustar el tipo MIME según la necesidad
+                        filename: 'video.mp4',
+                        caption: 'Aquí está tu video'
+                    },
+                    quoted: m
+                });
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            sock.sendMessage(m.chat, { text: 'Error al ejecutar el comando' }, { quoted: m });
         }
-    } catch (error) {
-        console.error('Error al obtener información de YouTube:', error);
-        v.reply('Error al obtener información de YouTube.');
-    }
+    },
 };
