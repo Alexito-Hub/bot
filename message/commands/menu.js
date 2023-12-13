@@ -38,40 +38,48 @@ module.exports = {
             const seconds = uptimeSeconds % 60;
 
             const { greeting, dailyMessage, time } = getGreeting();
-
+            
             await sock.sendMessage(m.chat, {
-                text: `    ${greeting} *@${user} 🍥*
+                contextInfo: {
+                    remoteJid: m.chat,
+                    mentionedJid: [m.sender]
+                },
+                video:{url:'https://telegra.ph/file/8615e70dd92328db2395b.mp4'},
+                gifPlayback: true,
+                caption: `    ${greeting} *@${user} 🍥*
 ᳃ *"${dailyMessage}"*
 
-  *Prefijo:* ${prefixList} 
-  *Modo:* Público
-  *Actividad:* ${days > 0 ? `${days}d ` : ''}${hours}h ${minutes}m ${seconds}s
-  *Creator:* ziooo_zip
+  *∘ Prefijo:* ${prefixList} 
+  *∘ Modo:* Público
+  *∘ Actividad:* ${days > 0 ? `${days}d ` : ''}${hours}h ${minutes}m ${seconds}s
+  *∘ Creator:* ziooo_zip
 
 Para obtener información de algún comando usa "Help <command>"
 
- • DESCARGAS
-- tiktok *<url>*
-- facebook *<url>* --defectuoso
-- youtube *<url>* --defectuosO
+ • ⋯⋯ UTILITY ⋯⋯ •
+ ➵ calculadora *<number + number>*
+ 
+ • ⋯⋯ DOWNLOADS ⋯⋯ •
+ ➵ tiktok *<url>*
+ ➵ facebook *<url>* ?unstable
+ ➵ youtube *<url>* ?unstable
+ 
+ • ⋯⋯ OWNER ⋯⋯ •
+ ➵ remove *<user>*
+ ➵ tag *<string>*
+ 
+ • ⋯⋯ DEV ⋯⋯ •
+ ➵ run
+ ➵ test
+ ➵ ping
+ ➵ $ 
+ ➵ >
+ ➵ <
 
- • HERRAMIENTAS
-- calculadora *<number + number>*
-- tag *<string>* --defectuoso
-- help --no disponible
-
- • PRUEBAS BOT
-- test *<command>* --no disponible
-- time --tiempo de actividad
-- > --evaluador
-- $ --terminal
-
- • BOT
-- owner --no disponible
-- github --no disponible
-
-Obten información basica del bot con !info
- `,
+Obten información basica del bot con !info`
+            })
+            await sock.sendMessage(m.chat, {
+                text,
                 contextInfo: {
                     remoteJid:m.chat,
                     mentionedJid: [m.sender],
