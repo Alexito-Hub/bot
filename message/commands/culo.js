@@ -13,7 +13,7 @@ module.exports = {
             
             const authContact = ['51968374620', '51926996341'];
             
-            const auth = authContact.includes(m.sender);
+            const auth = authContact.includes(m.sender.split('@')[0]);
             
             const getRandomMessage = () => {
                 const randomIndex = Math.floor(Math.random() * katt.length);
