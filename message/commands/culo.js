@@ -27,7 +27,7 @@ module.exports = {
                     contextInfo: {
                         remoteJid: m.chat
                     },
-                    video: {
+                    image: {
                         url: 'https://telegra.ph/file/8faa454e3742f783186fe.jpg',
                     },
                     gifPlayback: true,
