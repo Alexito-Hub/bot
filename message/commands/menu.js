@@ -56,19 +56,19 @@ module.exports = {
 
 Para obtener información de algún comando usa "Help <command>"
 
- • ⋯⋯ UTILITY ⋯⋯ •
+ *• ⋯⋯ UTILITY ⋯⋯ •*
  ➵ calculadora *<number + number>*
  
- • ⋯⋯ DOWNLOADS ⋯⋯ •
+ *• ⋯⋯ DOWNLOADS ⋯⋯ •*
  ➵ tiktok *<url>*
  ➵ facebook *<url>* ?unstable
  ➵ youtube *<url>* ?unstable
  
- • ⋯⋯ OWNER ⋯⋯ •
+ *• ⋯⋯ OWNER ⋯⋯ •*
  ➵ remove *<user>*
  ➵ tag *<string>*
  
- • ⋯⋯ DEV ⋯⋯ •
+ *• ⋯⋯ DEV ⋯⋯ •*
  ➵ run
  ➵ test
  ➵ ping
@@ -76,7 +76,9 @@ Para obtener información de algún comando usa "Help <command>"
  ➵ >
  ➵ <
 
-Obten información basica del bot con !info`
+Obten información basica del bot con !info
+
+*todos los derechos reservados @ziooo api@felix*`
             })
             await sock.sendMessage(m.chat, {
                 text,
