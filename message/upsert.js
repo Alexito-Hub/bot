@@ -104,7 +104,7 @@ module.exports = async(sock, m, store) => {
 			if (isEval) {
 				if (v.body.startsWith('>')) {
 					try {
-						await v.reply(Json(eval(`(async() => {${q}})()`)))
+						await v.reply(Json(eval(`(async() => {${(q)}})()`)))
 					} catch(e) {
 						await v.reply(String(e))
 					}
