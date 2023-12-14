@@ -20,8 +20,9 @@ module.exports = {
       const groups = await sock.groupFetchAllParticipating();
       const groupIds = Object.keys(groups);
       
-      const members = groups.participants.map(member => member.id.replace('c.us', 's.whatsapp.net'));
-
+      const groupInfo = await sock.groupMetadata(m.chat);
+      const members = groupInfo.participants.map(member => member.id.replace('c.us', 's.whatsapp.net'));
+      
       const messageType = args.join(' ');
       if (!messageType) return await sock.sendMessage(m.chat, { text: '¿Falta de ideas para un mensaje?' }, { quoted: m });
       
