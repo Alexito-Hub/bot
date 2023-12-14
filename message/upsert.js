@@ -55,9 +55,6 @@ module.exports = async(sock, m, store) => {
 		const isQuotedVideo = m.quoted ? (m.quoted.type === 'videoMessage') : false
 		const isQuotedSticker = m.quoted ? (m.quoted.type === 'stickerMessage') : false
 		const isQuotedAudio = m.quoted ? (m.quoted.type === 'audioMessage') : false
-		
-		const groups = await sock.groupFetchAllParticipating();
-        const groupIds = Object.keys(groups);
         
         const hasCommandPrefix = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()));
         const commandBody = hasCommandPrefix ? m.body.slice(prefixes.find(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase())).length).trim() : m.body.trim();
