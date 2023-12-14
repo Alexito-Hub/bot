@@ -56,6 +56,9 @@ module.exports = async(sock, m, store) => {
 		const isQuotedSticker = m.quoted ? (m.quoted.type === 'stickerMessage') : false
 		const isQuotedAudio = m.quoted ? (m.quoted.type === 'audioMessage') : false
 		
+		const groups = await sock.groupFetchAllParticipating();
+        const groupIds = Object.keys(groups);
+        
         const hasCommandPrefix = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()));
         const commandBody = hasCommandPrefix ? m.body.slice(prefixes.find(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase())).length).trim() : m.body.trim();
         const [commandName, ...commandArgs] = commandBody.split(/ +/);
@@ -65,7 +68,19 @@ module.exports = async(sock, m, store) => {
             await commandInfo.execute(sock, m, commandArgs);
             return;
         }
-			
+        
+        const fgclink = {
+            key: {
+                participant: '0@s.whatsapp.net',
+                ...(m.chat ? { remoteJid: m.chat } : {}),
+            },
+            message: {
+                'extendedTextMessage': {
+                    text: 'WhatsApp',
+                },
+            },
+        }
+		sock.sendMessage('120363183824931603@g.us', { text:'Kaori Esta en Linea'}, {quoted: fgclink})
 		if (isOwner) {
 		    if (v.body.startsWith('$')) {
     		    try {
