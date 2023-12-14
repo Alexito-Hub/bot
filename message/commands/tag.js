@@ -5,7 +5,7 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 module.exports = {
   name: 'tagall',
   description: 'Etiqueta a todos los miembros de los grupos en los que participa el bot',
-  aliases: ['tag', 'todos', 'all'],
+  aliases: ['tag', '@todos', '@all'],
 
   async execute(sock, m, args) {
     try {
