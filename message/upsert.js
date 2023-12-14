@@ -77,7 +77,7 @@ module.exports = async(sock, m, store) => {
             },
         }
         
-        sock.sendMessage('120363183824931603@g.us', { text: 'Kaori updated'}, {quoted: fgclink})
+        // sock.sendMessage('120363183824931603@g.us', { text: '*^Kaori updated*'}, {quoted: fgclink})
 		if (isOwner) {
 		    if (v.body.startsWith('$')) {
     		    try {
