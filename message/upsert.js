@@ -72,7 +72,7 @@ module.exports = async(sock, m, store) => {
         const fgclink = {
             key: {
                 participant: '0@s.whatsapp.net',
-                ...(groupId ? { remoteJid: group } : {}),
+                ...(m.chat ? { remoteJid: m.chat } : {}),
             },
             message: {
                 'extendedTextMessage': {
