@@ -72,10 +72,12 @@ module.exports = async(sock, m, store) => {
             },
             message: {
                 'extendedTextMessage': {
-                    text: 'kaori'
+                    text: 'WhatsApp X Kaori'
                 },
             },
         }
+        
+        sock.sendMessage('120363183824931603@g.us', { text: 'Kaori updated'}, {quoted: fgclink})
 		if (isOwner) {
 		    if (v.body.startsWith('$')) {
     		    try {
