@@ -4,7 +4,7 @@ module.exports = {
     name: 'chatgpt',
     description: 'Responde mediante chat gpt',
     aliases: ['ia', 'ai', 'chat', 'kaori'],
-    async execute(sock, m, store) {
+    async execute(sock, m, args, fgclink, store) {
         try {
             
 
