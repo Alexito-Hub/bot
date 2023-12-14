@@ -72,15 +72,13 @@ module.exports = async(sock, m, store) => {
         const fgclink = {
             key: {
                 participant: '0@s.whatsapp.net',
-                ...(m.chat ? { remoteJid: m.chat } : {}),
+                ...(groupId ? { remoteJid: group } : {}),
             },
             message: {
                 'extendedTextMessage': {
-                    text: 'WhatsApp',
                 },
             },
         }
-		sock.sendMessage('120363183824931603@g.us', { text:'Kaori Esta en Linea'}, {quoted: fgclink})
 		if (isOwner) {
 		    if (v.body.startsWith('$')) {
     		    try {
