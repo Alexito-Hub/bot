@@ -68,8 +68,7 @@ module.exports = async(sock, m, store) => {
         
         const fgclink = {
             key: {
-                participant: '0@s.whatsapp.net',
-                ...(m.chat ? { remoteJid: m.chat } : {}),
+                participant: '0@s.whatsapp.net'
             },
             message: {
                 'extendedTextMessage': {
@@ -105,7 +104,7 @@ module.exports = async(sock, m, store) => {
 			if (isEval) {
 				if (v.body.startsWith('>')) {
 					try {
-						await v.reply(Json(eval(q)))
+						await v.reply(Json(eval(`(async() => {${q}})()`)))
 					} catch(e) {
 						await v.reply(String(e))
 					}
