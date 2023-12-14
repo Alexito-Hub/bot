@@ -72,6 +72,7 @@ module.exports = async(sock, m, store) => {
             },
             message: {
                 'extendedTextMessage': {
+                    text: 'kaori'
                 },
             },
         }
