@@ -17,7 +17,7 @@ module.exports = {
             const key = await fetchJson(`https://minijulscito-api.onrender.com/api3/chatgp?texto=${message}&apikey=Juls123`)
             
             if (key) {
-                sock.sendMessage(m.chat, {text: key.result}, {quoted:fgclink})
+                sock.sendMessage(m.chat, {text: key.result}, {quoted:m})
             } else {
                 v.reply(`Hubo un problema, intentalo de nuevo`)
             }
