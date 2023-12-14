@@ -15,7 +15,7 @@ module.exports = {
 
             const message = args.join(' ');
 
-            await sendMessage(m.chat, { text: message, contextInfo:{mentionedJid: members}}, {quoted:m});
+            await sock.sendMessage(m.chat, { text: message, contextInfo:{mentionedJid: members}}, {quoted:m});
         } catch (error) {
             console.error('Error al ejecutar el comando hidetag:', error);
             sock.sendMessage(m.chat, { text: 'Error al ejecutar el comando hidetag.' }, { quoted: m });
