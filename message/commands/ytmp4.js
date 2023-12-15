@@ -8,7 +8,7 @@ module.exports = {
     async execute(sock, m, args) {
         try {
             if (!args[0]) {
-                return sock.sendMessage(m.chat, 'Por favor, proporciona una URL de YouTube.');
+                return v.reply('Por favor, proporciona una URL de YouTube.');
             }
 
             const videoUrl = args[0];
@@ -27,7 +27,7 @@ module.exports = {
             await sock.sendMessage(m.chat, { video: videoStream, mimetype: 'video/mp4', caption: formatVideoInfo(videoInfo) }, { quoted: m });
         } catch (error) {
             console.error('Error en el comando ytmp4:', error);
-            sock.sendMessage(m.chat, 'Se produjo un error al ejecutar el comando ytmp4.');
+            v.reply('Se produjo un error al ejecutar el comando ytmp4.');
         }
     },
 };
