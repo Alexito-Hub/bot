@@ -9,7 +9,7 @@ module.exports = {
     async execute(sock, m, args) {
         try {
             if (!args[0]) {
-                return sock.sendMessage(m.chat, 'Por favor, proporciona una búsqueda.');
+                return v.reply('Por favor, proporciona una búsqueda.');
             }
 
             const searchQuery = args.join(' ');
@@ -21,11 +21,11 @@ module.exports = {
 
                 await sock.sendMessage(m.chat, { video: {url: videoUrl}, mimetype:'video/mp4', caption:`${firstVideo.title}`}, { quoted: m });
             } else {
-                sock.sendMessage(m.chat, 'No se encontraron resultados para la búsqueda.');
+                v.reply('No se encontraron resultados para la búsqueda.');
             }
         } catch (error) {
             console.error('Error en el comando play:', error);
-            sock.sendMessage(m.chat, 'Se produjo un error al ejecutar el comando play.');
+            v.reply('Se produjo un error al ejecutar el comando play.');
         }
     },
 };
