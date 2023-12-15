@@ -1,9 +1,10 @@
 const ytdl = require('ytdl-core');
+const got = require('got');
 
 module.exports = {
     name: 'ytmp4',
     description: 'Descargar un video de YouTube en formato mp4.',
-    aliases: ['mp4'],
+    aliases: ['ytdl'],
 
     async execute(sock, m, args) {
         try {
@@ -23,8 +24,9 @@ module.exports = {
             };
 
             const videoStream = ytdl(videoUrl, { quality: 'highestvideo' });
+            const videoBuffer = await streamToBuffer(videoStream);
 
-            await sock.sendMessage(m.chat, { video: videoStream, mimetype: 'video/mp4', caption: formatVideoInfo(videoInfo) }, { quoted: m });
+            await sock.sendMessage(m.chat, { video: videoBuffer, mimetype: 'video/mp4', caption: formatVideoInfo(videoInfo) }, { quoted: m });
         } catch (error) {
             console.error('Error en el comando ytmp4:', error);
             v.reply('Se produjo un error al ejecutar el comando ytmp4.');
@@ -40,4 +42,13 @@ function formatDuration(seconds) {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}
+
+async function streamToBuffer(stream) {
+    return new Promise((resolve, reject) => {
+        const chunks = [];
+        stream.on('data', (chunk) => chunks.push(chunk));
+        stream.on('end', () => resolve(Buffer.concat(chunks)));
+        stream.on('error', (error) => reject(error));
+    });
 }
