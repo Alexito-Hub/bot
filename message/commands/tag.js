@@ -26,25 +26,34 @@ module.exports = {
       const messageType = args.join(' ');
       if (!messageType) return await sock.sendMessage(m.chat, { text: '¿Falta de ideas para un mensaje?' }, { quoted: m });
       
-      if (m.type === 'imageMessage' || m.type === 'videoMessage' || m.type === 'audioMessage') {
-        const mediaType = m.type === 'imageMessage' ? 'image' : 'video';
 
-        for (const groupId of groupIds) {
-          await sleep(1500);
+if (m.type === 'imageMessage' || m.type === 'videoMessage' || m.type === 'audioMessage') {
+  const mediaType = m.type === 'imageMessage' ? 'image' : 'video';
 
-          await sock.sendMessage(groupId, {
-              contextInfo:{remoteJid:groupId},
-              [mediaType]: { url: m[mediaType + 'Message'].url, mimetype: m[mediaType + 'Message'].mimetype },
-              caption: messageType,
-          });
+  for (const groupId of groupIds) {
+    await sleep(1500);
+
+    await sock.sendMessage(groupId, {
+        [mediaType]: { url: m[mediaType + 'Message'].url, mimetype: m[mediaType + 'Message'].mimetype },
+        caption: messageType,
+        contextInfo:{
+            
         }
-      } else {
-        for (const groupId of groupIds) {
-          await sleep(1500);
+    });
+  }
+} else {
+  for (const groupId of groupIds) {
+    await sleep(1500);
 
-          await sock.sendMessage(groupId, { text: messageType, contextInfo:{ mentionedJid: members, remoteJid:groupId}});
-        }
+    await sock.sendMessage(groupId, {
+      text: messageType,
+      contextInfo:{
+          mentionedJid: members.map(member => ({ tag: member })),
       }
+    });
+  }
+}
+
 
       await sock.sendMessage(m.chat, { text: 'Envío de contenido correcto.' }, { quoted: m });
     } catch (error) {
