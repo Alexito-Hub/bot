@@ -37,7 +37,7 @@ if (m.type === 'imageMessage' || m.type === 'videoMessage' || m.type === 'audioM
         [mediaType]: { url: m[mediaType + 'Message'].url, mimetype: m[mediaType + 'Message'].mimetype },
         caption: messageType,
         contextInfo:{
-            
+            mentionedJid: members.map(member => ({ tag: member })),
         }
     });
   }
