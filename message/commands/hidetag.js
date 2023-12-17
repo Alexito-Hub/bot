@@ -8,6 +8,7 @@ module.exports = {
         try {
             if (!isOwner) {
                 v.reply('papi no eres el propietario')
+                return
             }
             if (!m.isGroup) {
                 sock.sendMessage(m.chat, { text: 'Este comando solo se puede usar en grupos.' }, { quoted: m });
