@@ -2,9 +2,13 @@
 module.exports = {
     name: 'hidetag',
     description: 'Menciona a todos los miembros del grupo con un mensaje oculto',
+    aliases: ['todos', '@', 'all'],
     
-    async execute(sock, m, args) {
+    async execute(sock, m, args, isOwner) {
         try {
+            if (!isOwner) {
+                v.reply('papi no eres el propietario')
+            }
             if (!m.isGroup) {
                 sock.sendMessage(m.chat, { text: 'Este comando solo se puede usar en grupos.' }, { quoted: m });
                 return;

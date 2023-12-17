@@ -20,7 +20,6 @@ module.exports = {
                     author: info.result.author.name,
                     lengthSeconds: info.result.length,
                     views: info.result.views,
-                    url: videoUrl,
                 };
 
                 const videoCaption = formatVideoInfo(videoInfo);
@@ -47,7 +46,7 @@ async function getYoutubeInfo(videoUrl) {
 }
 
 function formatVideoInfo(videoInfo) {
-    return `*${videoInfo.title}*\n\nAutor: ${videoInfo.author}\nDuración: ${formatDuration(videoInfo.lengthSeconds)}\nVistas: ${videoInfo.views}\nURL: ${videoInfo.url}`;
+    return `*${videoInfo.title}*\n\nAutor: ${videoInfo.author}\nDuración: ${formatDuration(videoInfo.lengthSeconds)}\nVistas: ${videoInfo.views}`;
 }
 
 function formatDuration(seconds) {
@@ -55,3 +54,27 @@ function formatDuration(seconds) {
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
 }
+
+
+/*const ytdl = require('ytdl-core')
+
+const info = await ytdl.getInfo('https://youtu.be/U29h5Ocgj30?si=0hiFmk69O56eeISy')
+const videoInfo = {
+                title: info.videoDetails.title,
+                author: info.videoDetails.author.name,
+                lengthSeconds: info.videoDetails.lengthSeconds,
+                views: info.videoDetails.viewCount,
+            };
+const url = 'https://www.youtube.com/watch?v=' + info.videoDetails.videoId
+const apiUrl = `https://star-apis.teamfx.repl.co/api/downloader/ytplay?url=${url}&apikey=StarAPI`;
+
+function formatVideoInfo(videoInfo) {
+    return `*${videoInfo.title}*\n\nAutor: ${videoInfo.author}\nDuración: ${formatDuration(videoInfo.lengthSeconds)}\nVistas: ${videoInfo.views}`;
+}
+function formatDuration(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}
+
+sock.sendMessage(m.chat, {video: {url:apiUrl}, mimetype:'video/mp4', caption:formatVideoInfo(videoInfo)})*/
