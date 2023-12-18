@@ -19,7 +19,7 @@ module.exports = {
             if (key) {
                 sock.sendMessage(m.chat, {text: key.result}, {quoted:m})
             } else {
-                v.reply(`Hubo un problema, intentalo de nuevo`)
+                v.reply(`${key}`)
             }
         } catch (e) {
             console.log(e)
