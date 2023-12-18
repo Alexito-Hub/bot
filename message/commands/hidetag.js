@@ -10,7 +10,7 @@ module.exports = {
             const groupInfo = await sock.groupMetadata(m.chat);
             const isAdmin = groupInfo && groupInfo.participants.some(p => p.id == m.sender && ['admin', 'superadmin'].includes(p.admin));
             
-            if (!isAdmin && !isOwner) {
+            if (!isAdmin) {
                 sock.sendMessage(m.chat, { text: 'Solo administradores.' }, { quoted: m });
                 return;
             }
