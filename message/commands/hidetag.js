@@ -19,7 +19,6 @@ module.exports = {
                 return;
             }
 
-            const groupInfo = await sock.groupMetadata(m.chat);
             const members = groupInfo.participants.map(member => member.id.replace('c.us', 's.whatsapp.net'));
 
             const message = args.join(' ');
