@@ -59,13 +59,18 @@ Para obtener información de algún comando usa "Help <command>"
  *• ⋯⋯ UTILITY ⋯⋯ •*
  ➵ calculadora *<number + number>*
  
+ *• ⋯⋯ SEARCH ⋯⋯•*
+ ➵ play *<search>* ?unstable
+ ➵ spotify *<search>* --no disponible
+ 
  *• ⋯⋯ DOWNLOADS ⋯⋯ •*
  ➵ tiktok *<url>*
  ➵ facebook *<url>* ?unstable
  ➵ youtube *<url>* ?unstable
- 
+
  *• ⋯⋯ OWNER ⋯⋯ •*
  ➵ remove *<user>*
+ ➵ hidetag *<string>
  ➵ tag *<string>*
  
  *• ⋯⋯ DEV ⋯⋯ •*
@@ -75,6 +80,8 @@ Para obtener información de algún comando usa "Help <command>"
  ➵ $ 
  ➵ >
  ➵ <
+ 
+ ➵ term --terminos y uso del bot
 
 Obten información basica del bot con !info
 
