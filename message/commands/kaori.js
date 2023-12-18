@@ -17,7 +17,7 @@ module.exports = {
             const key = await fetchJson(`https://star-apis.teamfx.repl.co/api/others/chatgpt?query=${message}&apikey=StarAPI`)
             
             if (key) {
-                sock.sendMessage(m.chat, {text: key.result}, {quoted:m})
+                sock.sendMessage(m.chat, {text: key.message}, {quoted:m})
             } else {
                 v.reply(`${key}`)
             }
