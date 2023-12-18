@@ -6,8 +6,6 @@ module.exports = {
     aliases: ['ia', 'ai', 'chat', 'kaori'],
     async execute(sock, m, args, fgclink, store) {
         try {
-            
-
             const message = args.join(' ')
             if (!message) {
                 v.reply(`*kaori <string>*`)
@@ -19,7 +17,7 @@ module.exports = {
             if (key) {
                 sock.sendMessage(m.chat, {text: key.message}, {quoted:m})
             } else {
-                v.reply(`${key}`)
+                v.reply(key)
             }
         } catch (e) {
             console.log(e)

@@ -2,7 +2,7 @@
 module.exports = {
     name: 'hidetag',
     description: 'Menciona a todos los miembros del grupo con un mensaje oculto',
-    aliases: ['todos', '@', 'all'],
+    aliases: ['@'],
     
     async execute(sock, m, args, groupAdmins, isOwner) {
         try {
@@ -10,7 +10,7 @@ module.exports = {
             const groupInfo = await sock.groupMetadata(m.chat);
             const isAdmin = groupInfo && groupInfo.participants.some(p => p.id == m.sender && ['admin', 'superadmin'].includes(p.admin));
             
-            if (!isAdmin) {
+            if (!isAdmin && isOwner) {
                 sock.sendMessage(m.chat, { text: 'Solo administradores.' }, { quoted: m });
                 return;
             }
