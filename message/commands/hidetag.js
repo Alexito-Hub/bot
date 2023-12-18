@@ -4,10 +4,11 @@ module.exports = {
     description: 'Menciona a todos los miembros del grupo con un mensaje oculto',
     aliases: ['todos', '@', 'all'],
     
-    async execute(sock, m, args, isOwner) {
+    async execute(sock, m, args, groupAdmins, isOwner) {
         try {
-            if (!isOwner) {
-                v.reply('papi no eres el propietario')
+            
+            if (!groupAdmins && !isOwner) {
+                v.reply('No eres administrador de grupo')
                 return
             }
             if (!m.isGroup) {
