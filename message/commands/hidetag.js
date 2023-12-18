@@ -7,9 +7,12 @@ module.exports = {
     async execute(sock, m, args, groupAdmins, isOwner) {
         try {
             
-            if (!groupAdmins && !isOwner) {
-                v.reply('No eres administrador de grupo')
-                return
+            const groupInfo = await sock.groupMetadata(m.chat);
+            const isAdmin = groupInfo && groupInfo.participants.some(p => p.id == m.sender && ['admin', 'superadmin'].includes(p.admin));
+            
+            if (!isAdmin) {
+                sock.sendMessage(m.chat, { text: 'Solo administradores.' }, { quoted: m });
+                return;
             }
             if (!m.isGroup) {
                 sock.sendMessage(m.chat, { text: 'Este comando solo se puede usar en grupos.' }, { quoted: m });
