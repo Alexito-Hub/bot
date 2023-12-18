@@ -14,7 +14,7 @@ module.exports = {
                 return
             }
             
-            const key = await fetchJson(`https://minijulscito-api.onrender.com/api3/chatgp?texto=${message}&apikey=Juls123`)
+            const key = await fetchJson(`https://star-apis.teamfx.repl.co/api/others/chatgpt?query=${message}&apikey=StarAPI`)
             
             if (key) {
                 sock.sendMessage(m.chat, {text: key.result}, {quoted:m})
