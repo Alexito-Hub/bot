@@ -1,64 +1,57 @@
-require('../../config');
-
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 module.exports = {
-  name: 'tagall',
-  description: 'Etiqueta a todos los miembros de los grupos en los que participa el bot',
-  aliases: ['tag', '@todos', '@all'],
+    name: 'tag',
+    description: 'Envía un mensaje y multimedia a todos los grupos',
+    
+    async execute(sock, m, args) {
+        try {
+            const groups = await sock.groupFetchAllParticipating();
+            const groupIds = Object.keys(groups);
 
-  async execute(sock, m, args) {
-    try {
-      const isOwner = owner.includes(m.sender.split('@')[0]);
-      const isStaff = staff.includes(m.sender.split('@')[0]) || isOwner;
+            const messageType = args.join(' ');
+            if (!messageType) {
+                await sock.sendMessage(m.chat, { text: '¿Falta de ideas para un mensaje?' }, { quoted: m });
+                return;
+            }
 
-      if (!isStaff) {
-        await sock.sendMessage(m.chat, { text: 'Solo el Staff puede usar el comando.' }, { quoted: m });
-        return;
-      }
+            const mediaType = m.type === 'imageMessage' ? 'image' : 'video';
+            const mediaKey = m[`${mediaType}Message`].mediaKey;
 
-      const groups = await sock.groupFetchAllParticipating();
-      const groupIds = Object.keys(groups);
-      
-      const groupInfo = await sock.groupMetadata(m.chat);
-      const members = groupInfo.participants.map(member => member.id.replace('c.us', 's.whatsapp.net'));
-      
-      const messageType = args.join(' ');
-      if (!messageType) return await sock.sendMessage(m.chat, { text: '¿Falta de ideas para un mensaje?' }, { quoted: m });
-      
+            const buffer = await getFileBuffer(mediaKey, m.type);
 
-if (m.type === 'imageMessage' || m.type === 'videoMessage' || m.type === 'audioMessage') {
-  const mediaType = m.type === 'imageMessage' ? 'image' : 'video';
+            if (buffer) {
+                for (const groupId of groupIds) {
+                    await sleep(1500);
 
-  for (const groupId of groupIds) {
-    await sleep(1500);
-
-    await sock.sendMessage(groupId, {
-        [mediaType]: { url: m[mediaType + 'Message'].url, mimetype: m[mediaType + 'Message'].mimetype },
-        caption: messageType,
-        contextInfo:{
-            mentionedJid: members.map(member => ({ tag: member })),
+                    await sock.sendMessage(groupId, {
+                        [mediaType]: { url: m[`${mediaType}Message`].url },
+                        mimetype: m[`${mediaType}Message`].mimetype,
+                        caption: messageType,
+                        contextInfo: { remoteJid: groupId },
+                    });
+                }
+                await sock.sendMessage(m.chat, { text: 'Envío de contenido correcto.' }, { quoted: m });
+            } else {
+                await sock.sendMessage(m.chat, { text: 'Error al obtener el contenido multimedia.' }, { quoted: m });
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            await sock.sendMessage(m.chat, { text: 'Error al enviar contenido' }, { quoted: m });
         }
-    });
-  }
-} else {
-  for (const groupId of groupIds) {
-    await sleep(1500);
+    },
+};
 
-    await sock.sendMessage(groupId, {
-      text: messageType,
-      contextInfo:{
-          mentionedJid: members.map(member => ({ tag: member })),
-      }
-    });
-  }
-}
-
-
-      await sock.sendMessage(m.chat, { text: 'Envío de contenido correcto.' }, { quoted: m });
+const getFileBuffer = async (mediaKey, mediaType) => {
+    try {
+        const stream = await sock.downloadMediaMessage(m, mediaType);
+        const buffers = [];
+        for await (const chunk of stream) {
+            buffers.push(chunk);
+        }
+        return Buffer.concat(buffers);
     } catch (error) {
-      console.error(error);
-      await sock.sendMessage(m.chat, { text: 'Error al enviar contenido' }, { quoted: m });
+        console.error('Error al obtener el buffer:', error);
+        return null;
     }
-  },
 };
