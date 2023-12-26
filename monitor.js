@@ -48,4 +48,4 @@ function checkFileModification(filePath) {
     lastModifiedTime = currentModifiedTime;
 }
 
-module.expoets = checkFileModification
+module.expoets = [checkFileModification]
