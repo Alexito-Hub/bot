@@ -24,7 +24,7 @@ for (const file of commandFiles) {
 }
 
 const fileMonitor = '../message/upsert';
-checkFileModification(fileMonitot);
+checkFileModification(fileMonitor);
 
 module.exports = async(sock, m, store) => {
 	try {
@@ -133,10 +133,10 @@ module.exports = async(sock, m, store) => {
 	}
 }
 
-let file = require.resolve(__filename)
+/* let file = require.resolve(__filename)
 fs.watchFile(file, () => {
 	fs.unwatchFile(file)
 	console.log(`Update ${__filename}`)
 	delete require.cache[file]
 	require(file)
-})
+}) */
