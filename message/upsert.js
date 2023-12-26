@@ -7,8 +7,6 @@ const util = require('util')
 const { Json, removeAccents } = require('../lib/functions')
 const { client, sms } = require('../lib/simple')
 const { fetchJson } = require('../lib/utils');
-const { checkFileModification } = require('../monitor')
-
 
 const commands = [];
 
@@ -68,8 +66,6 @@ module.exports = async(sock, m, store) => {
             return;
         }
         
-        const fileMonitor = await checkFileModification('../message/upsert')
-        fileMonitor()
         
         
         const fgclink = {
@@ -133,6 +129,8 @@ module.exports = async(sock, m, store) => {
 		console.log(e)
 	}
 }
+
+
 
 /* let file = require.resolve(__filename)
 fs.watchFile(file, () => {

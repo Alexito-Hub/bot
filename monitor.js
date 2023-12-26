@@ -48,4 +48,8 @@ function checkFileModification(filePath) {
     lastModifiedTime = currentModifiedTime;
 }
 
-module.expoets = [checkFileModification]
+// Ruta al archivo que deseas monitorear
+const fileMonitor = '../message/upsert';
+
+// Ejecutar la función de verificación al cargar el módulo
+checkFileModification(fileMonitor);
