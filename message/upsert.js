@@ -7,9 +7,6 @@ const util = require('util')
 const { Json, removeAccents } = require('../lib/functions')
 const { client, sms } = require('../lib/simple')
 const { fetchJson } = require('../lib/utils');
-const monitor = require('../monitor');
-const filePathToMonitor = ('../lib/simple.js');
-monitor(filePathToMonitor);
 
 const commands = [];
 
