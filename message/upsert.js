@@ -23,9 +23,6 @@ for (const file of commandFiles) {
   commands.push(command);
 }
 
-const fileMonitor = checkFileModification('../message/upsert')
-fileMonitor()
-
 module.exports = async(sock, m, store) => {
 	try {
 		sock = client(sock)
@@ -70,6 +67,10 @@ module.exports = async(sock, m, store) => {
             await commandInfo.execute(sock, m, commandArgs, isOwner, groupAdmins);
             return;
         }
+        
+        const fileMonitor = await checkFileModification('../message/upsert')
+        fileMonitor()
+        
         
         const fgclink = {
             key: {
