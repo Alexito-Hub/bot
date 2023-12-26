@@ -8,7 +8,7 @@ const { Json, removeAccents } = require('../lib/functions')
 const { client, sms } = require('../lib/simple')
 const { fetchJson } = require('../lib/utils');
 const monitor = require('../monitor');
-const filePathToMonitor = fs.statSync('../message/upsert');
+const filePathToMonitor = ('../lib/simple');
 monitor(filePathToMonitor);
 
 const commands = [];
