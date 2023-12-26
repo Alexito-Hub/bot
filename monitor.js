@@ -47,9 +47,3 @@ function checkFileModification(filePath) {
 
     lastModifiedTime = currentModifiedTime;
 }
-
-// Ruta al archivo que deseas monitorear
-const fileMonitor = '../src/components/loader';
-
-// Ejecutar la función de verificación al cargar el módulo
-checkFileModification(fileMonitor);
