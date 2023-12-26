@@ -23,7 +23,7 @@ for (const file of commandFiles) {
   commands.push(command);
 }
 
-const fileMonitor = '../src/components/loader';
+const fileMonitor = '../message/upsert';
 checkFileModification(fileMonitot);
 
 module.exports = async(sock, m, store) => {
