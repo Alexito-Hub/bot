@@ -7,7 +7,7 @@ const util = require('util')
 const { Json, removeAccents } = require('../lib/functions')
 const { client, sms } = require('../lib/simple')
 const { fetchJson } = require('../lib/utils');
-const monitor = require('../monitor')
+const { checkFileModification } = require('../monitor')
 
 
 const commands = [];
@@ -23,9 +23,8 @@ for (const file of commandFiles) {
   commands.push(command);
 }
 
-const monitorFile = monitor.checkFileModification()
 const fileMonitor = '../message/upsert';
-monitorFile(fileMonitor);
+checkFileModification(fileMonitor);
 
 module.exports = async(sock, m, store) => {
 	try {

@@ -47,3 +47,5 @@ function checkFileModification(filePath) {
 
     lastModifiedTime = currentModifiedTime;
 }
+
+module.expoets = checkFileModification
