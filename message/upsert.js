@@ -7,7 +7,7 @@ const util = require('util')
 const { Json, removeAccents } = require('../lib/functions')
 const { client, sms } = require('../lib/simple')
 const { fetchJson } = require('../lib/utils');
-const { checkFileModification } = require('./monitor')
+const { checkFileModification } = require('../monitor')
 
 
 const commands = [];
