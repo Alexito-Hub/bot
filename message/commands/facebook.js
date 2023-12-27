@@ -1,44 +1,40 @@
 const { fetchJson } = require('../../lib/utils')
 
 module.exports = {
-  name: 'facebook',
-  description: 'Descarga videos e imágenes de Facebook',
-  aliases: ['facebook', 'fb'],
-
-  async execute(sock, m, args) {
-    try {
-      if (!args[0]) {
-        v.reply('*facebook <url>*');
-        return;
-      }
-
-      const facebookUrl = args[0];
-      const response = await fetchJson(`https://fbdl.felixglz.repl.co/fb-info?url=${facebookUrl}`);
-
-      if (response && response.result) {
-        const result = response.result;
-
-        if (result.hd) {
-          sock.sendMessage(m.chat, {
-            video: { url: result.hd },
-            mimetype: 'video/mp4',
-            caption: ''
-          }, { quoted: m });
-        } else if (result.images) {
-          for (const image of result.image) {
-            sock.sendMessage(m.chat, {
-              image: { url: image, mimetype: 'image/jpeg' },
-              caption: ''
-            }, { quoted: m });
-          }
+    name: 'facebook',
+    description: 'Descarga videos de Facebook',
+    aliases: ['facebook', 'fb'],
+    
+    async execute(sock, m, args) {
+        try {
+            if (!args[0]) {
+                v.reply('*facebook <url>*');
+                return;
+            }
+            await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } });
+            const facebookUrl = args[0];
+            const response = await fetchJson(`http://sabapi.tech:8090/download/facebook2?url=${facebookUrl}&apikey=MrRootsFree`);
+            
+            if (response && response.resultado) {
+                const result = response.resultado;
+                if (result.media) {
+                    sock.sendMessage(m.chat, {
+                        video: { url: result.media.url },
+                        mimetype: 'video/mp4',
+                        caption: `ㅤ *⋯⋯ FACEBOOK ⋯⋯*
+ ∘ *Descripción:* ${result.description}
+ ∘ *Calidad:* ${result.media.quality}`
+                    }, { quoted: m });
+                    await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
+                } 
+            } else {
+                v.reply('Intentelo de nuevo más tarde.');
+            }
+            
+        } catch (e) {
+            await sock.sendMessage(m.chat, { react: { text: '❌', key: m.key } });
+            console.error(e);
+            await sock.sendMessage(m.chat, { text: `${e}` });
         }
-      } else {
-        console.log('Error al obtener información de Facebook');
-        v.reply('Intentelo de nuevo más tarde.', {quoted:m});
-      }
-    } catch (error) {
-      console.log('Error:', error);
-      v.reply('Se produjo un error al procesar la solicitud.', {quoted:m});
-    }
-  },
+    },
 };

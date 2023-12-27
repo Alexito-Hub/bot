@@ -5,7 +5,7 @@ module.exports = {
     description: 'Descarga videos e imágenes de TikTok',
     aliases: ['tiktok', 'tt'],
 
-    async execute(sock, m, args, messageRoundTime) {
+    async execute(sock, m, args) {
         try {
             if (!args[0]) {
                 await sock.sendMessage(m.chat, { text: '*tiktok <url>*' }, { quoted: m });

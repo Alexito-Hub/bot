@@ -5,13 +5,13 @@ module.exports = {
     description: 'Descarga videos de Instagram',
     aliases: ['insta', 'ig'],
     
-    async execute(sock, m, args, messageRoundTime) {
+    async execute(sock, m, args) {
         try {
             if (!args[0]) {
                 await sock.sendMessage(m.chat, { text: '*Instagram <string>*' }, { quoted: m });
                 return;
             }
-            await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } });
+            
             const instaUrl = args[0];
             const response = await fetchJson(`http://sabapi.tech:8090/api/v2/instagram?url=${instaUrl}&apikey=MrRootsFree`);
             
