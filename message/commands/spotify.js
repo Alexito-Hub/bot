@@ -3,7 +3,7 @@ const { fetchJson } = require('../../lib/utils');
 module.exports = {
     name: 'spotify',
     description: 'Descarga musicas de Spotify',
-    async execute(sock, m, store, args) {
+    async execute(sock, m, args) {
         try {
             if (!args[0]) {
                 await sock.sendMessage(m.chat, { text: '*spotify <string>*' }, { quoted: m });
@@ -11,7 +11,7 @@ module.exports = {
             }
             await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } })
             
-            const text = args[0];
+            const text = args.join(" ")
             
             const searchSpotify = await fetchJson(`http://sabapi.tech:8090/api/spotifysearch?query=${text}&apikey=MrRootsFree`)
             const spotify = await fetchJson(`http://sabapi.tech:8090/api/dl/spotify2?query=${text}&apikey=MrRootsFree`);
