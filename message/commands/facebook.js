@@ -14,7 +14,7 @@ module.exports = {
             await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } });
             const facebookUrl = args[0];
             const response = await fetchJson(`http://sabapi.tech:8090/download/facebook2?url=${facebookUrl}&apikey=MrRootsFree`);
-            
+            const fbdl = await fetchJson(`https://api.lolhuman.xyz/api/facebook?apikey=gataDios&url=${facebookUrl}`)
             if (response && response.resultado) {
                 const result = response.resultado;
                 if (result.media) {
@@ -25,11 +25,25 @@ module.exports = {
  ∘ *Descripción:* ${result.description}
  ∘ *Calidad:* ${result.media.quality}`
                     }, { quoted: m });
-                    await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
                 } 
-            } else {
-                v.reply('Intentelo de nuevo más tarde.');
+            } else if(fbdl) {
+                const media = fbdl.result[0]
+                if (media) {
+                    sock.sendMessage(m.chat, { 
+                        video: { url: media },
+                        mimetype: 'video/mp4',
+                        caption: `ㅤ *⋯⋯ FACEBOOK ⋯⋯*
+ ∘ *No Info*`
+                    })
+                } else {
+                    sock.sendMessage(m.chat, { 
+                        image: { url: media, mimetype: 'image/jpeg' },
+                        caption: `ㅤ *⋯⋯ FACEBOOK ⋯⋯*
+ ∘ *No info*`
+                    })
+                }
             }
+            await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
             
         } catch (e) {
             await sock.sendMessage(m.chat, { react: { text: '❌', key: m.key } });
