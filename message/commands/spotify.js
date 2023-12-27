@@ -34,9 +34,10 @@ module.exports = {
                     mimetype: 'audio/mpeg', 
                     contextInfo:{
                         externalAdReply:{
-                            text:`ㅤ${spotify.resultado.trackName}`,
+                            title:`ㅤ${spotify.resultado.trackName}`,
                             body: `ㅤㅤ${spotify.resultado.artists[0].name}`,
-                            thumbnailUrl: imgSpotify.thumb
+                            thumbnailUrl: imgSpotify.thumb,
+                            sourceUrl: imgSpotify.url
                         }
                     }}, {quoted: m})
                 await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
