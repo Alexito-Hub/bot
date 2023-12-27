@@ -14,7 +14,6 @@ module.exports = {
             await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } });
             const facebookUrl = args[0];
             const response = await fetchJson(`http://sabapi.tech:8090/download/facebook2?url=${facebookUrl}&apikey=MrRootsFree`);
-            const fbdl = await fetchJson(`https://api.lolhuman.xyz/api/facebook?apikey=gataDios&url=${facebookUrl}`)
             if (response && response.resultado) {
                 const result = response.resultado;
                 if (result.media) {
