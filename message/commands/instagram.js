@@ -1,3 +1,5 @@
+const { fetchJson } = require('../../lib/utils');
+
 module.exports = {
     name: 'instagram',
     description: 'Descarga videos de Instagram',
