@@ -39,7 +39,7 @@ module.exports = {
                             thumbnailUrl: imgSpotify.thumb,
                             sourceUrl: imgSpotify.url
                         }
-                    }}, {quoted: m})
+                    }})
                 await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
             }
             
