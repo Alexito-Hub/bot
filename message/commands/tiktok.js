@@ -5,7 +5,7 @@ module.exports = {
     description: 'Descarga videos e imágenes de TikTok',
     aliases: ['tiktok', 'tt'],
 
-    async execute(sock, m, args) {
+    async execute(sock, m, args, messageRoundTime) {
         try {
             if (!args[0]) {
                 await sock.sendMessage(m.chat, { text: '*tiktok <url>*' }, { quoted: m });
@@ -17,14 +17,6 @@ module.exports = {
 
             const tiktokUrl = args[0];
             const response = await fetchJson(`https://star-apis.teamfx.repl.co/api/downloader/tiktok?url=${tiktokUrl}&apikey=StarAPI`);
-
-            function roundTime(time) {
-                return Math.round(time);
-            }
-
-            const responseMs = Date.now();
-            const responseTime = roundTime(responseMs - m.messageTimestamp * 1000);
-            const formattedResponseTime = (responseTime / 1000).toFixed(3);
 
             if (response && response.result) {
                 const result = response.result;
@@ -51,7 +43,7 @@ module.exports = {
                     for (const image of result.images) {
                         await sock.sendMessage(m.chat, {
                             image: { url: image.url.url, mimetype: 'image/jpeg' },
-                            caption: `᳃ ¡Listo! - *🧃 ${formattedResponseTime} ms*`
+                            caption: `᳃ ¡Listo! - *🧃 ${messageRoundTime} ms*`
                         }, { quoted: m });
                     }
                     await sock.sendMessage(m.chat, {
