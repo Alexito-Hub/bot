@@ -44,7 +44,7 @@ module.exports = {
                     remoteJid: m.chat,
                     mentionedJid: [m.sender]
                 },
-                video:{url:'https://telegra.ph/file/8615e70dd92328db2395b.mp4'},
+                video:{url:'https://v16m-default.akamaized.net/aa3667fbfc34f2a1e74e968658072916/658cbc27/video/tos/alisg/tos-alisg-pve-0037/oYJe8JEIQDALhcEf16FgJO6m6OhjuEAFDCergw/?a=0&ch=0&cr=0&dr=0&lr=all&cd=0%7C0%7C0%7C0&cv=1&br=4620&bt=2310&bti=OHYpOTY0Zik3OjlmOm01MzE6ZDQ0MDo%3D&cs=0&ds=3&ft=pK~tdMZj8Zmo0n~fH94jVk_Zr5WrKsd.&mime_type=video_mp4&qs=0&rc=Zmg0aWc8NWRpZThmOTo5OEBpang6aHI5cnJ4cDMzODgzNEBfNTEtY18tXzQxMzUwMGMwYSNiM2ouMmRjZDFgLS1kLy1zcw%3D%3D&l=202312271806436C41DE3D4CDB0E718430&btag=e00088000'},
                 gifPlayback: true,
                 caption: `    ${greeting} *@${user} 🍥*
 ᳃ *"${dailyMessage}"*
@@ -57,16 +57,15 @@ module.exports = {
 Para obtener información de algún comando usa "Help <command>"
 
  *• ⋯⋯ UTILITY ⋯⋯ •*
- ➵ calculadora *<number + number>*
- 
- *• ⋯⋯ SEARCH ⋯⋯•*
- ➵ play *<search>* ?unstable
- ➵ spotify *<search>* --no disponible
+ ➵ calculadora
  
  *• ⋯⋯ DOWNLOADS ⋯⋯ •*
  ➵ tiktok *<url>*
- ➵ facebook *<url>* ?unstable
- ➵ youtube *<url>* ?unstable
+ ➵ facebook *<url>* 
+ ➵ instagram *<url>*
+ ➵ play *<tring>*
+ ➵ ytmp3 *<url>*
+ ➵ spotify *<string>*
 
  *• ⋯⋯ OWNER ⋯⋯ •*
  ➵ remove *<user>*
@@ -80,12 +79,10 @@ Para obtener información de algún comando usa "Help <command>"
  ➵ $ 
  ➵ >
  ➵ <
- 
- ➵ term --terminos y uso del bot
 
 Obten información basica del bot con !info
 
-*todos los derechos reservados @ziooo api@felix*`
+*todos los derechos reservados @ziooo*`
             })
             await sock.sendMessage(m.chat, {
                 text,
