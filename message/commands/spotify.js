@@ -34,8 +34,8 @@ module.exports = {
                     mimetype: 'audio/mpeg', 
                     contextInfo:{
                         externalAdReply:{
-                            title:`ㅤ${spotify.resultado.trackName}`,
-                            body: `ㅤㅤ${spotify.resultado.artists[0].name}`,
+                            title:`${spotify.resultado.trackName}`,
+                            body: `${spotify.resultado.artists[0].name}`,
                             thumbnailUrl: imgSpotify.thumb,
                             sourceUrl: imgSpotify.url
                         }
