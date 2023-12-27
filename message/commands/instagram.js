@@ -43,7 +43,7 @@ module.exports = {
                     }
                     
                 }
-                await sock.sendMessage(m.chat, { react: { text: '✅', key: info.key } });
+                await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
                 
             }
             
