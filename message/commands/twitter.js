@@ -4,12 +4,12 @@ const { fetchJson } = require('../../lib/utils');
 module.exports = {
     name: 'twitter',
     description: 'Descarga videos e imagenes de Twitter',
-    aliases: ['twitter', ''],
+    aliases: ['twitter', 'dlx'],
     
     async execute(sock, m, args) {
         try {
             if (!args[0]) {
-                await sock.sendMessage(m.chat, { text: '*Instagram <string>*' }, { quoted: m });
+                await sock.sendMessage(m.chat, { text: '*twitter <string>*' }, { quoted: m });
                 return;
             }
             
