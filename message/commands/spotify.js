@@ -9,11 +9,14 @@ module.exports = {
                 await sock.sendMessage(m.chat, { text: '*spotify <string>*' }, { quoted: m });
                 return;
             }
-            await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } });
-            const text = args.join(' ');
+            await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } })
+            
+            const text = args[0];
+            
             const searchSpotify = await fetchJson(`http://sabapi.tech:8090/api/spotifysearch?query=${text}&apikey=MrRootsFree`)
-            const imgSpotify = searchSpotify.resultado.tracksArray[0]
             const spotify = await fetchJson(`http://sabapi.tech:8090/api/dl/spotify2?query=${text}&apikey=MrRootsFree`);
+            
+            const imgSpotify = searchSpotify.resultado.tracksArray[0]
             if (spotify && spotify.resultado && spotify.resultado.dl_link) {
                 sock.sendMessage(m.chat, { image:{ 
                     url: imgSpotify.thumb, mimetype: 'image/jpeg'},
