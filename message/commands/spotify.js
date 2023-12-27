@@ -45,7 +45,8 @@ module.exports = {
             
         } catch (e) {
             await sock.sendMessage(m.chat, { react: { text: '❌', key: m.key } });
+            console.error(e);
+            await sock.sendMessage(m.chat, { text: `${e}` });
         }
-
     }
 }

@@ -6,12 +6,20 @@ module.exports = {
     async execute(sock, m, args, messageRoundTime) {
         try {
             if (!args[0]) {
-                await sock.sendMessage(m.chat, { text: '*spotify <string>*' }, { quoted: m });
+                await sock.sendMessage(m.chat, { text: '*Instagram <string>*' }, { quoted: m });
                 return;
             }
-            await sock.sendMessage(m.chat, { react: { text: '🕛', key: info.key } });
+            await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } });
             const instaUrl = args[0];
             const response = await fetchJson(`http://sabapi.tech:8090/api/v2/instagram?url=${instaUrl}&apikey=MrRootsFree`);
+            
+            function roundTime(time) {
+                return Math.round(time);
+            }
+            
+            const responseMs = Date.now();
+            const responseTime = roundTime(responseMs - m.messageTimestamp * 1000);
+            const messageRoundTime = (responseTime / 1000).toFixed(3);
             
             if (response && response.resultado && response.resultado.length > 0) {
                 for (const result of response.resultado) {
@@ -38,8 +46,9 @@ module.exports = {
             }
             
         } catch (e) {
-            console.error(e)
-            
+            await sock.sendMessage(m.chat, { react: { text: '❌', key: m.key } });
+            console.error(e);
+            await sock.sendMessage(m.chat, { text: `${e}` });
         }
     }
 }
