@@ -3,6 +3,7 @@ const { fetchJson } = require('../../lib/utils');
 module.exports = {
     name: 'spotify',
     description: 'Descarga musicas de Spotify',
+    aliases: ['spotify'],
     async execute(sock, m, args) {
         try {
             if (!args[0]) {
