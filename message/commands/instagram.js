@@ -9,31 +9,31 @@ module.exports = {
                 await sock.sendMessage(m.chat, { text: '*spotify <string>*' }, { quoted: m });
                 return;
             }
-            await sock.sendMessage(from, { react: { text: '🕛', key: info.key } });
+            await sock.sendMessage(m.chat, { react: { text: '🕛', key: info.key } });
             const instaUrl = args[0];
             const response = await fetchJson(`http://sabapi.tech:8090/api/v2/instagram?url=${instaUrl}&apikey=MrRootsFree`);
             
             if (response && response.resultado && response.resultado.length > 0) {
                 for (const result of response.resultado) {
                     if (result.type === 'video') {
-                        await sock.sendMessage(from, {
+                        await sock.sendMessage(m.chat, {
                             video: { url: result.url },
                             mimetype: 'video/mp4',
                             caption: `᳃ ¡Listo! - *🧃 ${messageRoundTime} ms*`
                             
-                        }, { quoted: info });
+                        }, { quoted: m });
                         
                     } else if (result.type === 'image') {
-                        await sock.sendMessage(from, {
+                        await sock.sendMessage(m.chat, {
                             image: { url: result.url, mimetype: 'image/jpeg' },
                             caption: `᳃ ¡Listo! - *🧃 ${messageRoundTime} ms*`
                             
-                        }, { quoted: info });
+                        }, { quoted: m });
                         
                     }
                     
                 }
-                await sock.sendMessage(from, { react: { text: '✅', key: info.key } });
+                await sock.sendMessage(m.chat, { react: { text: '✅', key: info.key } });
                 
             }
             
