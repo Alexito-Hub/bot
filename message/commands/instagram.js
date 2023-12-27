@@ -5,6 +5,10 @@ module.exports = {
     
     async execute(sock, m, args, messageRoundTime) {
         try {
+            if (!args[0]) {
+                await sock.sendMessage(m.chat, { text: '*spotify <string>*' }, { quoted: m });
+                return;
+            }
             await sock.sendMessage(from, { react: { text: '🕛', key: info.key } });
             const instaUrl = args[0];
             const response = await fetchJson(`http://sabapi.tech:8090/api/v2/instagram?url=${instaUrl}&apikey=MrRootsFree`);
