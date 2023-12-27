@@ -44,7 +44,7 @@ module.exports = {
                     remoteJid: m.chat,
                     mentionedJid: [m.sender]
                 },
-                video:{url:'https://v16m-default.akamaized.net/aa3667fbfc34f2a1e74e968658072916/658cbc27/video/tos/alisg/tos-alisg-pve-0037/oYJe8JEIQDALhcEf16FgJO6m6OhjuEAFDCergw/?a=0&ch=0&cr=0&dr=0&lr=all&cd=0%7C0%7C0%7C0&cv=1&br=4620&bt=2310&bti=OHYpOTY0Zik3OjlmOm01MzE6ZDQ0MDo%3D&cs=0&ds=3&ft=pK~tdMZj8Zmo0n~fH94jVk_Zr5WrKsd.&mime_type=video_mp4&qs=0&rc=Zmg0aWc8NWRpZThmOTo5OEBpang6aHI5cnJ4cDMzODgzNEBfNTEtY18tXzQxMzUwMGMwYSNiM2ouMmRjZDFgLS1kLy1zcw%3D%3D&l=202312271806436C41DE3D4CDB0E718430&btag=e00088000'},
+                video:{url:'https://v16m-default.akamaized.net/e63215cd9a84502f8af034f50e51ae21/658ce26f/video/tos/useast2a/tos-useast2a-ve-0068c004/oMAgQyLwN4xUNAYHNqzFjIOCk2vKhgfoMFYB1a/?a=0&ch=0&cr=0&dr=0&lr=all&cd=0%7C0%7C0%7C0&cv=1&br=4464&bt=2232&bti=OHYpOTY0Zik3OjlmOm01MzE6ZDQ0MDo%3D&cs=0&ds=6&ft=pK~tdMZj8Zmo0IAXH94jVk_Zr5WrKsd.&mime_type=video_mp4&qs=0&rc=aGc5ZDRnNzNoNzVpZTg7PEBpamU1OWc6ZjplaDMzNzgzM0A0YDZfL2AyX18xYGI1Mi1iYSNuM2dwcjQwLWxgLS1kLzZzcw%3D%3D&l=202312272049551A62071E479AB49F7776&btag=e00088000'},
                 gifPlayback: true,
                 caption: `    ${greeting} *@${user} 🍥*
 ᳃ *"${dailyMessage}"*
