@@ -19,20 +19,29 @@ module.exports = {
             
             const imgSpotify = searchSpotify.resultado.tracksArray[0]
             if (spotify && spotify.resultado && spotify.resultado.dl_link) {
-                sock.sendMessage(m.chat, { image:{ 
+                await sock.sendMessage(m.chat, { image:{ 
                     url: imgSpotify.thumb, mimetype: 'image/jpeg'},
-                    caption: ` -- SPOTIFY -- 
-Nombre: ${spotify.resultado.trackName}
-Albun: ${spotify.resultado.albumName}
-Artista: ${spotify.resultado.artists[0].name}
-Duración: ${spotify.resultado.duration}
-Popularidad: ${spotify.resultado.popularity}
-Fecha: ${spotify.resultado.release_data}`
+                    caption: `ㅤ *⋯⋯ SPOTIFY ⋯⋯*
+ ∘ *Nombre:* ${spotify.resultado.trackName}
+ ∘ *Albun:* ${spotify.resultado.albumName}
+ ∘ *Artista:* ${spotify.resultado.artists[0].name}
+ ∘ *Duración:* ${spotify.resultado.duration}
+ ∘ *Popularidad:* ${spotify.resultado.popularity}
+ ∘ *Fecha:* ${spotify.resultado.release_data}`
                 }, {quoted: m})
-                sock.sendMessage(m.chat, { audio: { url: spotify.resultado.dl_link }, mimetype: 'audio/mpeg'}, {quoted: m});
+                await sock.sendMessage(m.chat, { audio: { 
+                    url: spotify.resultado.dl_link }, 
+                    mimetype: 'audio/mpeg', 
+                    contextInfo:{
+                        externalAdReply:{
+                            text:`ㅤ${spotify.resultado.trackName}`,
+                            body: `ㅤㅤ${spotify.resultado.artists[0].name}`,
+                            thumbnailUrl: imgSpotify.thumb
+                        }
+                    }}, {quoted: m})
+                await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
             }
-
-            await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
+            
         } catch (e) {
             await sock.sendMessage(m.chat, { react: { text: '❌', key: m.key } });
         }
