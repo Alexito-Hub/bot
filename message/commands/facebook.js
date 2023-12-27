@@ -26,22 +26,8 @@ module.exports = {
  ∘ *Calidad:* ${result.media.quality}`
                     }, { quoted: m });
                 } 
-            } else if(fbdl) {
-                const media = fbdl.result[0]
-                if (media) {
-                    sock.sendMessage(m.chat, { 
-                        video: { url: media },
-                        mimetype: 'video/mp4',
-                        caption: `ㅤ *⋯⋯ FACEBOOK ⋯⋯*
- ∘ *No Info*`
-                    })
-                } else {
-                    sock.sendMessage(m.chat, { 
-                        image: { url: media, mimetype: 'image/jpeg' },
-                        caption: `ㅤ *⋯⋯ FACEBOOK ⋯⋯*
- ∘ *No info*`
-                    })
-                }
+            } else {
+                v.reply('no se pudo descargar el contenido multimedia', m)
             }
             await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
             
