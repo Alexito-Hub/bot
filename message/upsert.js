@@ -113,7 +113,6 @@ module.exports = async(sock, m, store) => {
     		}
 		}
 		
-		
 		switch (command) {
 			default:
 			if (isEval) {

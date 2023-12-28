@@ -16,7 +16,7 @@ module.exports = {
             const isAudio = args.includes('--audio') || args.includes('-a');
             
             const tiktokUrl = args[0];
-            const response = await fetchJson(`https://star-apis.teamfx.repl.co/api/downloader/tiktok?url=${tiktokUrl}&apikey=StarAPI`);
+            const response = await fetchJson(`https://star-apis.teamfx.repl.co/api/downloader/tiktok?url=${tiktokUrl}&apikey=TeamFX`);
             
             function roundTime(time) {
                 return Math.round(time);
