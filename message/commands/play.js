@@ -17,7 +17,7 @@ module.exports = {
 
             if (searchResults && searchResults.items && searchResults.items.length > 0) {
                 const firstVideo = searchResults.items[0];
-                const videoUrl = `https://star-apis.teamfx.repl.co/api/downloader/ytplay?url=${encodeURIComponent(firstVideo.url)}&apikey=StarAPI`;
+                const videoUrl = `https://star-apis.teamfx.repl.co/api/downloader/ytplay?url=${encodeURIComponent(firstVideo.url)}&apikey=TeamFX`;
 
                 await sock.sendMessage(m.chat, { video: {url: videoUrl}, mimetype:'video/mp4', caption:`${firstVideo.title}`}, { quoted: m });
             } else {

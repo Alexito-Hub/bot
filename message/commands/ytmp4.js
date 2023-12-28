@@ -36,7 +36,7 @@ module.exports = {
 
 async function getYoutubeInfo(videoUrl) {
     try {
-        const apiUrl = `https://star-apis.teamfx.repl.co/api/downloader/ytplay?url=${encodeURIComponent(videoUrl)}&apikey=StarAPI`;
+        const apiUrl = `https://star-apis.teamfx.repl.co/api/downloader/ytplay?url=${encodeURIComponent(videoUrl)}&apikey=TeamFX`;
         const response = await axios.get(apiUrl);
         return response.data;
     } catch (error) {
