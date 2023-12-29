@@ -3,12 +3,16 @@ module.exports = {
     description: 'añade a un miembro como administrador del grupo',
     aliases: ['promote'],
     
-    async execute(sock, m, args) {
+    async execute(sock, m, args, isBotAdmin) {
         try {
             if (!m.isGroup) {
                 return;
             }
-
+            
+            if (!isBotAdmin) {
+                sock.sendMessage(m.chat, { text: 'El bot no es administrador.' }, { quoted: m });
+                return
+            }
             const groupInfo = await sock.groupMetadata(m.chat);
             const isAdmin = groupInfo && groupInfo.participants.some(p => p.id == m.sender && ['admin', 'superadmin'].includes(p.admin));
             
