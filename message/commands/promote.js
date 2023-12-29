@@ -10,14 +10,14 @@ module.exports = {
             }
             
             if (!isBotAdmin === false) {
-                sock.sendMessage(m.chat, { text: 'El bot no es administrador.' }, { quoted: m });
+                await sock.sendMessage(m.chat, { text: 'El bot no es administrador.' }, { quoted: m });
                 return
             }
             const groupInfo = await sock.groupMetadata(m.chat);
             const isAdmin = groupInfo && groupInfo.participants.some(p => p.id == m.sender && ['admin', 'superadmin'].includes(p.admin));
             
             if (!isAdmin) {
-                sock.sendMessage(m.chat, { text: 'Solo administradores.' }, { quoted: m });
+                await sock.sendMessage(m.chat, { text: 'Solo administradores.' }, { quoted: m });
                 return;
             }
 
@@ -27,24 +27,24 @@ module.exports = {
             } else if (m.quoted) {
                 targetUser = m.quoted.sender;
             } else {
-                sock.sendMessage(m.chat, { text: '*promote <@usuario>*' }, { quoted: m });
+                await sock.sendMessage(m.chat, { text: '*promote <@usuario>*' }, { quoted: m });
                 return;
             }
 
             const userObj = groupInfo.participants.find(p => p.id === targetUser);
             
             if (!userObj) {
-                sock.sendMessage(m.chat, { text: '¿?' }, { quoted: m });
+                await sock.sendMessage(m.chat, { text: '¿?' }, { quoted: m });
                 return;
             }
 
             if (['admin', 'superadmin'].includes(userObj.admin)) {
-                sock.sendMessage(m.chat, { text: 'ya es administrador.' }, { quoted: m });
+                await sock.sendMessage(m.chat, { text: 'ya es administrador.' }, { quoted: m });
                 return;
             }
 
             await sock.groupParticipantsUpdate(m.chat, [targetUser], 'promote');
-            sock.sendMessage(m.chat, {
+            await sock.sendMessage(m.chat, {
                 contextInfo: {
                     remoteJid: m.chat,
                     mentionedJid: [m.sender, targetUser],
@@ -61,7 +61,7 @@ module.exports = {
 
         } catch (error) {
             console.log('Error:', error);
-            sock.sendMessage(m.chat, { text: `${error}` }, { quoted: m });
+            await sock.sendMessage(m.chat, { text: `${error}` }, { quoted: m });
         }
     },
 };
