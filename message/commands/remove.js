@@ -9,10 +9,10 @@ module.exports = {
                 return;
             }
             
-            if (!isBotAdmin) {
+            /*if (!isBotAdmin) {
                 sock.sendMessage(m.chat, { text: 'El bot no es administrador.' }, { quoted: m });
                 return
-            }
+            }*/
             const groupInfo = await sock.groupMetadata(m.chat);
             const isAdmin = groupInfo && groupInfo.participants.some(p => p.id == m.sender && ['admin', 'superadmin'].includes(p.admin));
             
