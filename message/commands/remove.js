@@ -9,7 +9,7 @@ module.exports = {
                 return;
             }
             
-            if (!isBotAdmin === false) {
+            if (isBotAdmin === false) {
                 sock.sendMessage(m.chat, { text: 'El bot no es administrador.' }, { quoted: m });
                 return
             }
