@@ -39,7 +39,7 @@ module.exports = {
                 return;
             }
 
-            await sock.groupParticipantsUpdate(m.chat, [targetUser], 'remove');
+            await sock.groupParticipantsUpdate(m.chat, [targetUser], 'promote');
             sock.sendMessage(m.chat, {
                 contextInfo: {
                     remoteJid: m.chat,
