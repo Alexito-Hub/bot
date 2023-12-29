@@ -34,7 +34,7 @@ module.exports = {
                 return;
             }
 
-            if (['admin', 'superadmin'].includes(userObj.admin)) {
+            if (!['admin', 'superadmin'].includes(userObj.admin)) {
                 sock.sendMessage(m.chat, { text: 'El usuario ya no es administrador.' }, { quoted: m });
                 return;
             }
