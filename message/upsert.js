@@ -35,7 +35,7 @@ module.exports = async(sock, m, store) => {
 		    }
 		}
 		
-		const api = await Api('config')
+		const api = await Api('config'),result
 		const prefixes = api.prefix || ['#'];
 		const isCmd = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))
 		const command = isCmd
