@@ -52,7 +52,8 @@ module.exports = {
   *∘ Prefijo:* ${prefixList} 
   *∘ Modo:* Público
   *∘ Actividad:* ${days > 0 ? `${days}d ` : ''}${hours}h ${minutes}m ${seconds}s
-  *∘ Creator:* ziooo_zip
+  *∘ Creador:* ziooo_zip
+  *∘ Api:* https://api-zio.replit.app
 
 Para obtener información de algún comando usa "Help <command>"
 
