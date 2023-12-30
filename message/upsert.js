@@ -1,11 +1,9 @@
-require('../config')
-
 const fs = require('fs')
 const path = require('path');
 const util = require('util')
 
 const { Json, removeAccents } = require('../lib/functions')
-const { client, sms } = require('../lib/simple')
+const { client, sms, key } = require('../lib/simple')
 const { fetchJson } = require('../lib/utils');
 
 const commands = [];
@@ -25,6 +23,17 @@ module.exports = async(sock, m, store) => {
 	try {
 		sock = client(sock)
 		v = await sms(sock, m)
+		
+		async function Api(api) {
+		    try {
+		        const response = await axios.get(`https://api-zio.replit.app/${api}?key=${key}`);
+		        return response.data;
+		        
+		    } catch (e) {
+		        console.error('Error al obtener la API:', e);
+		        throw error;
+		    }
+		}
 		
 		const prefixes = global.prefix || ['#'];
 		const isCmd = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))
@@ -72,7 +81,7 @@ module.exports = async(sock, m, store) => {
         
         const commandInfo = getCommandInfo(commandName.toLowerCase());
         if (commandInfo) {
-            await commandInfo.execute(sock, m, commandArgs, isOwner, groupAdmins, isBotAdmin);
+            await commandInfo.execute(sock, m, commandArgs, isOwner, groupAdmins, isBotAdmin, data);
             return;
         }
         
