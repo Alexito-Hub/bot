@@ -25,7 +25,9 @@ module.exports = async(sock, m, store) => {
 		sock = client(sock)
 		v = await sms(sock, m)
 		
+		
 		const api = await Api('config')
+		const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 		const prefixes = api.prefix || ['#'];
 		const isCmd = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))
 		const command = isCmd
@@ -72,7 +74,7 @@ module.exports = async(sock, m, store) => {
         
         const commandInfo = getCommandInfo(commandName.toLowerCase());
         if (commandInfo) {
-            await commandInfo.execute(sock, m, commandArgs, isOwner, groupAdmins, isBotAdmin, Api());
+            await commandInfo.execute(sock, m, commandArgs, isOwner, groupAdmins, isBotAdmin, sleep, api);
             return;
         }
         
