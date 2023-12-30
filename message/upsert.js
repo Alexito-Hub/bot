@@ -31,7 +31,7 @@ module.exports = async(sock, m, store) => {
 		        
 		    } catch (e) {
 		        console.error('Error al obtener la API:', e);
-		        throw error;
+		        throw e;
 		    }
 		}
 		
