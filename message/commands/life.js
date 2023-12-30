@@ -1,8 +1,8 @@
 module.exports = {
     name: 'life',
     description: 'Responde mediante chat gpt',
-    aliases: ['consejo de vida'],
-    async execute(sock, m, store, Api()) {
+    aliases: ['consejo de vida', 'vida'],
+    async execute(sock, m, store,) {
         try {
             const data = await Api('life')
             sock.sendMessage(m.chat, { 

@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path');
 const util = require('util')
 const axios = require('axios')
-const { Json, removeAccents } = require('../lib/functions')
+const { Api, Json, removeAccents } = require('../lib/functions')
 const { client, sms, key } = require('../lib/simple')
 const { fetchJson } = require('../lib/utils');
 
@@ -25,15 +25,6 @@ module.exports = async(sock, m, store) => {
 		sock = client(sock)
 		v = await sms(sock, m)
 		
-		async function Api(api) {
-		    try {
-		        const response = await fetchJson(`https://api-zio.replit.app/api/${api}?key=${key}`);
-		        return response.result
-		    } catch (e) {
-		        console.error('Error al obtener la API:', e);
-		        throw e;
-		    }
-		}
 		const api = await Api('config')
 		const prefixes = api.prefix || ['#'];
 		const isCmd = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))
