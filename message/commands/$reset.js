@@ -27,8 +27,8 @@ module.exports = {
                 await sock.sendMessage(m.chat, { text: 'Reiniciando...' });
 
                 exec('pm2 restart bot', async (error, stdout, stderr) => {
-                    if (e) {
-                        console.error(`Error al reiniciar el bot: ${e}`);
+                    if (error) {
+                        console.error(`Error al reiniciar el bot: ${error}`);
                         await sock.sendMessage(m.chat, { text: 'Error al reiniciar el bot.' });
                         return;
                     }
