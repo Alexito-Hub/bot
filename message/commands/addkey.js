@@ -10,12 +10,12 @@ module.exports = {
             const [name, limit, status] = args;
 
             if (!name || !limit || !status) {
-                await sock.sendMessage(m.chat, { text: 'Por favor, proporciona name, limit (solo números) y status separados por "|".' }, { quoted: m });
+                await sock.sendMessage(m.chat, { text: 'Por favor, proporciona name, limit y status separados por "|".' }, { quoted: m });
                 return;
             }
 
-            if (isNaN(limit) || !Number.isInteger(parseFloat(limit))) {
-                await sock.sendMessage(m.chat, { text: 'El límite debe ser un número entero.' }, { quoted: m });
+            if (!/^\d+$/.test(limit)) {
+                await sock.sendMessage(m.chat, { text: 'El límite solo puede contener números.' }, { quoted: m });
                 return;
             }
 
