@@ -25,23 +25,17 @@ module.exports = async(sock, m, store) => {
 		sock = client(sock)
 		v = await sms(sock, m)
 		
-		try {
-		    async function Api(api) {
-    		    try {
-    		        const response = await fetchJson(`https://api-zio.replit.app/api/${api}?key=${key}`);
-    		        return response.result
-    		        
-    		    } catch (e) {
-    		        console.error('Error al obtener la API:', e);
-    		        throw e;
-    		    }
-    		}
-		} catch (e) {
-		    return e
-		    throw e
+		async function Api(api) {
+		    try {
+		        const response = await fetchJson(`https://api-zio.replit.app/api/${api}?key=${key}`);
+		        return response.result
+		    } catch (e) {
+		        console.error('Error al obtener la API:', e);
+		        throw e;
+		    }
 		}
-    		
-		const prefixes = global.prefix || ['#'];
+		const api = await Api('config')
+		const prefixes = api.prefix || ['#'];
 		const isCmd = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))
 		const command = isCmd
           ? removeAccents(m.body.slice(prefixes.find(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))).trim().split(' ')[0].toLowerCase())
@@ -60,8 +54,8 @@ module.exports = async(sock, m, store) => {
 		
 		const isMe = (botNumber == senderNumber)
 		const isBotAdmin = m.isGroup ? groupAdmins.includes(botNumber + '@s.whatsapp.net') : false
-		const isOwner = global.owner.includes(senderNumber) || isMe
-		const isStaff = global.staff.includes(senderNumber) || isOwner
+		const isOwner = api.owner.includes(senderNumber) || isMe
+		const isStaff = api.staff.includes(senderNumber) || isOwner
 		const isEval = isOwner || isStaff
 		
 		const isMedia = (m.type === 'imageMessage' || m.type === 'videoMessage')
