@@ -14,8 +14,8 @@ module.exports = {
             await sock.sendMessage(m.chat, { text: 'Actualizando, esto puede llevar un tiempo.' }, { quoted: m });
 
             exec('git pull', async (error, stdout, stderr) => {
-                if (e) {
-                    console.error(`Error al ejecutar git pull: ${e}`);
+                if (error) {
+                    console.error(`Error al ejecutar git pull: ${error}`);
                     await sock.sendMessage(m.chat, { text: 'Error al actualizar el bot.' }, { quoted: m });
                     return;
                 }
