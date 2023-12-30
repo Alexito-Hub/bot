@@ -28,7 +28,7 @@ module.exports = async(sock, m, store) => {
 		async function Api(api) {
 		    try {
 		        const response = await fetchJson(`https://api-zio.replit.app/api/${api}?key=${key}`);
-		        return response.data;
+		        return response.result
 		        
 		    } catch (e) {
 		        console.error('Error al obtener la API:', e);
