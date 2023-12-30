@@ -5,7 +5,7 @@ module.exports = {
     name: 'addkey',
     description: 'Añade una nueva clave con límite y estado',
     
-    async execute(sock, m, args) {
+    async execute(sock, m, args, isOwner) {
         try {
             // Verifica si el usuario tiene permisos para ejecutar el comando
             if (!isOwner) {
