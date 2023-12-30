@@ -35,7 +35,7 @@ module.exports = async(sock, m, store) => {
 		    }
 		}
 		
-		const prefixes = global.prefix || ['#'];
+		const prefixes = await Api(config).result.prefix || ['#'];
 		const isCmd = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))
 		const command = isCmd
           ? removeAccents(m.body.slice(prefixes.find(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))).trim().split(' ')[0].toLowerCase())
@@ -54,8 +54,8 @@ module.exports = async(sock, m, store) => {
 		
 		const isMe = (botNumber == senderNumber)
 		const isBotAdmin = m.isGroup ? groupAdmins.includes(botNumber + '@s.whatsapp.net') : false
-		const isOwner = owner.includes(senderNumber) || isMe
-		const isStaff = staff.includes(senderNumber) || isOwner
+		const isOwner = await Api(config).result.owner.includes(senderNumber) || isMe
+		const isStaff = await Api(config).result.staff.includes(senderNumber) || isOwner
 		const isEval = isOwner || isStaff
 		
 		const isMedia = (m.type === 'imageMessage' || m.type === 'videoMessage')
