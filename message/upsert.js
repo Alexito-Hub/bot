@@ -81,7 +81,7 @@ module.exports = async(sock, m, store) => {
         
         const commandInfo = getCommandInfo(commandName.toLowerCase());
         if (commandInfo) {
-            await commandInfo.execute(sock, m, commandArgs, isOwner, groupAdmins, isBotAdmin, data);
+            await commandInfo.execute(sock, m, commandArgs, isOwner, groupAdmins, isBotAdmin);
             return;
         }
         
