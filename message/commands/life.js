@@ -1,3 +1,5 @@
+const { Api } = require('../lib/functions')
+
 module.exports = {
     name: 'life',
     description: 'Responde mediante chat gpt',
