@@ -4,7 +4,7 @@ const { fetchJson } = require('../../lib/utils');
 module.exports = {
     name: 'addkey',
     description: 'Añade una nueva clave con límite y estado',
-    
+
     async execute(sock, m, args, isOwner) {
         try {
             // Verifica si el usuario tiene permisos para ejecutar el comando
@@ -24,17 +24,14 @@ module.exports = {
 
             // Realiza la solicitud para agregar la nueva clave
             const apiUrl = 'https://api-zio.replit.app/api/keys?key=TK';
-            const response = await fetchJson(apiUrl, {
-                method: 'POST',
-                data: {
-                    name,
-                    limit: parseInt(limit),
-                    status: status.toLowerCase() === 'true',
-                },
+            const response = await axios.post(apiUrl, {
+                key: name,
+                limit: parseInt(limit), // Asegura que el límite sea un número
+                status: status.toLowerCase() === 'true',
             });
 
             // Verifica la respuesta y proporciona retroalimentación al usuario
-            if (response && response.status === 200) {
+            if (response.status === 201) {
                 await sock.sendMessage(m.chat, { text: 'Clave añadida correctamente.' }, { quoted: m });
             } else {
                 await sock.sendMessage(m.chat, { text: 'Error al agregar la clave.' }, { quoted: m });
