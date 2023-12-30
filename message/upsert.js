@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path');
 const util = require('util')
-
+const axios = require('axios')
 const { Json, removeAccents } = require('../lib/functions')
 const { client, sms, key } = require('../lib/simple')
 const { fetchJson } = require('../lib/utils');
