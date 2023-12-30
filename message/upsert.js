@@ -25,16 +25,22 @@ module.exports = async(sock, m, store) => {
 		sock = client(sock)
 		v = await sms(sock, m)
 		
-		async function Api(api) {
-		    try {
-		        const response = await fetchJson(`https://api-zio.replit.app/api/${api}?key=${key}`);
-		        return response.result
-		        
-		    } catch (e) {
-		        console.error('Error al obtener la API:', e);
-		        throw e;
-		    }
+		try {
+		    async function Api(api) {
+    		    try {
+    		        const response = await fetchJson(`https://api-zio.replit.app/api/${api}?key=${key}`);
+    		        return response.result
+    		        
+    		    } catch (e) {
+    		        console.error('Error al obtener la API:', e);
+    		        throw e;
+    		    }
+    		}
+		} catch (e) {
+		    return e
+		    throw e
 		}
+    		
 		const prefixes = global.prefix || ['#'];
 		const isCmd = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))
 		const command = isCmd
