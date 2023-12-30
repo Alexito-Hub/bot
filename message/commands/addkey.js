@@ -3,44 +3,41 @@ const { fetchJson } = require('../../lib/utils');
 
 module.exports = {
     name: 'addkey',
-    description: 'Añade una nueva key',
+    description: 'Añade una nueva clave con límite y estado',
     
     async execute(sock, m, args) {
         try {
-            const [name, limit, status] = args;
-
-            if (!name || !limit || !status) {
-                await sock.sendMessage(m.chat, { text: 'Por favor, proporciona name, limit y status separados por "|".' }, { quoted: m });
+            // Verifica si el usuario tiene permisos para ejecutar el comando
+            if (!isOwner) {
+                await sock.sendMessage(m.chat, { text: 'No tienes permisos para ejecutar este comando.' }, { quoted: m });
                 return;
             }
 
+            // Obtiene los argumentos proporcionados por el usuario
+            const [name, limit, status] = args.join(' ').split('|').map(arg => arg.trim());
+
+            // Valida que el límite sea un número
             if (!/^\d+$/.test(limit)) {
                 await sock.sendMessage(m.chat, { text: 'El límite solo puede contener números.' }, { quoted: m });
                 return;
             }
 
-            if (status !== 'true' && status !== 'false') {
-                await sock.sendMessage(m.chat, { text: 'El parámetro status solo puede ser "true" o "false".' }, { quoted: m });
-                return;
-            }
-
-            const postResponse = await fetchJson('https://api-zio.replit.app/api/keys', {
+            // Realiza la solicitud para agregar la nueva clave
+            const apiUrl = 'https://api-zio.replit.app/api/keys?key=TK';
+            const response = await fetchJson(apiUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
-                },
                 data: {
-                    key: name,
+                    name,
                     limit: parseInt(limit),
-                    status: status === 'true',
+                    status: status.toLowerCase() === 'true',
                 },
             });
 
-            if (postResponse.status === 200) {
-                await sock.sendMessage(m.chat, { text: `Nueva key "${name}" agregada correctamente.` }, { quoted: m });
+            // Verifica la respuesta y proporciona retroalimentación al usuario
+            if (response && response.status === 200) {
+                await sock.sendMessage(m.chat, { text: 'Clave añadida correctamente.' }, { quoted: m });
             } else {
-                await sock.sendMessage(m.chat, { text: 'Error al agregar la nueva key.' }, { quoted: m });
+                await sock.sendMessage(m.chat, { text: 'Error al agregar la clave.' }, { quoted: m });
             }
         } catch (error) {
             console.error('Error:', error);
