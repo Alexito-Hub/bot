@@ -1,4 +1,4 @@
-const { Api } = require('../lib/functions')
+const { Api } = require('../../lib/functions')
 
 module.exports = {
     name: 'life',
