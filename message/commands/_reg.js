@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 async function isUserRegistered(number) {
-    const apiUrl = `https://api-zio.replit.app/users?key=ZioAPI&number=${number}`;
+    const apiUrl = `https://api-zio.replit.app/users/${number}?key=ZioAPI`;
     const response = await axios.get(apiUrl);
     return response.data && response.data.status === 200;
 }
