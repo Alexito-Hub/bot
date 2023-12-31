@@ -50,12 +50,12 @@ module.exports = {
                 name,
                 gender: '✘', // Puedes ajustar esto según lo que esperes en la API
                 age,
-                email: '✘', // Puedes ajustar esto según lo que esperes en la API
-                });
+                email: '✘',
+            });
 
 
             // Verifica la respuesta y proporciona retroalimentación al usuario
-            if (response && response.status === 200) {
+            if (response && response.status === 201) {
                 await sock.sendMessage(m.chat, { text: 'Registro simple exitoso.' }, { quoted: m });
             } else {
                 await sock.sendMessage(m.chat, { text: 'Error en el registro.' }, { quoted: m });
