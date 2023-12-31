@@ -16,8 +16,9 @@ module.exports = {
 
             const userAge = parseInt(age);
 
-            const register = await fetchJson(`https://api-zio.replit.app/api/users/${m.sender.split('@')[0]}?key=ZioAPI`)
-            if (isRegistered === 200) {
+            // Verificar si el usuario ya está registrado
+            const isRegistered = await fetchJson(`https://api-zio.replit.app/api/users/${m.sender.split('@')[0]}?key=ZioAPI`);
+            if (isRegistered.status === 200) {
                 await sock.sendMessage(m.chat, { text: 'Ya estás registrado.' }, { quoted: m });
                 return;
             }
@@ -37,7 +38,6 @@ module.exports = {
                 age,
                 email: '✘',
             });
-
 
             // Verifica la respuesta y proporciona retroalimentación al usuario
             if (response.status === 201) {
