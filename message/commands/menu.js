@@ -1,6 +1,5 @@
 const moment = require('moment-timezone');
 const { fetchJson } = require('../../lib/utils');
-const data = fetchJson('https://api-zio.replit.app/api/keys/ZioAPI?key=TK')
 const getGreeting = () => {
     const currentHour = moment().tz('America/Lima').format('H');
     let greeting, dailyMessage;
@@ -39,7 +38,7 @@ module.exports = {
             const seconds = uptimeSeconds % 60;
 
             const { greeting, dailyMessage, time } = getGreeting();
-            
+            const data = await fetchJson('https://api-zio.replit.app/api/keys/ZioAPI?key=TK')
             await sock.sendMessage(m.chat, {
                 contextInfo: {
                     remoteJid: m.chat,
