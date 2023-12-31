@@ -1,10 +1,10 @@
 const { exec } = require('child_process');
-
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 module.exports = {
     name: 'update',
     description: 'Actualiza y reinicia el bot',
 
-    async execute(sock, m, args, isOwner, sleep) {
+    async execute(sock, m, args, isOwner) {
         try {
             if (!isOwner) {
                 await sock.sendMessage(m.chat, { text: 'No tienes permisos para ejecutar este comando.' }, { quoted: m });
