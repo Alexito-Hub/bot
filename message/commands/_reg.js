@@ -6,7 +6,7 @@ async function isRegister(number) {
         const response = await fetchJson(apiUrl);
         return response.status === 200;
     } catch (error) {
-        if (response.status === 404) {
+        if (error.response.status === 404) {
             return false;
         } else {
             console.error('Error al verificar el registro del usuario:', error.message);
