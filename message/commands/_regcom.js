@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { fetchJson } = require('../../lib/utils');
 
 async function isUserRegistered(number) {
     const apiUrl = `https://api-zio.replit.app/users?key=ZioAPI&number=${number}`;

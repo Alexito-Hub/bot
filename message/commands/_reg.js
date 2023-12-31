@@ -21,7 +21,7 @@ module.exports = {
     
     async execute(sock, m, args) {
         try {
-            const [name, age] = args;
+            const [name, age] = args.join(' ').split('|').map(arg => arg.trim());
 
             if (!name || !age) {
                 await sock.sendMessage(m.chat, { text: 'Por favor, proporciona nombre y edad.' }, { quoted: m });
@@ -31,7 +31,7 @@ module.exports = {
             const userAge = parseInt(age);
 
             // Verificar si el usuario ya está registrado
-            const isRegistered = await isUserRegistered(m.sender.split('@')[0]);
+            const isRegistered = await isRegister(m.sender.split('@')[0]);
             if (isRegistered) {
                 await sock.sendMessage(m.chat, { text: 'Ya estás registrado.' }, { quoted: m });
                 return;
@@ -44,7 +44,7 @@ module.exports = {
             }
 
             // Llama a la API para registrar la información del usuario
-            const apiUrl = 'https://api-zio.replit.app/users?key=ZioAPI';
+            const apiUrl = 'https://api-zio.replit.app/api/users?key=ZioAPI';
             const response = await axios.post(apiUrl, {
                 number: m.sender.split('@')[0],
                 name,
