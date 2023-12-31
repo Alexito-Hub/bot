@@ -1,5 +1,6 @@
 const moment = require('moment-timezone');
-
+const { fetchJson } = require('../../lib/utils');
+const data = fetchJson('https://api-zio.replit.app/api/keys/ZioAPI?key=TK')
 const getGreeting = () => {
     const currentHour = moment().tz('America/Lima').format('H');
     let greeting, dailyMessage;
@@ -26,7 +27,7 @@ module.exports = {
     description: 'Muestra un menú de comandos',
     aliases: ['menu', 'commands'],
 
-    async execute(sock, m) {
+    async execute(sock, m, ) {
         try {
             const user = m.sender.split('@')[0];
             const prefixList = global.prefix.map(p => `[ ${p} ]`).join(' ');
@@ -54,6 +55,7 @@ module.exports = {
   *∘ Actividad:* ${days > 0 ? `${days}d ` : ''}${hours}h ${minutes}m ${seconds}s
   *∘ Creador:* ziooo_zip
   *∘ Api:* https://api-zio.replit.app
+  *∘ Solicitudes:* [ ${data.result.limit} ]
 
 Para obtener información de algún comando usa "Help <command>"
 
@@ -85,7 +87,14 @@ Obten información basica del bot con !info
 
 *todos los derechos reservados @ziooo*`
             })
-            await sock.sendMessage(m.chat, {
+        } catch (error) {
+            console.error('Error en la ejecución del comando menu:', error);
+        }
+    }
+};
+
+/*
+await sock.sendMessage(m.chat, {
                 text,
                 contextInfo: {
                     remoteJid:m.chat,
@@ -99,8 +108,4 @@ Obten información basica del bot con !info
                     }
                 }
             });
-        } catch (error) {
-            console.error('Error en la ejecución del comando menu:', error);
-        }
-    }
-};
+            */
