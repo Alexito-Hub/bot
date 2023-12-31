@@ -1,9 +1,18 @@
 const axios = require('axios');
 
-async function isUserRegistered(number) {
-    const apiUrl = `https://api-zio.replit.app/users/${number}?key=ZioAPI`;
-    const response = await axios.get(apiUrl);
-    return response.data && response.data.status === 200;
+async function isRegister(number) {
+    const apiUrl = `https://api-zio.replit.app/api/users/${number}?key=ZioAPI`;
+    try {
+        const response = await fetchJson(apiUrl);
+        return response.status === 200;
+    } catch (error) {
+        if (response && response.status === 404) {
+            return false;
+        } else {
+            console.error('Error al verificar el registro del usuario:', error.message);
+            return false;
+        }
+    }
 }
 
 module.exports = {
@@ -35,16 +44,18 @@ module.exports = {
             }
 
             // Llama a la API para registrar la información del usuario
-            const apiUrl = `https://api-zio.replit.app/api/users?key=ZioAPI`;
+            const apiUrl = 'https://api-zio.replit.app/users?key=ZioAPI';
             const response = await axios.post(apiUrl, {
                 number: m.sender.split('@')[0],
                 name,
+                gender: '✘', // Puedes ajustar esto según lo que esperes en la API
                 age,
-                
-            });
+                email: '✘', // Puedes ajustar esto según lo que esperes en la API
+                });
+
 
             // Verifica la respuesta y proporciona retroalimentación al usuario
-            if (response.data && response.data.status === 200) {
+            if (response && response.status === 200) {
                 await sock.sendMessage(m.chat, { text: 'Registro simple exitoso.' }, { quoted: m });
             } else {
                 await sock.sendMessage(m.chat, { text: 'Error en el registro.' }, { quoted: m });
