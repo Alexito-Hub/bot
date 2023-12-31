@@ -6,7 +6,7 @@ async function isRegister(number) {
         const response = await fetchJson(apiUrl);
         return response.status === 200;
     } catch (error) {
-        if (response && response.status === 404) {
+        if (response.status === 404) {
             return false;
         } else {
             console.error('Error al verificar el registro del usuario:', error.message);
@@ -55,7 +55,7 @@ module.exports = {
 
 
             // Verifica la respuesta y proporciona retroalimentación al usuario
-            if (response && response.status === 201) {
+            if (response.status === 201) {
                 await sock.sendMessage(m.chat, { text: 'Registro simple exitoso.' }, { quoted: m });
             } else {
                 await sock.sendMessage(m.chat, { text: 'Error en el registro.' }, { quoted: m });
