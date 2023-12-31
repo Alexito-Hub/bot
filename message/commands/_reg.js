@@ -40,7 +40,7 @@ module.exports = {
             });
 
             // Verifica la respuesta y proporciona retroalimentación al usuario
-            if (response.status === 201) {
+            if (response.data.status === 201) {
                 await sock.sendMessage(m.chat, { text: 'Registro simple exitoso.' }, { quoted: m });
             } else {
                 await sock.sendMessage(m.chat, { text: 'Error en el registro.' }, { quoted: m });
