@@ -35,11 +35,12 @@ module.exports = {
             }
 
             // Llama a la API para registrar la información del usuario
-            const apiUrl = `https://api-zio.replit.app/users?key=ZioAPI`;
+            const apiUrl = `https://api-zio.replit.app/api/users?key=ZioAPI`;
             const response = await axios.post(apiUrl, {
                 number: m.sender.split('@')[0],
                 name,
                 age,
+                
             });
 
             // Verifica la respuesta y proporciona retroalimentación al usuario
