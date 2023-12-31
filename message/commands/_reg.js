@@ -1,19 +1,5 @@
 const axios = require('axios');
-
-async function isRegister(number) {
-    const apiUrl = `https://api-zio.replit.app/api/users/${number}?key=ZioAPI`;
-    try {
-        const response = await fetchJson(apiUrl);
-        return response.status === 200;
-    } catch (error) {
-        if (error.response.status === 404) {
-            return false;
-        } else {
-            console.error('Error al verificar el registro del usuario:', error.message);
-            return false;
-        }
-    }
-}
+const { fetchJson } = require('../../lib/utils');
 
 module.exports = {
     name: 'reg',
@@ -30,9 +16,8 @@ module.exports = {
 
             const userAge = parseInt(age);
 
-            // Verificar si el usuario ya está registrado
-            const isRegistered = await isRegister(m.sender.split('@')[0]);
-            if (isRegistered) {
+            const register = await fetchJson(`https://api-zio.replit.app/api/users/${m.sender.split('@')[0]}?key=ZioAPI`)
+            if (isRegistered === 200) {
                 await sock.sendMessage(m.chat, { text: 'Ya estás registrado.' }, { quoted: m });
                 return;
             }
