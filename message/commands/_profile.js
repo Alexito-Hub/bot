@@ -27,7 +27,7 @@ module.exports = {
                 sock.sendMessage(m.chat, { text: 'Usuario no registrado' }, { quoted: m });
                 return;
             }
-            const ppuser = await sock.profilePictureUrl(`${user}@c.us`, 'image');
+            const ppuser = await sock.profilePictureUrl(`${dataUserString}@c.us`, 'image');
             sock.sendMessage(m.chat, { 
                 image: {url: ppuser},
                 mimetype: 'image/jpeg',
