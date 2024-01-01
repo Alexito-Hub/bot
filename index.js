@@ -57,7 +57,7 @@ const start = async() => {
 app.set('port', process.env.PORT || 3000);
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/others/cero.html');
+    res.sendFile(__dirname + '/others/useindex.html');
 });
 app.use((req, res) => {
     res.status(404).sendFile(__dirname + '/others/404.html');
