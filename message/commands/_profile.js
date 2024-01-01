@@ -36,7 +36,7 @@ module.exports = {
                 ppuser = 'https://telegra.ph/file/8615e70dd92328db2395b.mp4'
                 
             }
-            buffer = await getBuffer(ppuser)
+            buffer = await sock.getBuffer(ppuser)
             
             sock.sendMessage(m.chat, { 
                 image: {url: buffer},
