@@ -8,19 +8,19 @@ module.exports = {
     
     async execute(sock, m, args, store) {
         try {
-            let dataUser;
+            let dataUserString;
             
             if (args.length > 0) {
-                dataUser = args[0].replace('@', '').replace(/\s/g, '').split('@')[0];
+                dataUserString = args[0].replace('@', '').replace(/\s/g, '').split('@')[0];
             } else if (m.quoted) {
-                dataUser = m.quoted.sender.split('@')[0];
+                dataUserString = m.quoted.sender.split('@')[0];
             } else if (m.sender) {
-                dataUser = m.sender.split('@')[0];
+                dataUserString = m.sender.split('@')[0];
             } else {
                 v.reply('Error ------------')
             }
             
-            const profile = await fetchJson(`https://api-zio.replit.app/api/users/${dataUser}?key=ZioAPI`);
+            const profile = await fetchJson(`https://api-zio.replit.app/api/users/${dataUserString}?key=ZioAPI`);
             const dataUser = profile.result.user
             
             if (profile.status === 404) {
