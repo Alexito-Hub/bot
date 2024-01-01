@@ -60,14 +60,16 @@ const start = async() => {
 app.use(express.static(path.join(__dirname, 'others')));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + 'others', 'index.html');
+    res.sendFile(path.join(__dirname, 'others', 'index.html'));
 });
+
 app.use((req, res) => {
-    res.status(404).sendFile(__dirname + 'others', '404.html');
+    res.status(404).sendFile(path.join(__dirname, 'others', '404.html'));
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Escuchando en el puerto ${PORT}`);
+    console.log(`Escuchando en el puerto ${PORT}`);
 });
+
 start()
