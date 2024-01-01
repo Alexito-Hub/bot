@@ -10,15 +10,14 @@ module.exports = {
         try {
             let user;
             
-            if (m.sender) {
-                user = m.sender.split('@')[0];
-            } else if (args.length > 0) {
+            if (args.length > 0) {
                 user = args[0].replace('@', '').replace(/\s/g, '').split('@')[0];
             } else if (m.quoted) {
                 user = m.quoted.sender.split('@')[0];
+            } else if (m.sender) {
+                user = m.sender.split('@')[0];
             } else {
-                sock.sendMessage(m.chat, { text: '*Profile <@usuario>*' }, { quoted: m });
-                return;
+                v.reply('Error ------------')
             }
             
             const profile = await fetchJson(`https://api-zio.replit.app/api/users/${user}?key=ZioAPI`);
