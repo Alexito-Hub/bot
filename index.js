@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/others/cero.html');
 });
 app.use((req, res) => {
-    res.status(404).sendFile(__dirname + '/others/cero.html');
+    res.status(404).sendFile(__dirname + '/others/404.html');
 });
 
 app.listen(app.get('port'), () => {
