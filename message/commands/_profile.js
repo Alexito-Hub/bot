@@ -28,18 +28,10 @@ module.exports = {
                 sock.sendMessage(m.chat, { text: 'Usuario no registrado' }, { quoted: m });
                 return;
             }
-
-            let ppuser;
-            
-            if (ppuser) {
-                ppuser = await sock.profilePictureUrl(`${user}@c.us`, 'image');
-            } else {
-                ppuser = 'https://telegra.ph/file/8615e70dd92328db2395b.mp4';
-            }
-
+            const ppuser = await sock.profilePictureUrl(`${user}@c.us`, 'image');
             sock.sendMessage(m.chat, { 
-                gif: {url: ppuser},
-                gifPlayback: true,
+                image: {url: ppuser},
+                mimetype: 'image/jpeg',
                 caption: `ㅤㅤ *⋯⋯ PROFILE ⋯⋯*
 
  *➭ Numero:* ${user}
@@ -55,8 +47,7 @@ module.exports = {
  *➭ Foto de Perfil:*`
             }, { quoted: m });
         } catch (e) {
-            console.error('Error:', e);
-            sock.sendMessage(m.chat, { text: 'Error al procesar la solicitud.' }, { quoted: m });
+            throw e
         }
     }
 };
