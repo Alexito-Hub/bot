@@ -21,12 +21,12 @@ module.exports = {
             }
             
             const profile = await fetchJson(`https://api-zio.replit.app/api/users/${dataUserString}?key=ZioAPI`);
-            const dataUser = profile.result.user
             
             if (profile.status === 404) {
                 sock.sendMessage(m.chat, { text: 'Usuario no registrado' }, { quoted: m });
                 return;
             }
+            const dataUser = profile.result.user
             const ppuser = await sock.profilePictureUrl(`${dataUserString}@c.us`, 'image');
             sock.sendMessage(m.chat, { 
                 image: {url: ppuser},
