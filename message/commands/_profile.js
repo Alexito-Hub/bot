@@ -8,19 +8,19 @@ module.exports = {
     
     async execute(sock, m, args, store) {
         try {
-            let user;
+            let dataUser;
             
             if (args.length > 0) {
-                user = args[0].replace('@', '').replace(/\s/g, '').split('@')[0];
+                dataUser = args[0].replace('@', '').replace(/\s/g, '').split('@')[0];
             } else if (m.quoted) {
-                user = m.quoted.sender.split('@')[0];
+                dataUser = m.quoted.sender.split('@')[0];
             } else if (m.sender) {
-                user = m.sender.split('@')[0];
+                dataUser = m.sender.split('@')[0];
             } else {
                 v.reply('Error ------------')
             }
             
-            const profile = await fetchJson(`https://api-zio.replit.app/api/users/${user}?key=ZioAPI`);
+            const profile = await fetchJson(`https://api-zio.replit.app/api/users/${dataUser}?key=ZioAPI`);
             const dataUser = profile.result.user
             
             if (profile.status === 404) {
@@ -33,7 +33,6 @@ module.exports = {
                 mimetype: 'image/jpeg',
                 caption: `ㅤㅤ *⋯⋯ PROFILE ⋯⋯*
 
- *➭ Numero:* ${user}
  *➭ Nombre:* ${dataUser.name}
  *➭ Edad:* ${dataUser.age}
  *➭ Genero:* ${dataUser.gender}
