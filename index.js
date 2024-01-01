@@ -54,16 +54,19 @@ const start = async() => {
 		require('./message/upsert')(sock, messages)
 	})
 }
-app.set('port', process.env.PORT || 3000);
+
+
+app.use(express.static(path.join(__dirname, 'others')));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/others/index.html');
+    res.sendFile(__dirname + 'others', 'index.html');
 });
 app.use((req, res) => {
-    res.status(404).sendFile(__dirname + '/others/404.html');
+    res.status(404).sendFile(__dirname + 'others', '404.html');
 });
 
-app.listen(app.get('port'), () => {
-  console.log(`Server on port ${app.get('port')}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Escuchando en el puerto ${PORT}`);
 });
 start()
