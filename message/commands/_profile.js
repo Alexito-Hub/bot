@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { fetchJson } = require('../../lib/utils');
+const { fetchJson, getBuffer } = require('../../lib/utils');
 
 module.exports = {
     name: "Perfil",
@@ -33,7 +33,7 @@ module.exports = {
                 ppuser = await sock.profilePictureUrl(`${sender.split('@')[0]}@c.us`, 'image')
                 
             } catch {
-                ppuser = 'https://imguh.com/images/2023/11/05/Blue-Modern-Futuristic-Artificial-Intelligence-TikTok-Story_20231105_090013_0000b5ccc9d014fdd421.jpg'
+                ppuser = 'https://telegra.ph/file/8615e70dd92328db2395b.mp4'
                 
             }
             buffer = await getBuffer(ppuser)
