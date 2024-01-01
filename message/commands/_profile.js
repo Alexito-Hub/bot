@@ -40,8 +40,8 @@ module.exports = {
             const buffer = await sock.getBuffer(ppuser);
 
             sock.sendMessage(m.chat, { 
-                image: {url: buffer},
-                mimetype: 'image/jpeg',
+                gif: {url: buffer},
+                gifPlayback: true,
                 caption: `ㅤㅤ *⋯⋯ PROFILE ⋯⋯*
 
  *➭ Numero:* ${user}
