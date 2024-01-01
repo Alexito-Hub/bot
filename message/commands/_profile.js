@@ -38,8 +38,6 @@ module.exports = {
             }
             buffer = await getBuffer(ppuser)
             
-            const profilePic = await sock.getProfilePicture(user);
-
             sock.sendMessage(m.chat, { 
                 image: {url: buffer},
                 mimetype: 'image/jpeg',
