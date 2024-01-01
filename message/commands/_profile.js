@@ -28,12 +28,22 @@ module.exports = {
                 sock.sendMessage(m.chat, { text: 'Usuario no registrado' }, { quoted: m });
                 return;
             }
-
-            // Obtener la foto de perfil
+            
+            try {
+                ppuser = await sock.profilePictureUrl(`${sender.split('@')[0]}@c.us`, 'image')
+                
+            } catch {
+                ppuser = 'https://imguh.com/images/2023/11/05/Blue-Modern-Futuristic-Artificial-Intelligence-TikTok-Story_20231105_090013_0000b5ccc9d014fdd421.jpg'
+                
+            }
+            buffer = await getBuffer(ppuser)
+            
             const profilePic = await sock.getProfilePicture(user);
 
-            sock.sendMessage(m.chat, {
-                text: `ㅤㅤ *⋯⋯ PROFILE ⋯⋯*
+            sock.sendMessage(m.chat, { 
+                image: {url: buffer},
+                mimetype: 'image/jpeg',
+                caption: `ㅤㅤ *⋯⋯ PROFILE ⋯⋯*
 
  *➭ Numero:* ${user}
  
@@ -47,8 +57,7 @@ module.exports = {
  *➭ Limites:* ${dataUser.limit}
  
  *➭ Foto de Perfil:*
-`,
-                ...(profilePic ? { image: { url: profilePic, mimetype: 'image/jpeg' } } : {})
+`
             }, { quoted: m })
         } catch (e) {
             throw e
