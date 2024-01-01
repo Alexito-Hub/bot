@@ -7,6 +7,8 @@ const {
 } = require('@whiskeysockets/baileys')
 const P = require('pino')
 const { exec } = require('child_process')
+const express = require('express');
+const app = express();
 
 const start = async() => {
 	const level = P({ level: 'silent' })
@@ -52,5 +54,16 @@ const start = async() => {
 		require('./message/upsert')(sock, messages)
 	})
 }
+app.set('port', process.env.PORT || 3000);
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/others/cero.html');
+});
+app.use((req, res) => {
+    res.status(404).sendFile(__dirname + '/others/cero.html');
+});
+
+app.listen(app.get('port'), () => {
+  console.log(`Server on port ${app.get('port')}`);
+});
 start()
