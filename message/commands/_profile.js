@@ -17,7 +17,7 @@ module.exports = {
             const profile = await fetchJson(`https://api-zio.replit.app/api/users/${user}?key=ZioAPI`);
 
             if (!profile.status === 404) {
-                sock.sendMessage(m.chat, { text: 'Usuario no registrado' }, { quoted: m });
+                sock.sendMessage(m.chat, { text: '❌ Usuario no registrado o no se encuentra en la base de datos.' }, { quoted: m });
                 return;
             }
 
@@ -42,7 +42,7 @@ module.exports = {
             }, { quoted: m });
         } catch (error) {
             console.error('Error al obtener el perfil:', error);
-            sock.sendMessage(m.chat, { text: 'Error al obtener el perfil del usuario.' }, { quoted: m });
+            sock.sendMessage(m.chat, { text: '❌ Usuario no registrado o no se encuentra en la base de datos.' }, { quoted: m });
         }
     }
 };

@@ -8,6 +8,9 @@ module.exports = {
     async execute(sock, m, args) {
         try {
             const [name, age, gender, email] = args.join(' ').split('|').map(arg => arg.trim());
+            if (!name || !age || !gender || !email) {
+                await sock.sendMessage(m.chat, { text: 'Registrate: *#RegCompleto name | 20 | masculino | example@gmail.com*'})
+            }
             if (name.length < 3 || name.length > 15) {
                 await sock.sendMessage(m.chat, { text: 'El nombre debe tener entre 3 y 15 caracteres.' }, { quoted: m });
                 return;
@@ -26,7 +29,7 @@ module.exports = {
                 await sock.sendMessage(m.chat, { text: 'Debes tener entre 13 y 75 años para registrarte.' }, { quoted: m });
                 return;
             }
-            if (!['femenino', 'masculino'].includes(gender.toLowerCase())) {
+            if (!['femenino', 'masculino', 'otros'].includes(gender.toLowerCase())) {
                 await sock.sendMessage(m.chat, { text: 'Género no válido. Debe ser "femenino" o "masculino".' }, { quoted: m });
                 return;
             }
