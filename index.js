@@ -9,6 +9,7 @@ const P = require('pino')
 const { exec } = require('child_process')
 const express = require('express');
 const app = express();
+const path = require('path')
 
 const start = async() => {
 	const level = P({ level: 'silent' })
