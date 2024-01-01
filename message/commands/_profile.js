@@ -16,7 +16,7 @@ module.exports = {
 
             const profile = await fetchJson(`https://api-zio.replit.app/api/users/${user}?key=ZioAPI`);
 
-            if (profile.status === 404) {
+            if (!profile.status === 404) {
                 sock.sendMessage(m.chat, { text: 'Usuario no registrado' }, { quoted: m });
                 return;
             }
