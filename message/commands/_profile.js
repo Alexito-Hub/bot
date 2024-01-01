@@ -31,16 +31,14 @@ module.exports = {
 
             let ppuser;
             
-            try {
+            if (ppuser) {
                 ppuser = await sock.profilePictureUrl(`${user}@c.us`, 'image');
-            } catch {
+            } else {
                 ppuser = 'https://telegra.ph/file/8615e70dd92328db2395b.mp4';
             }
 
-            const buffer = await sock.getBuffer(ppuser);
-
             sock.sendMessage(m.chat, { 
-                gif: {url: buffer},
+                gif: {url: ppuser},
                 gifPlayback: true,
                 caption: `ㅤㅤ *⋯⋯ PROFILE ⋯⋯*
 
