@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { fetchJson } = require('../../lib/utils');
 
 module.exports = {
     name: "Perfil",
