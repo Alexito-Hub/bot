@@ -48,53 +48,41 @@ const start = async () => {
 
 		sock.ev.on('creds.update', saveCreds);
 		
-sock.ev.on('group-participants.update', async (update) => {
-    console.log('group-participants.update event triggered');
-    const groupId = update.id;
-    const participants = update.participants;
-    const action = update.action;
-    const inv = update.inviter;
-
-    const groupName = await sock.getName(groupId);
-
-    for (const participant of participants) {
-        console.log(`participant update: ${participant}, action: ${action}`);
-        const user = participant.split('@')[0];
-        const invite = inv ? inv.split('@')[0] : 'desconocido';
-
-        if (action === 'add') {
-            sock.sendMessage(groupId, { 
-                text: `¡Bienvenido/a @${user} al grupo ${groupName}! Añadido por @${invite}. ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
-                contextInfo: {
-                    mentionedJid: [participant],
-                    externalAdReply: {
-                        title: `ᴍᴏᴄʜɪ • ᴛᴀᴋᴜ ᴍᴇᴅɪᴀ`,
-                        body: `ugu`,
-                        showAdAttribution: true,
-                        renderLargerThumbnail: true, 
-                        mediaType: 1, 
-                        thumbnailUrl: 'https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/06/30/62be22d15330dd1f2a2f91c0.webp'
-                    }
+        sock.ev.on('group-participants.update', async (update) => {
+            const groupId = update.id;
+            const participants = update.participants;
+            const action = update.action;
+            const metadata = await sock.groupMetadata(groupId);
+            const groupName = metadata.subject;
+        
+            for (const participant of participants) {
+                console.log(`participant update: ${participant}, action: ${action}`);
+                const user = participant.split('@')[0];
+                if (action === 'add') {
+                    sock.sendMessage(groupId, {
+                        video: {url: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4' },
+                        gifPlayback: true,
+                        caption:`¡Bienvenido/a @${user} al grupo ${groupName}! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
+                        contextInfo: {
+                            mentionedJid: [participant],
+                            remoteJid: [groupId]
+                        }
+                    })
+        
+                } else if (action === 'remove') {
+                    sock.sendMessage(groupId, {
+                        video: { url: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4' },
+                        gifPlayback: true,
+                        caption:`Lamentamos ver partir a @${user}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
+                        contextInfo: {
+                            mentionedJid: [participant],
+                            remoteJid: [groupId]
+                        }
+                    })
                 }
-            });
-        } else if (action === 'remove') {
-            sock.sendMessage(groupId, {
-                text: `Lamentamos ver partir a @${user}. Eliminado por @${invite} del grupo ${groupName}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
-                contextInfo: {
-                    mentionedJid: [participant],
-                    externalAdReply: {
-                        title: `ᴍᴏᴄʜɪ • ᴛᴀᴋᴜ ᴍᴇᴅɪᴀ`,
-                        body: `Ugu`,
-                        showAdAttribution: true,
-                        renderLargerThumbnail: true, 
-                        mediaType: 1, 
-                        thumbnailUrl: 'https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/06/30/62be22d15330dd1f2a2f91c0.webp'
-                    }
-                }
-            });
-        }
-    }
-});
+            }
+        });
+
 
 		sock.ev.on('messages.upsert', messages => {
 			messages = messages.messages[0];
