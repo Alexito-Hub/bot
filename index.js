@@ -69,7 +69,7 @@ Kaori está emocionado por tenerte en *${groupName}*. Si quieres explorar los co
                             mentionedJid: [participant],
                             remoteJid: [groupId],
                             externalAdReply: {
-                                title: `${groupName}`,
+                                title: `${groupName} • ${author}`,
                                 thumbnailUrl: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4'
                             }
                         }
