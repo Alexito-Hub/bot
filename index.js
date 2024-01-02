@@ -70,7 +70,6 @@ Kaori está emocionado por tenerte en *${groupName}*. Si quieres explorar los co
                                 renderLargerThumbnail: true, 
                                 mediaType: 1,
                                 thumbnailUrl: 'https://telegra.ph/file/af2694ce1171fd6de82ec.jpg',
-                                thumbnailFit: true,
                             }
                         }
                     })
@@ -88,7 +87,6 @@ Lamentamos ver tu partida del grupo ${groupName}. Siempre serás bienvenido/a de
                                 renderLargerThumbnail: true, 
                                 mediaType: 1,
                                 thumbnailUrl: 'https://telegra.ph/file/af2694ce1171fd6de82ec.jpg',
-                                thumbnailFit: true,
                             }
                         }
                     })
