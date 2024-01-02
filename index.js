@@ -55,30 +55,38 @@ const start = async () => {
             const author = update.author
             const metadata = await sock.groupMetadata(groupId);
             console.log(metadata)
-            // const groupName = metadata.subject[0]
+            const groupName = metadata.subject[0]
         
             for (const participant of participants) {
                 console.log(`participant update: ${participant}, action: ${action}`);
                 const user = participant.split('@')[0];
                 if (action === 'add') {
                     sock.sendMessage(groupId, {
-                        video: {url: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4' },
-                        mimetype: 'video/mp4',
-                        caption:`¡Bienvenido/a @${user} al grupo ! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
+                        text:`¡Bienvenido, *@${user}⁩*! 🌠
+
+Kaori está emocionado por tenerte en *${groupName}*. Si quieres explorar los comandos de Kotori-Bot, usa *.menu* en cualquier momento. ¡Disfruta tu estancia! 🤖`,
                         contextInfo: {
                             mentionedJid: [participant],
-                            remoteJid: [groupId]
+                            remoteJid: [groupId],
+                            externalAdReply: {
+                                title: `${groupName}`,
+                                thumbnailUrl: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4'
+                            }
                         }
                     })
         
                 } else if (action === 'remove') {
                     sock.sendMessage(groupId, {
-                        video: { url: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4' },
-                        mimetype: 'video/mp4',
-                        caption:`Lamentamos ver partir a @${user}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
+                        text:`¡Adiós, *@${user}⁩*! 🌠
+
+Lamentamos ver tu partida del grupo ${groupName}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
                         contextInfo: {
                             mentionedJid: [participant],
-                            remoteJid: [groupId]
+                            remoteJid: [groupId],
+                            externalAdReply: {
+                                title: `${groupName}`,
+                                thumbnailUrl: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4'
+                            }
                         }
                     })
                 }
