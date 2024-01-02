@@ -52,8 +52,6 @@ const start = async () => {
             const groupId = update.id
             const participants = update.participants;
             const action = update.action;
-            const author = update.author
-            console.log(author)
             const metadata = await sock.groupMetadata(groupId);
             const groupName = metadata.subject
         
@@ -68,7 +66,8 @@ Kaori está emocionado por tenerte en *${groupName}*. Si quieres explorar los co
                             mentionedJid: [participant],
                             remoteJid: [groupId],
                             externalAdReply: {
-                                title: `${groupName} • ${author ? author : 'Kaori'}`,
+                                title: `${groupName}`,
+                                mediaType: 2,
                                 thumbnailUrl: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4'
                             }
                         }
@@ -83,7 +82,8 @@ Lamentamos ver tu partida del grupo ${groupName}. Siempre serás bienvenido/a de
                             mentionedJid: [participant],
                             remoteJid: [groupId],
                             externalAdReply: {
-                                title: `${groupName} ${author ? author : 'Kaori'}`,
+                                title: `${groupName}`,
+                                mediaType: 2,
                                 thumbnailUrl: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4'
                             }
                         }
