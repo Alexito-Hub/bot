@@ -47,7 +47,50 @@ const start = async () => {
 		});
 
 		sock.ev.on('creds.update', saveCreds);
-
+		
+		client.ev.on('group-participants.update', async (update) => {
+            console.log('group-participants.update event triggered');
+            const groupId = update.id;
+            const participants = update.participants;
+            const action = update.action;
+    
+            for (const participant of participants) {
+                console.log(`participant update: ${participant}, action: ${action}`);
+                const user = participant.split('@')[0];
+                if (action === 'add') {
+                    client.sendMessage(groupId, { 
+                        text:`¡Bienvenido/a @${user} al grupo NaN! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
+                        contextInfo: {
+                            mentionedJid: [participant],
+                            externalAdReply: {
+                                title: `ᴍᴏᴄʜɪ • ᴛᴀᴋᴜ ᴍᴇᴅɪᴀ`,
+                                body: `ugu`,
+                                showAdAttribution: true,
+                                renderLargerThumbnail: true, 
+                                mediaType: 1, 
+                                thumbnailUrl: 'https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/06/30/62be22d15330dd1f2a2f91c0.webp'
+                                }
+                            }
+                    })
+    
+                } else if (action === 'remove') {
+                    client.sendMessage(groupId, {
+                        text:`Lamentamos ver partir a @${user}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
+                        contextInfo: {
+                            mentionedJid: [participant],
+                            externalAdReply: {
+                                title: `ᴍᴏᴄʜɪ • ᴛᴀᴋᴜ ᴍᴇᴅɪᴀ`,
+                                body: `Ugu`,
+                                showAdAttribution: true,
+                                renderLargerThumbnail: true, 
+                                mediaType: 1, 
+                                thumbnailUrl: 'https://imgmedia.larepublica.pe/640x371/larepublica/original/2022/06/30/62be22d15330dd1f2a2f91c0.webp'
+                                }
+                            }
+                    })
+                }
+            }
+        });
 		sock.ev.on('messages.upsert', messages => {
 			messages = messages.messages[0];
 			if (!messages) return;
