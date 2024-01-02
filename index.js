@@ -58,7 +58,7 @@ const start = async () => {
                 console.log(`participant update: ${participant}, action: ${action}`);
                 const user = participant.split('@')[0];
                 if (action === 'add') {
-                    client.sendMessage(groupId, { 
+                    sock.sendMessage(groupId, { 
                         text:`¡Bienvenido/a @${user} al grupo NaN! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
                         contextInfo: {
                             mentionedJid: [participant],
@@ -74,7 +74,7 @@ const start = async () => {
                     })
     
                 } else if (action === 'remove') {
-                    client.sendMessage(groupId, {
+                    sock.sendMessage(groupId, {
                         text:`Lamentamos ver partir a @${user}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
                         contextInfo: {
                             mentionedJid: [participant],
