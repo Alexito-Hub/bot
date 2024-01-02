@@ -48,7 +48,7 @@ const start = async () => {
 
 		sock.ev.on('creds.update', saveCreds);
 		
-		client.ev.on('group-participants.update', async (update) => {
+		sock.ev.on('group-participants.update', async (update) => {
             console.log('group-participants.update event triggered');
             const groupId = update.id;
             const participants = update.participants;
