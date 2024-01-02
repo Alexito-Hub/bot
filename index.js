@@ -12,7 +12,7 @@ const app = express();
 const path = require('path');
 
 const start = async () => {
-	const logger = P({ level: 'level' }); // Ajusta el nivel de registro según sea necesario
+	const logger = P({ level: 'silent' }); // Ajusta el nivel de registro según sea necesario
 	try {
 		const { state, saveCreds } = await useMultiFileAuthState('session');
 
