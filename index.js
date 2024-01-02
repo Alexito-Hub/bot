@@ -49,11 +49,11 @@ const start = async () => {
 		sock.ev.on('creds.update', saveCreds);
 		
         sock.ev.on('group-participants.update', async (update) => {
-            const groupId = update.id;
+            const groupId = update.id[0]
             const participants = update.participants;
             const action = update.action;
             const metadata = await sock.groupMetadata(groupId);
-            const groupName = metadata.subject;
+            const groupName = metadata.subject[0]
         
             for (const participant of participants) {
                 console.log(`participant update: ${participant}, action: ${action}`);
