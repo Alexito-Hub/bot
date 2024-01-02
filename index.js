@@ -53,23 +53,22 @@ const start = async () => {
             const participants = update.participants;
             const action = update.action;
             const author = update.author
+            console.lpg(author)
             const metadata = await sock.groupMetadata(groupId);
-            console.log(metadata)
-            const groupName = metadata.subject[0]
+            const groupName = metadata.subject
         
             for (const participant of participants) {
-                console.log(`participant update: ${participant}, action: ${action}`);
                 const user = participant.split('@')[0];
                 if (action === 'add') {
                     sock.sendMessage(groupId, {
                         text:`¡Bienvenido, *@${user}⁩*! 🌠
 
-Kaori está emocionado por tenerte en *${groupName}*. Si quieres explorar los comandos de Kotori-Bot, usa *.menu* en cualquier momento. ¡Disfruta tu estancia! 🤖`,
+Kaori está emocionado por tenerte en *${groupName}*. Si quieres explorar los comandos de Kaori, usa *.menu* en cualquier momento. ¡Disfruta tu estancia! 🤖`,
                         contextInfo: {
                             mentionedJid: [participant],
                             remoteJid: [groupId],
                             externalAdReply: {
-                                title: `${groupName} • ${author}`,
+                                title: `${groupName} • ${author ? author : 'Kaori'}`,
                                 thumbnailUrl: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4'
                             }
                         }
@@ -84,7 +83,7 @@ Lamentamos ver tu partida del grupo ${groupName}. Siempre serás bienvenido/a de
                             mentionedJid: [participant],
                             remoteJid: [groupId],
                             externalAdReply: {
-                                title: `${groupName}`,
+                                title: `${groupName} ${author ? author : 'Kaori'}`,
                                 thumbnailUrl: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4'
                             }
                         }
