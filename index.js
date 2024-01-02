@@ -60,7 +60,7 @@ sock.ev.on('group-participants.update', async (update) => {
     for (const participant of participants) {
         console.log(`participant update: ${participant}, action: ${action}`);
         const user = participant.split('@')[0];
-        const invite = inv ? await sock.getName(inv) : 'desconocido';
+        const invite = inv ? inv.split('@')[0] : 'desconocido';
 
         if (action === 'add') {
             sock.sendMessage(groupId, { 
