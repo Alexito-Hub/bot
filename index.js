@@ -52,8 +52,10 @@ const start = async () => {
             const groupId = update.id
             const participants = update.participants;
             const action = update.action;
+            const author = update.author
             const metadata = await sock.groupMetadata(groupId);
-            const groupName = metadata.subject[0]
+            console.log(metadata)
+            // const groupName = metadata.subject[0]
         
             for (const participant of participants) {
                 console.log(`participant update: ${participant}, action: ${action}`);
@@ -62,7 +64,7 @@ const start = async () => {
                     sock.sendMessage(groupId, {
                         video: {url: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4' },
                         gifPlayback: true,
-                        caption:`¡Bienvenido/a @${user} al grupo ${groupName}! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
+                        caption:`¡Bienvenido/a @${user} al grupo ! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
                         contextInfo: {
                             mentionedJid: [participant],
                             remoteJid: [groupId]
