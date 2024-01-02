@@ -63,7 +63,7 @@ const start = async () => {
                 if (action === 'add') {
                     sock.sendMessage(groupId, {
                         video: {url: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4' },
-                        gifPlayback: true,
+                        mimetype: 'video/mp4',
                         caption:`¡Bienvenido/a @${user} al grupo ! ¡Espero que disfrutes tu estancia y compartas momentos geniales!`,
                         contextInfo: {
                             mentionedJid: [participant],
@@ -74,7 +74,7 @@ const start = async () => {
                 } else if (action === 'remove') {
                     sock.sendMessage(groupId, {
                         video: { url: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4' },
-                        gifPlayback: true,
+                        mimetype: 'video/mp4',
                         caption:`Lamentamos ver partir a @${user}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
                         contextInfo: {
                             mentionedJid: [participant],
