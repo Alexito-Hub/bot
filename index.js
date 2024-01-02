@@ -67,8 +67,10 @@ Kaori está emocionado por tenerte en *${groupName}*. Si quieres explorar los co
                             remoteJid: [groupId],
                             externalAdReply: {
                                 title: `${groupName}`,
-                                mediaType: 2,
-                                thumbnailUrl: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4'
+                                renderLargerThumbnail: true, 
+                                mediaType: 1,
+                                thumbnailUrl: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4',
+                                thumbnailFit: true
                             }
                         }
                     })
@@ -83,8 +85,10 @@ Lamentamos ver tu partida del grupo ${groupName}. Siempre serás bienvenido/a de
                             remoteJid: [groupId],
                             externalAdReply: {
                                 title: `${groupName}`,
-                                mediaType: 2,
-                                thumbnailUrl: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4'
+                                renderLargerThumbnail: true, 
+                                mediaType: 1,
+                                thumbnailUrl: 'https://telegra.ph/file/8615e70dd92328db2395b.mp4',
+                                thumbnailFit: true
                             }
                         }
                     })
