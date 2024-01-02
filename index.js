@@ -12,7 +12,7 @@ const app = express();
 const path = require('path');
 
 const start = async () => {
-	const logger = P({ level: 'info' }); // Ajusta el nivel de registro según sea necesario
+	const logger = P({ level: 'level' }); // Ajusta el nivel de registro según sea necesario
 	try {
 		const { state, saveCreds } = await useMultiFileAuthState('session');
 
@@ -53,7 +53,7 @@ const start = async () => {
             const participants = update.participants;
             const action = update.action;
             const author = update.author
-            console.lpg(author)
+            console.log(author)
             const metadata = await sock.groupMetadata(groupId);
             const groupName = metadata.subject
         
