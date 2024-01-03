@@ -26,7 +26,7 @@ const loadEnabledGroups = () => {
 };
 
 // Cargar grupos habilitados al inicio
-enabledGroups = loadEnabledGroups();
+const enabledGroups = loadEnabledGroups();
 
 module.exports = {
   name: 'welcome',
