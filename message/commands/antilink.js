@@ -27,7 +27,7 @@ module.exports = {
             // Verificar si el mensaje contiene enlaces
             if (m.text && hasLinks(m.text)) {
                 // Eliminar al usuario que envió el enlace
-                await sock.groupParticipantsUpdate(m.chat, [sender], 'remove');
+                await sock.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
                 sock.sendMessage(chatId, { text: 'Enlaces no permitidos. Has sido eliminado.' });
             }
         }
