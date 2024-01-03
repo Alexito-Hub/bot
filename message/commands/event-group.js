@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
-const { Json } = require('../lib/functions');
-const { client, sms } = require('../lib/simple');
+const { Json } = require('../../lib/functions');
+const { client, sms } = require('../../lib/simple');
 
 // Almacena los grupos habilitados para welcome y goodbye
 const enabledGroups = {
