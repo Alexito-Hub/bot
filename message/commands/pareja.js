@@ -6,6 +6,7 @@ module.exports = {
         try {
             const groupId = m.chat;
             const participants = await sock.groupMetadata(groupId);
+            console.log(participants)
 
             if (participants.length < 2) {
                 await sock.sendMessage(m.chat, { text: 'No hay suficientes usuarios en el grupo para formar parejas.' }, { quoted: m });
@@ -13,7 +14,7 @@ module.exports = {
             }
 
             // Elige dos usuarios aleatorios diferentes
-            const [user1, user2] = sock.shuffleArray(participants).slice(0, 2);
+            const [user1, user2] = (participants).slice(0, 2);
 
             // Menciona a los usuarios como pareja
             await sock.sendMessage(groupId, {
