@@ -17,7 +17,7 @@ module.exports = {
 
             // Menciona a los usuarios como pareja
             await sock.sendMessage(groupId, {
-                text: `¡@${user1} y @${user2} son pareja! 💑`,
+                text: `¡@${user1.split('@')[0]} y @${user2.split('@')[0]} son pareja! 💑`,
                 contextInfo: { mentionedJid: [user1, user2] },
             });
         } catch (error) {
@@ -38,8 +38,8 @@ function getRandomParticipants(participants) {
     }
 
     // Obtén los números de teléfono de los usuarios en los índices seleccionados
-    const user1 = participants[index1].id.replace('@c.us', '');
-    const user2 = participants[index2].id.replace('@c.us', '');
+    const user1 = participants[index1].id;
+    const user2 = participants[index2].id;
 
     return [user1, user2];
 }
