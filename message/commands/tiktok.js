@@ -7,7 +7,8 @@ module.exports = {
 
     async execute(sock, m, args) {
         try {
-            if (!args[0]) {
+            v.reply('Tiktok no disponible 🍥', m)
+            /* if (!args[0]) {
                 await sock.sendMessage(m.chat, { text: '*tiktok <url>*' }, { quoted: m });
                 return;
             }
@@ -64,7 +65,7 @@ module.exports = {
                 console.log('Error al obtener información');
                 await sock.sendMessage(m.chat, { react: { text: '❎', key: m.key } });
                 await sock.sendMessage(m.chat, { text: 'No se pudo descargar' }, { quoted: m });
-            }
+            } */
         } catch (e) {
             console.error(e);
             await sock.sendMessage(m.chat, { text: `${e}` });

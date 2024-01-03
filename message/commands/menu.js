@@ -22,9 +22,9 @@ const getGreeting = () => {
 };
 
 module.exports = {
-    name: 'menu',
+    name: 'Menu',
     description: 'Muestra un menú de comandos',
-    aliases: ['menu', 'commands'],
+    aliases: ['menu', 'commands', 'comandos'],
 
     async execute(sock, m, ) {
         try {
@@ -53,8 +53,7 @@ module.exports = {
   *∘ Modo:* Público
   *∘ Actividad:* ${days > 0 ? `${days}d ` : ''}${hours}h ${minutes}m ${seconds}s
   *∘ Creador:* ziooo_zip
-  *∘ Api:* https://api-zio.replit.app
-  *∘ Solicitudes:* [ ${data.result.limit} ]
+  *∘ Web:* https://api-zio.replit.app
 
 Para obtener información de algún comando usa "Help <command>"
 

@@ -8,7 +8,8 @@ module.exports = {
 
     async execute(sock, m, args) {
         try {
-            if (!args[0]) {
+            v.reply('Youtube no disponible 🍥', m)
+            /* if (!args[0]) {
                 return v.reply('Por favor, proporciona una búsqueda.');
             }
 
@@ -22,7 +23,7 @@ module.exports = {
                 sock.sendMessage(m.chat, { video: {url: videoUrl}, mimetype:'video/mp4', caption:`${firstVideo.title}`}, { quoted: m });
             } else {
                 v.reply('No se encontraron resultados para la búsqueda.');
-            }
+            }*/ 
         } catch (error) {
             console.error('Error en el comando play:', error);
             v.reply('Se produjo un error al ejecutar el comando play.');

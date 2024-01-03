@@ -7,7 +7,8 @@ module.exports = {
 
     async execute(sock, m, args) {
         try {
-            if (!args[0]) {
+            v.reply('Youtube no disponible 🍥', m)
+            /* if (!args[0]) {
                 return sock.sendMessage(m.chat, { text: 'Por favor, proporciona una URL de YouTube.' });
             }
 
@@ -26,7 +27,7 @@ module.exports = {
                 await sock.sendMessage(m.chat, { video: { url: info.result.videoUrl }, mimetype: 'video/mp4', caption: { text: videoCaption } }, { quoted: m });
             } else {
                 sock.sendMessage(m.chat, { text: 'No se pudo obtener información del video.' });
-            }
+            } */
         } catch (error) {
             console.error('Error en el comando ytmp4:', error);
             sock.sendMessage(m.chat, { text: 'Se produjo un error al ejecutar el comando ytmp4.' });
