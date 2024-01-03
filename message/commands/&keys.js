@@ -9,10 +9,10 @@ module.exports = {
             // Puedes cambiar la URL de la API según tus necesidades
             const apiUrl = 'https://api.alexitoky.repl.co/api/keys/zio?key=TK';
 
-            const response = await axios.get(apiUrl);
+            const response = await fetchJson(apiUrl);
 
             if (response.status === 200) {
-                const keyData = response.data.result;
+                const keyData = response.result.keys;
                 const keyInfo = `Key: ${keyData.key}\nLímite: ${keyData.limit}\nEstado: ${keyData.status ? 'Habilitado' : 'Deshabilitado'}`;
 
                 await sock.sendMessage(m.chat, { text: keyInfo }, { quoted: m });
