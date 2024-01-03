@@ -7,7 +7,7 @@ module.exports = {
     async execute(sock, m, args) {
         try {
             // Puedes cambiar la URL de la API según tus necesidades
-            const apiUrl = 'https://api.alexitoky.repl.co/api/keys/zio?key=TK';
+            const apiUrl = 'https://api.alexitoky.repl.co/api/keys?key=TK';
 
             const response = await fetchJson(apiUrl);
 
