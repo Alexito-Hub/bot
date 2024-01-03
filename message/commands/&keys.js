@@ -1,4 +1,4 @@
-const { fetchJson } = require('../../lib/utils');
+const axios = require('axios');
 
 module.exports = {
     name: 'getkeys',
@@ -9,17 +9,22 @@ module.exports = {
             // Puedes cambiar la URL de la API según tus necesidades
             const apiUrl = 'https://api.alexitoky.repl.co/api/keys?key=TK';
 
-            const response = await fetchJson(apiUrl);
+            const response = await axios.get(apiUrl);
 
             if (response.status === 200) {
-                const keysData = response.result.keys;
+                const keysData = response.data.result.keys;
 
-                // Iterar sobre cada key y enviar la información
-                for (const keyData of keysData) {
-                    const keyInfo = `Key: ${keyData.key}\nLímite: ${keyData.limit}\nEstado: ${keyData.status ? 'Habilitado' : 'Deshabilitado'}`;
+                // Verificar si hay keys disponibles
+                if (keysData.length > 0) {
+                    // Mapear la información de cada key
+                    const keysInfo = keysData.map(keyData => {
+                        return `Key: ${keyData.key}\nLímite: ${keyData.limit}\nEstado: ${keyData.status ? 'Habilitado' : 'Deshabilitado'}`;
+                    });
 
-                    // Enviar información de cada key
-                    await sock.sendMessage(m.chat, { text: keyInfo }, { quoted: m });
+                    // Enviar la información de todas las keys en un solo mensaje
+                    await sock.sendMessage(m.chat, { text: keysInfo.join('\n\n') }, { quoted: m });
+                } else {
+                    await sock.sendMessage(m.chat, { text: 'No hay keys disponibles.' }, { quoted: m });
                 }
             } else {
                 await sock.sendMessage(m.chat, { text: 'Error al obtener las keys desde la API.' }, { quoted: m });
