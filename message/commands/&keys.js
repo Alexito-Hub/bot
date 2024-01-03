@@ -2,7 +2,7 @@ const axios = require('axios');
 
 module.exports = {
     name: 'getkeys',
-    description: 'Obtiene las keys desde la API',
+    description: 'Obtiene todas las keys desde la API',
 
     async execute(sock, m, args) {
         try {
@@ -12,10 +12,15 @@ module.exports = {
             const response = await fetchJson(apiUrl);
 
             if (response.status === 200) {
-                const keyData = response.result.keys;
-                const keyInfo = `Key: ${keyData.key}\nLímite: ${keyData.limit}\nEstado: ${keyData.status ? 'Habilitado' : 'Deshabilitado'}`;
+                const keysData = response.result.keys;
 
-                await sock.sendMessage(m.chat, { text: keyInfo }, { quoted: m });
+                // Iterar sobre cada key y enviar la información
+                for (const keyData of keysData) {
+                    const keyInfo = `Key: ${keyData.key}\nLímite: ${keyData.limit}\nEstado: ${keyData.status ? 'Habilitado' : 'Deshabilitado'}`;
+
+                    // Enviar información de cada key
+                    await sock.sendMessage(m.chat, { text: keyInfo }, { quoted: m });
+                }
             } else {
                 await sock.sendMessage(m.chat, { text: 'Error al obtener las keys desde la API.' }, { quoted: m });
             }
