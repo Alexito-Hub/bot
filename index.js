@@ -54,7 +54,9 @@ const start = async() => {
 	        const user = participant.split('@')[0];
 	        if (action === 'add') {
 	            sock.sendMessage(groupId, {
-	                text:`¡Bienvenido, *@${user}⁩*! 🌠Kaori está emocionado por tenerte en *${groupName}*. Si quieres explorar los comandos de Kaori, usa *.menu* en cualquier momento. ¡Disfruta tu estancia! 🤖`,
+	                text:`¡Bienvenido, *@${user}⁩*! 🌠
+
+Kaori está emocionado por tenerte en *${groupName}*. Si quieres explorar los comandos de Kaori, usa *.menu* en cualquier momento. ¡Disfruta tu estancia! 🤖`,
 	                contextInfo: {
 	                    mentionedJid: [participant],
 	                    remoteJid: [groupId],
@@ -68,7 +70,9 @@ const start = async() => {
 	            })
 	        } else if (action === 'remove') {
 	            sock.sendMessage(groupId, {
-	                text:`¡Adiós, *@${user}⁩*! 🌠Lamentamos ver tu partida del grupo ${groupName}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
+	                text:`¡Adiós, *@${user}⁩*! 🌠
+
+Lamentamos ver tu partida del grupo ${groupName}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
 	                contextInfo: {
 	                    mentionedJid: [participant],
 	                    remoteJid: [groupId],
