@@ -1,24 +1,23 @@
 module.exports = {
     name: 'pareja',
-    description: 'Menciona a dos usuarios como pareja',
+    description: 'Menciona a dos usuarios del grupo como pareja',
 
-    async execute(sock, m) {
+    async execute(sock, m, args) {
         try {
             const groupId = m.chat;
-            const participants = await sock.groupMetadata(groupId);
-            console.log(participants)
+            const groupMetadata = await sock.groupMetadata(groupId);
 
-            if (participants.length < 2) {
+            if (groupMetadata.participants.length < 2) {
                 await sock.sendMessage(m.chat, { text: 'No hay suficientes usuarios en el grupo para formar parejas.' }, { quoted: m });
                 return;
             }
 
-            // Elige dos usuarios aleatorios diferentes
-            const [user1, user2] = (participants).slice(0, 2);
+            // Escoge dos usuarios aleatorios diferentes
+            const [user1, user2] = getRandomParticipants(groupMetadata.participants);
 
             // Menciona a los usuarios como pareja
             await sock.sendMessage(groupId, {
-                text: `@${user1} y @${user2} son pareja ❤️`,
+                text: `¡@${user1} y @${user2} son pareja! 💑`,
                 contextInfo: { mentionedJid: [user1, user2] },
             });
         } catch (error) {
@@ -27,3 +26,24 @@ module.exports = {
         }
     },
 };
+
+function getRandomParticipants(participants) {
+    // Escoge dos índices aleatorios diferentes
+    const index1 = getRandomIndex(participants.length);
+    let index2 = getRandomIndex(participants.length);
+
+    // Asegúrate de que los índices sean diferentes
+    while (index2 === index1) {
+        index2 = getRandomIndex(participants.length);
+    }
+
+    // Obtén los números de teléfono de los usuarios en los índices seleccionados
+    const user1 = participants[index1].id.replace('@c.us', '');
+    const user2 = participants[index2].id.replace('@c.us', '');
+
+    return [user1, user2];
+}
+
+function getRandomIndex(max) {
+    return Math.floor(Math.random() * max);
+}
