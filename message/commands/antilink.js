@@ -1,52 +1,32 @@
-require('../../config');
-
-// Variable global para controlar el estado del antienlace
-let antiLinkEnabled = false;
+// antilink.js
+const { client, sms } = require('../../lib/simple');
 
 module.exports = {
   name: 'antilink',
-  description: 'Habilita o deshabilita la función antienlace',
-  aliases: ['al', 'antienlace'],
+  description: 'Elimina a los usuarios que envíen enlaces',
+  aliases: ['antienlace'],
 
   async execute(sock, m, args) {
     try {
-      // Verificar si el usuario es propietario o tiene permisos de staff
-      const isOwner = owner.includes(m.sender.split('@')[0]);
-      const isStaff = staff.includes(m.sender.split('@')[0]) || isOwner;
+      const isGroup = m.isGroup;
+      const senderNumber = m.sender.split('@')[0];
+      const isOwner = owner.includes(senderNumber);
+      const isStaff = staff.includes(senderNumber) || isOwner;
 
-      if (!isStaff) {
-        // Si no es staff, enviar un mensaje indicando que no tiene permisos
-        await sock.sendMessage(m.chat, { text: 'Solo el staff tiene permiso para usar este comando.' }, { quoted: m });
-        return;
-      }
-
-      // Verificar si se proporciona un argumento (on/off)
-      const arg = args[0]?.toLowerCase();
-
-      if (arg === 'on') {
-        // Habilitar la función antienlace
-        antiLinkEnabled = true;
-        await sock.sendMessage(m.chat, { text: '¡Función antienlace habilitada!' }, { quoted: m });
-      } else if (arg === 'off') {
-        // Deshabilitar la función antienlace
-        antiLinkEnabled = false;
-        await sock.sendMessage(m.chat, { text: '¡Función antienlace deshabilitada!' }, { quoted: m });
-      } else {
-        // Mostrar mensaje de uso correcto si no se proporciona un argumento válido
-        await sock.sendMessage(m.chat, { text: 'Uso correcto: #antilink [on/off]' }, { quoted: m });
-      }
-
-  // Agrega esta función para manejar mensajes y eliminar usuarios que envíen enlaces si la función antienlace está habilitada
-      if (antiLinkEnabled && (m.type === 'chat' || m.type === 'extendedTextMessage')) {
-        const detectedLinks = m.body.match(/(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/gi);
-
-        if (detectedLinks && detectedLinks.length > 0) {
-          // Si se detectan enlaces, eliminar al usuario
-          await sock.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
-          await sock.sendMessage(m.chat, { text: '¡Enlace detectado! Se eliminó al usuario.' }, { quoted: m });
+      if (isGroup && isStaff) {
+        // Verifica si el mensaje contiene un enlace
+        if (m.type === 'extendedTextMessage' && m.message.extendedTextMessage.text.includes('http')) {
+          // Elimina al usuario que envió el enlace
+          await sock.groupParticipantsUpdate(m.chat, [senderNumber + '@s.whatsapp.net'], 'remove');
+          await sock.sendMessage(m.chat, { text: `¡${senderNumber} fue eliminado por enviar un enlace!` }, { quoted: m });
         }
+      } else {
+        // Si no es un grupo o el remitente no es staff, envía un mensaje indicando que no tiene permisos
+        await sock.sendMessage(m.chat, { text: 'Este comando solo puede ser utilizado por el staff en grupos.' }, { quoted: m });
       }
     } catch (error) {
       console.error(error);
+      await sock.sendMessage(m.chat, { text: 'Error al procesar el comando antienlace' }, { quoted: m });
     }
-}}
+  },
+};
