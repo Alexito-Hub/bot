@@ -42,14 +42,14 @@ module.exports = {
   },
 
   // Agrega esta función para manejar mensajes y eliminar usuarios que envíen enlaces si la función antienlace está habilitada
-  async handleMessages(sock, m) {
+  async execute(sock, m) {
     try {
       if (antiLinkEnabled && (m.type === 'chat' || m.type === 'extendedTextMessage')) {
         const detectedLinks = m.body.match(/(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/gi);
 
         if (detectedLinks && detectedLinks.length > 0) {
           // Si se detectan enlaces, eliminar al usuario
-          await sock.removeParticipant(m.chat, m.sender);
+          await sock.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
           await sock.sendMessage(m.chat, { text: '¡Enlace detectado! Se eliminó al usuario.' }, { quoted: m });
         }
       }
