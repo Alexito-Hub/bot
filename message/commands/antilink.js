@@ -35,15 +35,8 @@ module.exports = {
         // Mostrar mensaje de uso correcto si no se proporciona un argumento válido
         await sock.sendMessage(m.chat, { text: 'Uso correcto: #antilink [on/off]' }, { quoted: m });
       }
-    } catch (error) {
-      console.error(error);
-      await sock.sendMessage(m.chat, { text: 'Error al procesar el comando antilink' }, { quoted: m });
-    }
-  },
 
   // Agrega esta función para manejar mensajes y eliminar usuarios que envíen enlaces si la función antienlace está habilitada
-  async execute(sock, m) {
-    try {
       if (antiLinkEnabled && (m.type === 'chat' || m.type === 'extendedTextMessage')) {
         const detectedLinks = m.body.match(/(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/gi);
 
@@ -56,5 +49,4 @@ module.exports = {
     } catch (error) {
       console.error(error);
     }
-  },
-};
+}}
