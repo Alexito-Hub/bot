@@ -37,7 +37,7 @@ module.exports = {
                 await sock.sendMessage(m.chat, { text: 'Correo electrónico no válido.' }, { quoted: m });
                 return;
             }
-            const apiUrl = 'https://api-zio.replit.app/api/users?key=ZioAPI';
+            const apiUrl = 'https://api-zio.replit.app/data/users?key=ZioAPI';
             const response = await axios.post(apiUrl, {
                 number: m.sender.split('@')[0],
                 name,

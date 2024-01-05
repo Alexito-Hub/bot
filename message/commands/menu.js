@@ -38,7 +38,7 @@ module.exports = {
             const seconds = uptimeSeconds % 60;
 
             const { greeting, dailyMessage, time } = getGreeting();
-            const data = await fetchJson('https://api-zio.replit.app/api/keys/ZioAPI?key=TK')
+            const data = await fetchJson('https://api-zio.replit.app/data/keys/ZioAPI?key=TK')
             await sock.sendMessage(m.chat, {
                 contextInfo: {
                     remoteJid: m.chat,

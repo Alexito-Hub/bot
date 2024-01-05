@@ -7,7 +7,7 @@ module.exports = {
 
     async execute(sock, m, args) {
         try {
-            v.reply('Youtube no disponible 🍥', m)
+            v.reply('Youtube no disponible 🍥')
             /* if (!args[0]) {
                 return sock.sendMessage(m.chat, { text: 'Por favor, proporciona una URL de YouTube.' });
             }

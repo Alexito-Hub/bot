@@ -7,7 +7,7 @@ module.exports = {
 
     async execute(sock, m, args) {
         try {
-            v.reply('Tiktok no disponible 🍥', m)
+            v.reply('Tiktok no disponible 🍥')
             /* if (!args[0]) {
                 await sock.sendMessage(m.chat, { text: '*tiktok <url>*' }, { quoted: m });
                 return;

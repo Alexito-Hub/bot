@@ -8,7 +8,7 @@ module.exports = {
 
     async execute(sock, m, args) {
         try {
-            v.reply('Youtube no disponible 🍥', m)
+            v.reply('Youtube no disponible 🍥')
             /* if (!args[0]) {
                 return v.reply('Por favor, proporciona una búsqueda.');
             }
