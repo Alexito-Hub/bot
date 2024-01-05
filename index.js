@@ -7,8 +7,6 @@ const {
 } = require('@whiskeysockets/baileys');
 const P = require('pino');
 const { exec } = require('child_process');
-// const express = require('express');
-// const app = express();
 const path = require('path');
 
 const start = async() => {
@@ -103,21 +101,5 @@ Lamentamos ver tu partida del grupo ${groupName}. Siempre serás bienvenido/a de
 		require('./message/upsert')(sock, messages)
 	})
 }
-
-
-// app.use(express.static(path.join(__dirname, 'others')));
-
-/* app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, 'others', 'index.html'));
-});
-
-app.use((req, res) => {
-	res.status(404).sendFile(path.join(__dirname, 'others', '404.html'));
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-	console.log(`Escuchando en el puerto ${PORT}`);
-}); */
 
 start();
