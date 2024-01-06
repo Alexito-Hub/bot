@@ -1,60 +1,50 @@
-const sessions = {};
+let sessionMap = new Map();
 
 module.exports = {
   name: 'menu2',
   description: 'Muestra opciones de menú',
-  aliases: ['options'],
+  aliases: [],
 
   async execute(sock, m, args) {
     try {
-      if (sessions[m.sender]) {
-        await sock.sendMessage(m.chat, { text: 'Tienes una descarga pendiente.' }, { quoted: m });
-        return;
-      }
-
-      // Inicia una nueva sesión
-      sessions[m.sender] = {
-        startTime: Date.now(),
-        options: ['audio', 'video'],
-      };
-
-      await sock.sendMessage(m.chat, { text: 'Opciones disponibles:\n1. video\n2. audio' }, { quoted: m });
+      // Crear una nueva sesión o actualizar la existente
+      sessionMap.set(m.sender, { menuTimestamp: Date.now() });
+      
+      // Enviar opciones de menú al usuario
+      await sock.sendMessage(m.chat, {
+        text: 'Selecciona una opción:\n1. video\n2. audio',
+        contextInfo: {
+          mentionedJid: [m.sender],
+        },
+      }, { quoted: m });
     } catch (error) {
       console.error(error);
-      await sock.sendMessage(m.chat, { text: 'Error al procesar la solicitud' }, { quoted: m });
+      await sock.sendMessage(m.chat, { text: 'Error al mostrar el menú.' }, { quoted: m });
     }
   },
 };
 
-// Comando para la opción "server"
-module.exports.server = {
+// Comando 'server' para la interacción
+module.exports = {
   name: 'video',
-  description: 'Obtiene información del servidor',
+  description: 'Muestra información del servidor',
+  aliases: [],
 
-  async execute(sock, m) {
+  async execute(sock, m, args) {
     try {
-      // Verifica si hay una sesión activa
-      if (!sessions[m.sender]) {
-          v.reply('scapr')
+      // Verificar si existe una sesión válida
+      const session = sessionMap.get(m.sender);
+      if (!session || Date.now() - session.menuTimestamp > 5 * 60 * 1000) {
+        // Si la sesión ha caducado, informar al usuario
+        await sock.sendMessage(m.chat, { text: 'La sesión ha caducado. Por favor, ejecuta el comando "menu" nuevamente.' }, { quoted: m });
         return;
       }
 
-      const elapsedTime = Date.now() - sessions[m.sender].startTime;
-      if (elapsedTime > 5 * 60 * 1000) {
-        // La sesión ha caducado
-        delete sessions[m.sender];
-        await sock.sendMessage(m.chat, { text: 'La sesión ha caducado.' }, { quoted: m });
-        return;
-      }
-
-      // Realiza la acción para la opción "server"
-      await sock.sendMessage(m.chat, { text: 'su video esta siendo procesado' }, { quoted: m });
-
-      // Finaliza la sesión después de ejecutar la acción
-      delete sessions[m.sender];
+      // Realizar la acción correspondiente al comando 'server'
+      await sock.sendMessage(m.chat, { text: 'Información del servidor:\nNombre: Mi Servidor\nUsuarios: 100\nVersión: 1.0' }, { quoted: m });
     } catch (error) {
       console.error(error);
-      await sock.sendMessage(m.chat, { text: 'Error' }, { quoted: m });
+      await sock.sendMessage(m.chat, { text: 'Error al ejecutar el comando "server".' }, { quoted: m });
     }
   },
 };
