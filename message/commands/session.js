@@ -15,7 +15,7 @@ module.exports = {
             const searchText = args.join(' ');
 
             // Supongamos que aquí está la lógica para buscar en YouTube y obtener los resultados
-            const searchResults = await fetchJson(`https://api.example.com/youtube/search?q=${searchText}`);
+            const searchResults = await fetchJson(`https://iam-zio.replit.app/api/ytdl-search?key=zio&q=${searchText}`);
 
             if (!searchResults || !searchResults.length) {
                 await sock.sendMessage(m.chat, { text: 'No se encontraron resultados.' }, { quoted: m });
