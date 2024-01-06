@@ -23,7 +23,7 @@ module.exports = {
             }
 
             // Obtener el primer resultado
-            const firstResult = result.searchResults[0]
+            const firstResult = searchResults.result[0]
 
             // Construir el mensaje con la información del video y opciones de descarga
             const message = `
