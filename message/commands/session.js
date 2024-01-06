@@ -11,7 +11,7 @@ module.exports = {
   async execute(sock, m, args) {
     try {
       // Verifica si el usuario tiene una sesión activa
-      const userSession = storage.getItemSync(m.sender);
+      const userSession = storage.getItem(m.sender);
       if (userSession && userSession.expires > Date.now()) {
         // Si hay una sesión activa, ejecutar la acción correspondiente
         if (userSession.action === 'video') {
@@ -26,7 +26,7 @@ module.exports = {
         }, { quoted: m });
 
         // Almacena la sesión del usuario
-        storage.setItemSync(m.sender, {
+        storage.setItem(m.sender, {
           expires: Date.now() + 300000, // 5 minutos
           action: 'ytplay',
         });
