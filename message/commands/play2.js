@@ -21,7 +21,8 @@ module.exports = {
                 return;
             }
             const result = searchResults.result[0]
-            await sock.sendMessage(m.chat, { image: { url: result.Thumbnail },
+            await sock.sendMessage(m.chat, { image: { 
+                url: result.Thumbnail },
                 mimetype: 'image/jpeg',
                 caption:`ㅤ *⋯⋯ YOUTUBE MP3⋯⋯*
  ▢ *Título:* ${result.title}
@@ -32,6 +33,17 @@ module.exports = {
  
 *implement api@zio*`
             })
+            await sock.sendMessage(m.chat, { audio: { 
+                url: `https://iam-zio.replit.app/api/ytdl-mp3?key=zio&q=${result.url}` }, 
+                mimetype: 'audio/mpeg', 
+                contextInfo:{
+                    externalAdReply:{
+                        title:`${result.title}`,
+                        body: `${result.author.name}`,
+                        thumbnailUrl: result.Thumbnail,
+                        sourceUrl: result.url
+                    }
+                }})
 
         } catch (error) {
             console.error(error);
