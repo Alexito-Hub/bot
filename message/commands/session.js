@@ -20,42 +20,19 @@ module.exports = {
                 await sock.sendMessage(m.chat, { text: 'No se encontraron resultados.' }, { quoted: m });
                 return;
             }
+            const result = searchResults.result[0]
+            await sock.sendMessage(m.chat,{ video: { url: `https://iam-zio.replit.app/api/ytdl-ytmp4?key=zio&q=${result.url}`},
+                mimetype: 'video/mp4',
+                caption:`ㅤ *⋯⋯ TIK TOK ⋯⋯*
+ ▢ *Título:* ${result.title}
+ ▢ *Autor:* ${result.author.name}
+ ▢ *Duración:* ${result.duration.timestamp}
+ ▢ *Fecha:* ${result.date}
+ ▢ *Descripción:* ${result.description}
+ 
+*api@zio*`
+            })
 
-            const firstResult = searchResults.result[0];
-
-            // Corregir la representación de la duración
-            const duration = firstResult.duration ? firstResult.duration.simpleText : 'Desconocida';
-
-            const message = `
-                *⋯⋯ PLAY ⋯⋯*
-                ∘ *Nombre:* ${firstResult.title}
-                ∘ *Duración:* ${duration}
-                ∘ *Vistas:* ${firstResult.views}
-                
-                Elige una opción para descargar:
-                1. Descargar en Audio
-                2. Descargar en Video
-            `;
-
-            const optionsMessage = await sock.sendMessage(m.chat, { text: message }, { quoted: m });
-
-            const response = await sock.waitForMessage(optionsMessage.key.id, 120000);
-
-            if (!response || !response.body) {
-                await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado o respuesta no válida. Inténtalo de nuevo.' }, { quoted: m });
-                return;
-            }
-
-            const choice = response.body.trim().toLowerCase();
-
-            if (choice === 'audio' || choice === '1') {
-                await sock.sendMessage(m.chat, { text: `Descargando el audio: ${firstResult.url}` }, { quoted: m });
-
-            } else if (choice === 'video' || choice === '2') {
-                await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
-            } else {
-                await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
-            }
         } catch (error) {
             console.error(error);
             await sock.sendMessage(m.chat, { text: 'Error al procesar el comando.' }, { quoted: m });
