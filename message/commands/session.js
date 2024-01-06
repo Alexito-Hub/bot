@@ -65,11 +65,6 @@ module.exports = {
                 }
             }
 
-            if (!response || !response.body) {
-                await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado.' }, { quoted: m });
-                return;
-            }
-
             // Verificar la respuesta del usuario
             if (response.body === '1') {
                 await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
