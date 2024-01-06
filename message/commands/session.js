@@ -39,10 +39,10 @@ module.exports = {
 
             // Enviar el mensaje con las opciones y obtener el ID del mensaje enviado
             const optionsMessage = await sock.sendMessage(m.chat, { text: message }, { quoted: m });
-            const messageId = optionsMessage.key.id;
+            
 
             // Esperar la respuesta del usuario con un tiempo de espera de 2 minutos
-            const response = await sock.waitForMessage(messageId, 120000);
+            const response = await sock.waitForMessage(m.chat, 120000);
 
             if (!response || !response.body) {
                 await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado o respuesta no válida. Inténtalo de nuevo.' }, { quoted: m });
