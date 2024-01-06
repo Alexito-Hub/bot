@@ -41,12 +41,7 @@ module.exports = {
             await sock.sendMessage(m.chat, { text: message }, { quoted: m });
 
             // Esperar la respuesta del usuario con un tiempo de espera de 2 minutos
-            const response = await sock.waitForMessage(m.chat, {
-                sender: m.sender,
-                quoted: m,
-                options: ['1', '2'],
-                timeout: 120000, // 120000 milisegundos = 2 minutos
-            });
+            const response = await sock.waitForMessage(m.sender, 120000);
 
             if (!response) {
                 await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado. Inténtalo de nuevo.' }, { quoted: m });
