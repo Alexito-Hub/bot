@@ -4,7 +4,7 @@ const storage = require('node-persist');
 storage.init();
 
 module.exports = {
-  name: 'menu',
+  name: 'ytplay',
   description: 'Muestra un menú interactivo',
   aliases: [],
 
@@ -14,7 +14,7 @@ module.exports = {
       const userSession = storage.getItemSync(m.sender);
       if (userSession && userSession.expires > Date.now()) {
         // Si hay una sesión activa, ejecutar la acción correspondiente
-        if (userSession.action === 'server') {
+        if (userSession.action === 'video') {
           await sock.sendMessage(m.chat, { text: '¡Acción de servidor ejecutada!' }, { quoted: m });
         } else {
           await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
@@ -22,13 +22,13 @@ module.exports = {
       } else {
         // Si no hay una sesión activa, mostrar las opciones
         await sock.sendMessage(m.chat, {
-          text: 'Menú interactivo:\n1. link\n2. server\n\nResponde con el número de la opción que deseas ejecutar.',
+          text: 'ytplay interactivo:\n1. video\n2. audio\n\nResponde con el número de la opción que deseas ejecutar.',
         }, { quoted: m });
 
         // Almacena la sesión del usuario
         storage.setItemSync(m.sender, {
           expires: Date.now() + 300000, // 5 minutos
-          action: 'menu',
+          action: 'ytplay',
         });
       }
     } catch (error) {
