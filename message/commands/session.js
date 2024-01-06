@@ -39,31 +39,27 @@ module.exports = {
 
             // Enviar el mensaje con las opciones y obtener el ID del mensaje enviado
             const optionsMessage = await sock.sendMessage(m.chat, { text: message }, { quoted: m });
+            const messageId = optionsMessage.key.id;
 
             // Esperar la respuesta del usuario con un tiempo de espera de 2 minutos
-// Esperar la respuesta del usuario con un tiempo de espera de 2 minutos
-const response = await sock.waitForMessage(m.chat, 120000);
+            const response = await sock.waitForMessage(messageId, 120000);
 
-if (!response) {
-    await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado. Inténtalo de nuevo.' }, { quoted: m });
-    return;
-}
+            if (!response) {
+                await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado. Inténtalo de nuevo.' }, { quoted: m });
+                return;
+            }
 
-const option = response.body.trim(); // Limpiar espacios en blanco alrededor de la respuesta
-
-switch (option) {
-    case '1':
-        await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
-        // Lógica para descargar el video
-        break;
-    case '2':
-        await sock.sendMessage(m.chat, { text: `Descargando el audio: ${firstResult.url}` }, { quoted: m });
-        // Lógica para descargar el audio
-        break;
-    default:
-        await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
-}
-
+            const choice = response.body.trim();
+            
+            if (choice === '1') {
+                await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
+                // Lógica para descargar el video
+            } else if (choice === '2') {
+                await sock.sendMessage(m.chat, { text: `Descargando el audio: ${firstResult.url}` }, { quoted: m });
+                // Lógica para descargar el audio
+            } else {
+                await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
+            }
         } catch (error) {
             console.error(error);
             await sock.sendMessage(m.chat, { text: 'Error al procesar el comando.' }, { quoted: m });
