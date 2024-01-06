@@ -42,13 +42,13 @@ module.exports = {
 
             // Esperar la respuesta del usuario con un tiempo de espera de 2 minutos
             const response = await sock.waitForMessage(m.chat, 120000);
-
-            if (!response) {
+            const messageId = response.key.id;
+            if (!messageId) {
                 await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado. Inténtalo de nuevo.' }, { quoted: m });
                 return;
             }
 
-            switch (response.body) {
+            switch (messageId.body) {
                 case '1':
                     await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
                     // Lógica para descargar el video
