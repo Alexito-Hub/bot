@@ -21,7 +21,7 @@ module.exports = {
                 return;
             }
             const result = searchResults.result[0]
-            await sock.sendMessage(m.chat,{ video: { url: `https://iam-zio.replit.app/api/ytdl-ytmp4?key=zio&q=${result.url}`},
+            await sock.sendMessage(m.chat, { video: { url: `https://iam-zio.replit.app/api/ytdl-mp4?key=zio&q=${result.url}`},
                 mimetype: 'video/mp4',
                 caption:`ㅤ *⋯⋯ TIK TOK ⋯⋯*
  ▢ *Título:* ${result.title}
