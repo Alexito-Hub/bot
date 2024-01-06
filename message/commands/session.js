@@ -44,8 +44,8 @@ module.exports = {
             // Esperar la respuesta del usuario con un tiempo de espera de 2 minutos
             const response = await sock.waitForMessage(messageId, 120000);
 
-            if (!response) {
-                await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado. Inténtalo de nuevo.' }, { quoted: m });
+            if (!response || !response.body) {
+                await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado o respuesta no válida. Inténtalo de nuevo.' }, { quoted: m });
                 return;
             }
 
