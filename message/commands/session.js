@@ -1,7 +1,7 @@
 const storage = require('node-persist');
 
 // Configuración del almacenamiento temporal
-storage.initSync();
+storage.init();
 
 module.exports = {
   name: 'menu',
