@@ -17,13 +17,13 @@ module.exports = {
             // Supongamos que aquí está la lógica para buscar en YouTube y obtener los resultados
             const searchResults = await fetchJson(`https://iam-zio.replit.app/api/ytdl-search?key=zio&q=${searchText}`);
 
-            if (!searchResults || !searchResults.length) {
+            if (!searchResults || !searchResults.result) {
                 await sock.sendMessage(m.chat, { text: 'No se encontraron resultados.' }, { quoted: m });
                 return;
             }
 
             // Obtener el primer resultado
-            const firstResult = searchResults[0];
+            const firstResult = result.searchResults[0]
 
             // Construir el mensaje con la información del video y opciones de descarga
             const message = `
