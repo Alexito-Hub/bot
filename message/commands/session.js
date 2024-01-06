@@ -1,7 +1,7 @@
 const sessions = {};
 
 module.exports = {
-  name: 'menu',
+  name: 'menu2',
   description: 'Muestra opciones de menú',
   aliases: ['options'],
 
