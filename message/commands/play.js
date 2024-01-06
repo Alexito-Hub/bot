@@ -2,13 +2,13 @@ const ytsr = require('ytsr');
 const axios = require('axios');
 
 module.exports = {
-    name: 'play',
+    name: 'Youtube',
     description: 'Buscar y reproducir el primer video relacionado con la búsqueda.',
-    aliases: [],
+    aliases: ['yt', 'ytsearch'],
 
     async execute(sock, m, args) {
         try {
-            v.reply('Youtube no disponible 🍥')
+            v.reply('*Youtube no disponible 🍥*')
             /* if (!args[0]) {
                 return v.reply('Por favor, proporciona una búsqueda.');
             }
