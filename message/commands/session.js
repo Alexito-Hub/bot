@@ -49,10 +49,6 @@ module.exports = {
                     timeout: 300000, // 60 segundos de tiempo de espera
                 });
             
-                if (!response || !response.body) {
-                    await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado. Inténtalo de nuevo.' }, { quoted: m });
-                    return;
-                }
                 if (response.body === '1') {
                     await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
                     // Lógica para descargar el video
