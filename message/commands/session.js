@@ -37,11 +37,12 @@ module.exports = {
                 2. Descargar en Audio
             `;
 
-            // Enviar el mensaje con las opciones
-            await sock.sendMessage(m.chat, { text: message }, { quoted: m });
+            // Enviar el mensaje con las opciones y obtener el ID del mensaje enviado
+            const optionsMessage = await sock.sendMessage(m.chat, { text: message }, { quoted: m });
+            const messageId = optionsMessage.key.id;
 
             // Esperar la respuesta del usuario con un tiempo de espera de 2 minutos
-            const response = await sock.waitForMessage(m.sender, 120000);
+            const response = await sock.waitForMessage(messageId, 120000);
 
             if (!response) {
                 await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado. Inténtalo de nuevo.' }, { quoted: m });
