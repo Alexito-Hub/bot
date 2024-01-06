@@ -41,12 +41,29 @@ module.exports = {
             await sock.sendMessage(m.chat, { text: message }, { quoted: m });
 
             // Esperar la respuesta del usuario
-            const response = await sock.waitForMessage(m.chat, {
-                sender: m.sender,
-                quoted: m,
-                options: ['1', '2'],
-                timeout: 60000, // 60 segundos de tiempo de espera
-            });
+            try {
+                const response = await sock.waitForMessage(m.chat, {
+                    sender: m.sender,
+                    quoted: m,
+                    options: ['1', '2'],
+                    timeout: 300000, // 60 segundos de tiempo de espera
+                });
+            
+                if (!response || !response.body) {
+                    await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado. Inténtalo de nuevo.' }, { quoted: m });
+                    return;
+                }
+            
+                // Resto del código para manejar la respuesta del usuario
+            } catch (error) {
+                console.error(error);
+            
+                if (error.data && error.data.message === 'Timed Out') {
+                    await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado. Inténtalo de nuevo.' }, { quoted: m });
+                } else {
+                    await sock.sendMessage(m.chat, { text: 'Error al procesar el comando.' }, { quoted: m });
+                }
+            }
 
             if (!response || !response.body) {
                 await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado.' }, { quoted: m });
