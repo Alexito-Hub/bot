@@ -49,14 +49,17 @@ module.exports = {
                 return;
             }
 
-            if (response.body === '1') {
-                await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
-                // Lógica para descargar el video
-            } else if (response.body === '2') {
-                await sock.sendMessage(m.chat, { text: `Descargando el audio: ${firstResult.url}` }, { quoted: m });
-                // Lógica para descargar el audio
-            } else {
-                await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
+            switch (response.body) {
+                case '1':
+                    await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
+                    // Lógica para descargar el video
+                    break;
+                case '2':
+                    await sock.sendMessage(m.chat, { text: `Descargando el audio: ${firstResult.url}` }, { quoted: m });
+                    // Lógica para descargar el audio
+                    break;
+                default:
+                    await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
             }
         } catch (error) {
             console.error(error);
