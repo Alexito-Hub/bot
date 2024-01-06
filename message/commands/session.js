@@ -1,59 +1,62 @@
-const uuid = require('node-uuid');
-
-class SessionManager {
-  constructor() {
-    this.sessions = new Map();
-  }
-
-  createSession(userId, sessionId) {
-    this.sessions.set(userId, sessionId);
-  }
-
-  deleteSession(userId) {
-    this.sessions.delete(userId);
-  }
-
-  hasSession(userId) {
-    return this.sessions.has(userId);
-  }
-}
-
-module.exports = SessionManager;
-
+const sessions = {};
 
 module.exports = {
-  name: 'menu2',
+  name: 'menu',
   description: 'Muestra opciones de menú',
+  aliases: ['options'],
 
   async execute(sock, m, args) {
     try {
-      // Verifica si ya hay una sesión en curso para este usuario
-      if (sessionManager.hasSession(m.sender)) {
-        await sock.sendMessage(m.chat, { text: 'Ya tienes una sesión en curso. Por favor, termina esa sesión antes de iniciar una nueva.' }, { quoted: m });
+      // Verifica si hay una sesión activa
+      if (sessions[m.sender]) {
+        await sock.sendMessage(m.chat, { text: 'Ya hay una sesión activa. Utiliza "server" para obtener información.' }, { quoted: m });
         return;
       }
 
-      // Genera un ID único para la sesión
-      const sessionId = uuid.v4();
+      // Inicia una nueva sesión
+      sessions[m.sender] = {
+        startTime: Date.now(),
+        options: ['link', 'server'],
+      };
 
-      // Almacena la sesión en la gestión de sesiones
-      sessionManager.createSession(m.sender, sessionId);
-
-      // Envia las opciones de menú
-      await sock.sendMessage(m.chat, { text: 'Elige una opción:\n1. Link\n2. Server' }, { quoted: m });
-
-      // Establece un temporizador para expirar la sesión después de 5 minutos
-      const sessionTimeout = 5 * 60 * 1000; // 5 minutos en milisegundos
-      setTimeout(() => {
-        // Elimina la sesión cuando expire
-        sessionManager.deleteSession(m.sender);
-        // Envía un mensaje indicando que la sesión ha caducado
-        sock.sendMessage(m.chat, { text: 'La sesión ha caducado.' }, { quoted: m });
-      }, sessionTimeout);
+      await sock.sendMessage(m.chat, { text: 'Opciones disponibles:\n1. link\n2. server' }, { quoted: m });
     } catch (error) {
       console.error(error);
-      await sock.sendMessage(m.chat, { text: 'Error al iniciar la sesión.' }, { quoted: m });
+      await sock.sendMessage(m.chat, { text: 'Error al procesar la solicitud de menú.' }, { quoted: m });
     }
   },
 };
 
+// Comando para la opción "server"
+module.exports.server = {
+  name: 'server',
+  description: 'Obtiene información del servidor',
+
+  async execute(sock, m) {
+    try {
+      // Verifica si hay una sesión activa
+      if (!sessions[m.sender]) {
+        await sock.sendMessage(m.chat, { text: 'No hay una sesión activa. Inicia una sesión con "menu".' }, { quoted: m });
+        return;
+      }
+
+      // Verifica si la sesión está dentro del límite de tiempo (5 minutos)
+      const elapsedTime = Date.now() - sessions[m.sender].startTime;
+      if (elapsedTime > 5 * 60 * 1000) {
+        // La sesión ha caducado
+        delete sessions[m.sender];
+        await sock.sendMessage(m.chat, { text: 'La sesión ha caducado. Inicia una nueva sesión con "menu".' }, { quoted: m });
+        return;
+      }
+
+      // Realiza la acción para la opción "server"
+      await sock.sendMessage(m.chat, { text: 'Información del servidor: ...' }, { quoted: m });
+
+      // Finaliza la sesión después de ejecutar la acción
+      delete sessions[m.sender];
+    } catch (error) {
+      console.error(error);
+      await sock.sendMessage(m.chat, { text: 'Error al obtener información del servidor.' }, { quoted: m });
+    }
+  },
+};
