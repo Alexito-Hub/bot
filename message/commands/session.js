@@ -1,4 +1,4 @@
-const { fetchJson } = require('../../lib/utils');
+const { fetchJson } = require('../../lib/utils')
 
 module.exports = {
     name: 'play',
@@ -33,13 +33,12 @@ module.exports = {
                 ∘ *Vistas:* ${firstResult.views}
                 
                 Elige una opción para descargar:
-                1. Descargar en Video
-                2. Descargar en Audio
+                1. Descargar en Audio
+                2. Descargar en Video
             `;
 
             const optionsMessage = await sock.sendMessage(m.chat, { text: message }, { quoted: m });
 
-            // Esperar la respuesta del usuario con un tiempo de espera de 2 minutos
             const response = await sock.waitForMessage(optionsMessage.key.id, 120000);
 
             if (!response || !response.body) {
@@ -51,10 +50,9 @@ module.exports = {
 
             if (choice === 'audio' || choice === '1') {
                 await sock.sendMessage(m.chat, { text: `Descargando el audio: ${firstResult.url}` }, { quoted: m });
-                // Lógica para descargar el audio
+
             } else if (choice === 'video' || choice === '2') {
                 await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
-                // Lógica para descargar el video
             } else {
                 await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
             }
