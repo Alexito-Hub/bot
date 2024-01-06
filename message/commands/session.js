@@ -16,17 +16,20 @@ module.exports = {
 
             const searchResults = await fetchJson(`https://iam-zio.replit.app/api/ytdl-search?key=zio&q=${searchText}`);
 
-            if (!searchResults || !searchResults.result) {
+            if (!searchResults || !searchResults.result || searchResults.result.length === 0) {
                 await sock.sendMessage(m.chat, { text: 'No se encontraron resultados.' }, { quoted: m });
                 return;
             }
 
             const firstResult = searchResults.result[0];
 
+            // Corregir la representación de la duración
+            const duration = firstResult.duration ? firstResult.duration.simpleText : 'Desconocida';
+
             const message = `
                 *⋯⋯ PLAY ⋯⋯*
                 ∘ *Nombre:* ${firstResult.title}
-                ∘ *Duración:* ${firstResult.duration}
+                ∘ *Duración:* ${duration}
                 ∘ *Vistas:* ${firstResult.views}
                 
                 Elige una opción para descargar:
@@ -44,12 +47,12 @@ module.exports = {
                 return;
             }
 
-            const choice = response.body.trim();
+            const choice = response.body.trim().toLowerCase();
 
-            if (choice.toLowerCase() === 'audio') {
+            if (choice === 'audio' || choice === '1') {
                 await sock.sendMessage(m.chat, { text: `Descargando el audio: ${firstResult.url}` }, { quoted: m });
                 // Lógica para descargar el audio
-            } else if (choice.toLowerCase() === 'video') {
+            } else if (choice === 'video' || choice === '2') {
                 await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
                 // Lógica para descargar el video
             } else {
