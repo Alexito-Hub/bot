@@ -6,7 +6,7 @@ module.exports = {
     aliases: ['consejo de vida', 'vida'],
     async execute(sock, m, store,) {
         try {
-            const data = await Api('life')
+            const data = await Api('frase')
             sock.sendMessage(m.chat, { 
                 video: { url: 'https://telegra.ph/file/de8d3365a38f6090aaa89.mp4'},
                 gifPlayback: true,
