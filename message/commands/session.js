@@ -1,39 +1,72 @@
-const storage = require('node-persist');
-
-// Configuración del almacenamiento temporal
-storage.init();
+const { fetchJson } = require('../../lib/utils');
 
 module.exports = {
-  name: 'ytplay',
-  description: 'Muestra un menú interactivo',
-  aliases: [],
+    name: 'play',
+    description: 'Descarga videos de YouTube',
+    aliases: ['ytplay'],
 
-  async execute(sock, m, args) {
-    try {
-      // Verifica si el usuario tiene una sesión activa
-      const userSession = storage.getItem(m.sender);
-      if (userSession && userSession.expires > Date.now()) {
-        // Si hay una sesión activa, ejecutar la acción correspondiente
-        if (userSession.action === 'video') {
-          await sock.sendMessage(m.chat, { text: '¡Acción de servidor ejecutada!' }, { quoted: m });
-        } else {
-          await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
+    async execute(sock, m, args) {
+        try {
+            if (!args[0]) {
+                await sock.sendMessage(m.chat, { text: '*play <string>*' }, { quoted: m });
+                return;
+            }
+
+            const searchText = args.join(' ');
+
+            // Supongamos que aquí está la lógica para buscar en YouTube y obtener los resultados
+            const searchResults = await fetchJson(`https://api.example.com/youtube/search?q=${searchText}`);
+
+            if (!searchResults || !searchResults.length) {
+                await sock.sendMessage(m.chat, { text: 'No se encontraron resultados.' }, { quoted: m });
+                return;
+            }
+
+            // Obtener el primer resultado
+            const firstResult = searchResults[0];
+
+            // Construir el mensaje con la información del video y opciones de descarga
+            const message = `
+                *⋯⋯ PLAY ⋯⋯*
+                ∘ *Nombre:* ${firstResult.title}
+                ∘ *Duración:* ${firstResult.duration}
+                ∘ *Vistas:* ${firstResult.views}
+                
+                Elige una opción para descargar:
+                1. Descargar en Video
+                2. Descargar en Audio
+            `;
+
+            // Enviar el mensaje con las opciones
+            await sock.sendMessage(m.chat, { text: message }, { quoted: m });
+
+            // Esperar la respuesta del usuario
+            const response = await sock.waitForMessage(m.chat, {
+                sender: m.sender,
+                quoted: m,
+                options: ['1', '2'],
+                timeout: 60000, // 60 segundos de tiempo de espera
+            });
+
+            if (!response || !response.body) {
+                await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado.' }, { quoted: m });
+                return;
+            }
+
+            // Verificar la respuesta del usuario
+            if (response.body === '1') {
+                await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.videoUrl}` }, { quoted: m });
+                // Lógica para descargar el video
+            } else if (response.body === '2') {
+                await sock.sendMessage(m.chat, { text: `Descargando el audio: ${firstResult.audioUrl}` }, { quoted: m });
+                // Lógica para descargar el audio
+            } else {
+                await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
+            }
+
+        } catch (error) {
+            console.error(error);
+            await sock.sendMessage(m.chat, { text: 'Error al procesar el comando.' }, { quoted: m });
         }
-      } else {
-        // Si no hay una sesión activa, mostrar las opciones
-        await sock.sendMessage(m.chat, {
-          text: 'ytplay interactivo:\n1. video\n2. audio\n\nResponde con el número de la opción que deseas ejecutar.',
-        }, { quoted: m });
-
-        // Almacena la sesión del usuario
-        storage.setItem(m.sender, {
-          expires: Date.now() + 300000, // 5 minutos
-          action: 'ytplay',
-        });
-      }
-    } catch (error) {
-      console.error(error);
-      await sock.sendMessage(m.chat, { text: 'Error al procesar el comando.' }, { quoted: m });
-    }
-  },
+    },
 };
