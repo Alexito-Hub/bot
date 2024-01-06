@@ -20,6 +20,7 @@ module.exports = {
                 await sock.sendMessage(m.chat, { text: 'No se encontraron resultados.' }, { quoted: m });
                 return;
             }
+
             const firstResult = searchResults.result[0];
 
             const message = `
@@ -34,8 +35,9 @@ module.exports = {
             `;
 
             const optionsMessage = await sock.sendMessage(m.chat, { text: message }, { quoted: m });
-            
-            const response = await sock.waitForMessage(optionsMessage, 120000);
+
+            // Esperar la respuesta del usuario con un tiempo de espera de 2 minutos
+            const response = await sock.waitForMessage(optionsMessage.key.id, 120000);
 
             if (!response || !response.body) {
                 await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado o respuesta no válida. Inténtalo de nuevo.' }, { quoted: m });
@@ -43,11 +45,13 @@ module.exports = {
             }
 
             const choice = response.body.trim();
-            
-            if (choice === '1') {
-                await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
-            } else if (choice === '2') {
+
+            if (choice.toLowerCase() === 'audio') {
                 await sock.sendMessage(m.chat, { text: `Descargando el audio: ${firstResult.url}` }, { quoted: m });
+                // Lógica para descargar el audio
+            } else if (choice.toLowerCase() === 'video') {
+                await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
+                // Lógica para descargar el video
             } else {
                 await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
             }
