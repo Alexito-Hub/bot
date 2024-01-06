@@ -22,7 +22,7 @@ module.exports = SessionManager;
 
 
 module.exports = {
-  name: 'menu',
+  name: 'menu2',
   description: 'Muestra opciones de menú',
 
   async execute(sock, m, args) {
