@@ -1,14 +1,14 @@
 const { fetchJson } = require('../../lib/utils')
 
 module.exports = {
-    name: 'play',
+    name: 'play2',
     description: 'Descarga videos de YouTube',
-    aliases: ['ytplay'],
+    aliases: ['ytplay2', 'ytaudio', 'ytmusic'],
 
     async execute(sock, m, args) {
         try {
             if (!args[0]) {
-                await sock.sendMessage(m.chat, { text: '*play <string>*' }, { quoted: m });
+                await sock.sendMessage(m.chat, { text: '*play2 <string>*' }, { quoted: m });
                 return;
             }
 
@@ -21,16 +21,16 @@ module.exports = {
                 return;
             }
             const result = searchResults.result[0]
-            await sock.sendMessage(m.chat, { video: { url: `https://iam-zio.replit.app/api/ytdl-mp4?key=zio&q=${result.url}`},
-                mimetype: 'video/mp4',
-                caption:`ㅤ *⋯⋯ TIK TOK ⋯⋯*
+            await sock.sendMessage(m.chat, { image: { url: result.Thumbnail },
+                mimetype: 'image/jpeg',
+                caption:`ㅤ *⋯⋯ YOUTUBE MP3⋯⋯*
  ▢ *Título:* ${result.title}
  ▢ *Autor:* ${result.author.name}
  ▢ *Duración:* ${result.duration.timestamp}
  ▢ *Fecha:* ${result.date}
  ▢ *Descripción:* ${result.description}
  
-*api@zio*`
+*implement api@zio*`
             })
 
         } catch (error) {
