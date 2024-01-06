@@ -41,25 +41,29 @@ module.exports = {
             const optionsMessage = await sock.sendMessage(m.chat, { text: message }, { quoted: m });
 
             // Esperar la respuesta del usuario con un tiempo de espera de 2 minutos
-            const response = await sock.waitForMessage(m.chat, 120000);
-            const messageId = response.key.id;
-            if (!messageId) {
-                await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado. Inténtalo de nuevo.' }, { quoted: m });
-                return;
-            }
+// Esperar la respuesta del usuario con un tiempo de espera de 2 minutos
+const response = await sock.waitForMessage(m.chat, 120000);
 
-            switch (messageId.body) {
-                case '1':
-                    await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
-                    // Lógica para descargar el video
-                    break;
-                case '2':
-                    await sock.sendMessage(m.chat, { text: `Descargando el audio: ${firstResult.url}` }, { quoted: m });
-                    // Lógica para descargar el audio
-                    break;
-                default:
-                    await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
-            }
+if (!response) {
+    await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado. Inténtalo de nuevo.' }, { quoted: m });
+    return;
+}
+
+const option = response.body.trim(); // Limpiar espacios en blanco alrededor de la respuesta
+
+switch (option) {
+    case '1':
+        await sock.sendMessage(m.chat, { text: `Descargando el video: ${firstResult.url}` }, { quoted: m });
+        // Lógica para descargar el video
+        break;
+    case '2':
+        await sock.sendMessage(m.chat, { text: `Descargando el audio: ${firstResult.url}` }, { quoted: m });
+        // Lógica para descargar el audio
+        break;
+    default:
+        await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
+}
+
         } catch (error) {
             console.error(error);
             await sock.sendMessage(m.chat, { text: 'Error al procesar el comando.' }, { quoted: m });
