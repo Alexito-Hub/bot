@@ -35,6 +35,7 @@ module.exports.server = {
     try {
       // Verifica si hay una sesión activa
       if (!sessions[m.sender]) {
+          v.reply('scapr')
         return;
       }
 
