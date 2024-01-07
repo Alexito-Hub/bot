@@ -7,8 +7,7 @@ module.exports = {
 
     async execute(sock, m, args) {
         try {
-            v.reply('*Tiktok no disponible 🍥*')
-            /* if (!args[0]) {
+            if (!args[0]) {
                 await sock.sendMessage(m.chat, { text: '*tiktok <url>*' }, { quoted: m });
                 return;
             }
@@ -17,7 +16,7 @@ module.exports = {
             const isAudio = args.includes('--audio') || args.includes('-a');
             
             const tiktokUrl = args[0];
-            const response = await fetchJson(`https://star-apis.teamfx.repl.co/api/downloader/tiktok?url=${tiktokUrl}&apikey=TeamFX`);
+            const response = await fetchJson(`https://iam-zio.replit.app/api/tiktok?key=zio&url=${tiktokUrl}`);
             
             function roundTime(time) {
                 return Math.round(time);
@@ -65,7 +64,7 @@ module.exports = {
                 console.log('Error al obtener información');
                 await sock.sendMessage(m.chat, { react: { text: '❎', key: m.key } });
                 await sock.sendMessage(m.chat, { text: 'No se pudo descargar' }, { quoted: m });
-            } */
+            }
         } catch (e) {
             console.error(e);
             await sock.sendMessage(m.chat, { text: `${e}` });
