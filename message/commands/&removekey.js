@@ -18,7 +18,7 @@ module.exports = {
             const keyToDelete = args[0];
 
             // Realiza la solicitud para eliminar la clave
-            const apiUrl = `https://api-zio.replit.app/api/keys/${keyToDelete}?key=TK`;
+            const apiUrl = `https://api-zio.replit.app/api/keys/${keyToDelete}?key=Tk`;
             const response = await axios.delete(apiUrl);
 
             // Verifica la respuesta y proporciona retroalimentación al usuario

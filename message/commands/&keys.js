@@ -7,7 +7,7 @@ module.exports = {
     async execute(sock, m, args) {
         try {
             // Puedes cambiar la URL de la API según tus necesidades
-            const apiUrl = 'https://iam-zio.replit.app/data/keys?key=TK';
+            const apiUrl = 'https://iam-zio.replit.app/data/keys?key=Tk';
 
             const response = await axios.get(apiUrl);
 

@@ -23,7 +23,7 @@ module.exports = {
             }
 
             // Realiza la solicitud para agregar la nueva clave
-            const apiUrl = 'https://api-zio.replit.app/api/keys?key=TK';
+            const apiUrl = 'https://api-zio.replit.app/data/keys?key=Tk';
             const response = await axios.post(apiUrl, {
                 key: name,
                 limit: parseInt(limit), // Asegura que el límite sea un número

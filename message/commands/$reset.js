@@ -37,6 +37,7 @@ module.exports = {
                     await sleep(3000)
                     await sock.sendMessage(m.chat, { text: 'Bot reiniciado exitosamente.' });
                 });
+                await sock.sendMessage(m.chat, { text: 'El bot fue reiniciado exitosamente.' });
             });
         } catch (error) {
             console.error('Error:', error);

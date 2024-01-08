@@ -14,7 +14,7 @@ module.exports = {
                 return;
             }
             const userAge = parseInt(age);
-            const isRegisteredResponse = await fetchJson(`https://iam-zio.replit.app/data/users/${m.sender.split('@')[0]}?key=ZioAPI`);
+            const isRegisteredResponse = await fetchJson(`https://iam-zio.replit.app/data/users/${m.sender.split('@')[0]}?key=Tk`);
             if (isRegisteredResponse.status === 200) {
                 await sock.sendMessage(m.chat, { text: 'Ya estás registrado.' }, { quoted: m });
                 return;
@@ -27,7 +27,7 @@ module.exports = {
                 await sock.sendMessage(m.chat, { text: 'El nombre debe tener entre 3 y 15 caracteres.' }, { quoted: m });
                 return;
             }
-            const apiUrl = 'https://iam-zio.replit.app/data/users?key=ZioAPI';
+            const apiUrl = 'https://iam-zio.replit.app/data/users?key=Tk';
             const response = await axios.post(apiUrl, {
                 number: m.sender.split('@')[0],
                 name,

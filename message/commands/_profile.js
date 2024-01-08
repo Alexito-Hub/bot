@@ -14,7 +14,7 @@ module.exports = {
                     ? m.quoted.sender.split('@')[0]
                     : m.sender.split('@')[0];
 
-            const profile = await fetchJson(`https://iam-zio.replit.app/data/users/${user}?key=ZioAPI`);
+            const profile = await fetchJson(`https://iam-zio.replit.app/data/users/${user}?key=Tk`);
 
             if (!profile.status === 404) {
                 sock.sendMessage(m.chat, { text: '❌ Usuario no registrado o no se encuentra en la base de datos.' }, { quoted: m });
