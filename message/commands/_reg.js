@@ -3,7 +3,7 @@ const { fetchJson } = require('../../lib/utils');
 
 module.exports = {
     name: 'reg',
-    description: 'Registro simple solicitando nombre y edad',
+    description: 'Registro',
     
     async execute(sock, m, args) {
         try {
@@ -31,9 +31,7 @@ module.exports = {
             const response = await axios.post(apiUrl, {
                 number: m.sender.split('@')[0],
                 name,
-                age,
-                gender: '✘',
-                email: '✘',
+                age
             });
             if (response.status === 201) {
                 await sock.sendMessage(m.chat, { text: 'Registro simple exitoso.' }, { quoted: m });
