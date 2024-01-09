@@ -1,47 +1,38 @@
 const { sleep } = require('../../lib/utils');
 
+// Array para almacenar opciones
+const optionsArray = [];
+
 module.exports = {
-    name: 'test',
-    description: 'Ejemplo de menú con opciones',
-    aliases: ['test'],
+    name: 'menuCommand',
+    description: 'Comando con opciones',
+    aliases: ['menu'],
 
     async execute(sock, m) {
         try {
-            // Enviar las opciones del menú
-            const menuMessage = await sock.sendMessage(m.chat, {
-                text: `
-                    Elige una opción:
-                    1. Opción A
-                    2. Opción B
-                `,
-            }, { quoted: m });
+            // Enviar las opciones al usuario
+            await sock.sendMessage(m.chat, { text: 'Elige una opción:\n1. Opción 1\n2. Opción 2' }, { quoted: m });
 
             // Esperar la respuesta del usuario
-            const response = await sock.waitForMessage(m.chat, {
-                sender: m.sender,
-                quoted: menuMessage,
-                options: ['1', '2'],
-                timeout: 60000, // 60 segundos de tiempo de espera
+            const response = await sock.waitForMessage(m.sender, {
+                filter: (message) => ['1', '2'].includes(message.body.trim()),
+                timeout: 30000, // 30 segundos de tiempo de espera
             });
 
-            if (!response || !response.body) {
-                await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado o respuesta no válida. Inténtalo de nuevo.' }, { quoted: m });
-                return;
-            }
+            if (response && response.body) {
+                // Almacenar la opción en el array
+                optionsArray.push(response.body.trim());
 
-            const choice = response.body.trim();
-
-            // Responder según la elección del usuario
-            if (choice === '1') {
-                await sock.sendMessage(m.chat, { text: 'Has elegido la Opción A.' }, { quoted: m });
-            } else if (choice === '2') {
-                await sock.sendMessage(m.chat, { text: 'Has elegido la Opción B.' }, { quoted: m });
+                // Responder con la opción seleccionada
+                await sock.sendMessage(m.chat, { text: `Has seleccionado la opción ${response.body.trim()}` }, { quoted: m });
             } else {
-                await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
+                await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado o respuesta no válida.' }, { quoted: m });
             }
         } catch (error) {
             console.error(error);
             await sock.sendMessage(m.chat, { text: 'Error al procesar el comando.' }, { quoted: m });
         }
     },
+
+    // Comando para mostrar las opciones almacenadas en el array
 };
