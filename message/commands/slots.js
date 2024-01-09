@@ -7,18 +7,21 @@ module.exports = {
 
     async execute(sock, m) {
         try {
+            
+            async function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
             const data = await fetchJson('https://iam-zio.replit.app/api/slots?key=zio');
             const result = data.game.message;
-            let wined, loser;
-
+            
             function Win() {
                 if (result.includes('Ganaste')) {
-                    wined = `╰──❲⋅ᐧ⋅ *𝚆𝙸𝙽* ⋅⋅❳──╯\n\n*◯─❲ 𝙶𝙰𝙽𝙰𝚂𝚃𝙴 ❳─◯*`;
+                    return `╰──❲⋅ᐧ⋅ *𝚆𝙸𝙽* ⋅⋅❳──╯\n\n*◯─❲ 𝙶𝙰𝙽𝙰𝚂𝚃𝙴 ❳─◯*`;
                 } else if (result.includes('Perdiste')) {
-                    loser = `*╰──❲⋅𝙻𝙾𝚂𝙴𝚁ᐧ❳──╯*\n\n*◯─❲ 𝙿𝙴𝚁𝙳𝙸𝚂𝚃𝙴 ❳─◯*`;
+                    return `*╰──❲⋅𝙻𝙾𝚂𝙴𝚁ᐧ❳──╯*\n\n*◯─❲ 𝙿𝙴𝚁𝙳𝙸𝚂𝚃𝙴 ❳─◯*`;
                 }
             }
-
+            
             async function slotsRun() {
                 var slots = [
                     `*◯─❲ 𝚃𝚁𝙰𝙶𝙰𝙼𝙾𝙽𝙴𝙳𝙰𝚂 ❳─◯*
@@ -99,6 +102,7 @@ ${Win()}
 *ᴀᴘɪ@ᴢɪᴏᴏ*`});
                 for (let i = 0; i < slots.length; i++) {
                     await sock.sendMessage(m.chat, {text: slots[i], edit: key});
+                    await sleep(2000)
                 }
             }
             
