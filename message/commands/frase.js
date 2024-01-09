@@ -2,7 +2,7 @@ const { Api } = require('../../lib/functions')
 
 module.exports = {
     name: 'phrase',
-    description: 'Responde mediante chat gpt',
+    description: 'Frases wue nunca dijo un gato',
     aliases: ['frases', 'frase'],
     async execute(sock, m, store,) {
         try {
