@@ -1,8 +1,9 @@
 const { sleep } = require('../../lib/utils');
 
 module.exports = {
-    name: 'menuExample',
+    name: 'test',
     description: 'Ejemplo de menú con opciones',
+    aliases: ['test'],
 
     async execute(sock, m) {
         try {
@@ -10,8 +11,8 @@ module.exports = {
             const menuMessage = await sock.sendMessage(m.chat, {
                 text: `
                     Elige una opción:
-                    1. Opción 1
-                    2. Opción 2
+                    1. Opción A
+                    2. Opción B
                 `,
             }, { quoted: m });
 
@@ -20,21 +21,23 @@ module.exports = {
                 sender: m.sender,
                 quoted: menuMessage,
                 options: ['1', '2'],
-                timeout: 300000, // 5 minutos de tiempo de espera
+                timeout: 60000, // 60 segundos de tiempo de espera
             });
 
-            if (response && response.body) {
-                // Responder según la opción seleccionada
-                const selectedOption = response.body.trim();
-                if (selectedOption === '1') {
-                    await sock.sendMessage(m.chat, { text: 'Has seleccionado la Opción 1.' }, { quoted: m });
-                } else if (selectedOption === '2') {
-                    await sock.sendMessage(m.chat, { text: 'Has seleccionado la Opción 2.' }, { quoted: m });
-                } else {
-                    await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
-                }
-            } else {
+            if (!response || !response.body) {
                 await sock.sendMessage(m.chat, { text: 'Tiempo de espera agotado o respuesta no válida. Inténtalo de nuevo.' }, { quoted: m });
+                return;
+            }
+
+            const choice = response.body.trim();
+
+            // Responder según la elección del usuario
+            if (choice === '1') {
+                await sock.sendMessage(m.chat, { text: 'Has elegido la Opción A.' }, { quoted: m });
+            } else if (choice === '2') {
+                await sock.sendMessage(m.chat, { text: 'Has elegido la Opción B.' }, { quoted: m });
+            } else {
+                await sock.sendMessage(m.chat, { text: 'Opción no válida.' }, { quoted: m });
             }
         } catch (error) {
             console.error(error);
