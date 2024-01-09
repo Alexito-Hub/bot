@@ -85,7 +85,7 @@ module.exports = {
 
 ╭──❲ *ᐧᴋᴀᴏʀɪᐧ* ❳──╮
 │🍇│🍋│🍒│  ◯
-*│${data.game.result[0]}│${data.game.result[1]}│${data.game.result[2]}├─╯*
+*│${data.game.casino[0]}│${data.game.casino[1]}│${data.game.casino[2]}├─╯*
 │🍋│🍇│🍓│
 ${Win()}
 ➤ *${data.game.coins}*
