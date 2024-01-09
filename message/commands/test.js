@@ -11,8 +11,7 @@ module.exports = {
 
             const response = await sock.waitForMessage(m.sender, {
                 filter: (message) => ['1', '2'].includes(message.body.trim()),
-                timeout: 30000,
-            });
+            }, 30000);
 
             if (response && response.body) {
                 await sock.sendMessage(m.chat, { text: `Has seleccionado la opción ${response.body.trim()}` }, { quoted: m });
