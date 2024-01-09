@@ -23,6 +23,8 @@ module.exports = {
             }
             
             async function slotsRun() {
+                let { key } = await sock.sendMessage(m.chat, { text: `ㅤ *⋯⋯ TRAGAMONEDAS ⋯⋯*\n\n◯──❲ Iniciando... ❳\n\n*ᴀᴘɪ@ᴢɪᴏᴏ*` });
+                await sleep(2000);
                 var slots = [
                     `*◯─❲ 𝚃𝚁𝙰𝙶𝙰𝙼𝙾𝙽𝙴𝙳𝙰𝚂 ❳─◯*
 
@@ -95,14 +97,9 @@ ${Win()}
 
 *ᴀᴘɪ©ᴢɪᴏ*`
                 ];
-                let { key } = await sock.sendMessage(m.chat, {text: `ㅤ *⋯⋯ TRAGAMONEDAS ⋯⋯*
-
-◯──❲ Iniciando... ❳
-
-*ᴀᴘɪ@ᴢɪᴏᴏ*`});
                 for (let i = 0; i < slots.length; i++) {
                     await sock.sendMessage(m.chat, {text: slots[i], edit: key});
-                    await sleep(2000)
+                    await sleep(1000)
                 }
             }
             
