@@ -55,6 +55,9 @@ module.exports = async(sock, m, store) => {
 		const isQuotedSticker = m.quoted ? (m.quoted.type === 'stickerMessage') : false
 		const isQuotedAudio = m.quoted ? (m.quoted.type === 'audioMessage') : false
         
+        
+        
+        
         const containsLink = /https?:\/\/\S+/.test(m.body);
         
         const isAdmin = m.isGroup ? groupAdmins.includes(senderNumber + '@s.whatsapp.net') : false;
@@ -64,7 +67,15 @@ module.exports = async(sock, m, store) => {
             await sock.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
             v.reply("Enlaces no permitidos. Has sido eliminado.");
         }
+        
+        
+const isPrivateMessage = !m.isGroup;
 
+const isNotAdminOrOwner = !groupAdmins.includes(senderNumber + '@s.whatsapp.net') && !global.owner.includes(senderNumber);
+
+if (isPrivateMessage && isNotAdminOrOwner) {
+    await sock.sendMessage(m.chat, { text: 'Los mensajes privados no están permitidos. Has sido bloqueado.' }, { quoted: m });
+}
         
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
