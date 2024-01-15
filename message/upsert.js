@@ -56,11 +56,12 @@ module.exports = async(sock, m, store) => {
 		const isQuotedAudio = m.quoted ? (m.quoted.type === 'audioMessage') : false
         
         const containsLink = /https?:\/\/\S+/.test(m.body);
-        
-        if (containsLink && !groupAdmins && !botNumber) {
+
+        if (containsLink && !isBotAdmin && !groupAdmins.includes(senderNumber) && senderNumber !== botNumber) {
             await sock.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
             v.reply("Enlaces no permitidos. Has sido eliminado.");
         }
+
         
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
