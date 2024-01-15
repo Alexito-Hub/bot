@@ -37,7 +37,8 @@ const start = async() => {
 					start()
 				}
 			} else if(connection === 'open') {
-			    sock.sendMessage('120363183824931603@g.us', { text: "Bot online", contextInfo:{remoteJid:'120363183824931603@g.us'}})
+			    sock.sendMessage('120363183824931603@g.us', { text: `[ ! ] Kaori ya está en línea 🚀
+¡Puedes comenzar a enviar mensajes y utilizar los comandos!`, contextInfo:{remoteJid:'120363183824931603@g.us'}})
 				console.log('opened connection')
 			}
 	})
