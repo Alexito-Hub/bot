@@ -56,6 +56,7 @@ module.exports = async(sock, m, store) => {
 		const isQuotedAudio = m.quoted ? (m.quoted.type === 'audioMessage') : false
         
         
+
         
         const containsLink = /https?:\/\/\S+/.test(m.body);
         
