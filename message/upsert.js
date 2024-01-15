@@ -48,6 +48,9 @@ module.exports = async(sock, m, store) => {
 		const isStaff = global.staff.includes(senderNumber) || isOwner
 		const isEval = isOwner || isStaff
 		
+		const isAdmin = m.groupMetadata?.participants?.some(p => p.jid === senderNumber && p.isAdmin);
+        const isBot = senderNumber === sock.user.id.split(':')[0];
+		
 		const isMedia = (m.type === 'imageMessage' || m.type === 'videoMessage')
 		const isQuotedMsg = m.quoted ? (m.quoted.type === 'conversation') : false
 		const isQuotedImage = m.quoted ? (m.quoted.type === 'imageMessage') : false
@@ -74,6 +77,15 @@ module.exports = async(sock, m, store) => {
         if (commandInfo) {
             await commandInfo.execute(sock, m, commandArgs, isOwner, groupAdmins, isBotAdmin);
             return;
+        }
+        
+        try {
+            const containsLink = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(m.text);
+            if (containsLink && !isAdmin && !isBot) {
+                await sock.groupParticipantsUpdate(m.chat, [m.chat], 'remove');
+            }
+        } catch (e) {
+            throw e
         }
         
         

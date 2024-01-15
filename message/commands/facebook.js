@@ -11,7 +11,8 @@ module.exports = {
                 v.reply('*facebook <url>*');
                 return;
             }
-            await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } });
+            v.reply("No disponible")
+            /* await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } });
             const facebookUrl = args[0];
             const response = await fetchJson(`http://sabapi.tech:8090/download/facebook2?url=${facebookUrl}&apikey=MrRootsFree`);
             if (response && response.resultado) {
@@ -28,7 +29,7 @@ module.exports = {
             } else {
                 v.reply('no se pudo descargar el contenido multimedia', m)
             }
-            await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
+            await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } }); */
             
         } catch (e) {
             await sock.sendMessage(m.chat, { react: { text: '❌', key: m.key } });
