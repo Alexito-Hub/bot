@@ -59,9 +59,7 @@ module.exports = async(sock, m, store) => {
 const isPrivateChat = m.chat.endsWith('@s.whatsapp.net');
 
         if (isPrivateChat) {
-            // El usuario está escribiendo al bot en privado
             v.reply("No se permiten mensajes directos al bot. Has sido bloqueado.");
-            return;
         }
         
         const containsLink = /https?:\/\/\S+/.test(m.body);
