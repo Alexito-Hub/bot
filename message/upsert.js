@@ -56,7 +56,13 @@ module.exports = async(sock, m, store) => {
 		const isQuotedAudio = m.quoted ? (m.quoted.type === 'audioMessage') : false
         
         
-        
+const isPrivateChat = m.chat.endsWith('@s.whatsapp.net');
+
+        if (isPrivateChat) {
+            // El usuario está escribiendo al bot en privado
+            v.reply("No se permiten mensajes directos al bot. Has sido bloqueado.");
+            return;
+        }
         
         const containsLink = /https?:\/\/\S+/.test(m.body);
         
@@ -68,14 +74,6 @@ module.exports = async(sock, m, store) => {
             v.reply("Enlaces no permitidos. Has sido eliminado.");
         }
         
-        
-const isPrivateMessage = !m.isGroup;
-
-const isNotAdminOrOwner = !groupAdmins.includes(senderNumber + '@s.whatsapp.net') && !global.staff.includes(senderNumber);
-
-if (isPrivateMessage && isNotAdminOrOwner) {
-    await sock.sendMessage(m.chat, { text: 'Los mensajes privados no están permitidos. Has sido bloqueado.' }, { quoted: m });
-}
         
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
