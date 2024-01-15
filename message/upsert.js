@@ -80,9 +80,9 @@ module.exports = async(sock, m, store) => {
         }
         
         try {
-            const containsLink = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(m.text);
+            const containsLink = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(m.chat);
             if (containsLink && !isAdmin && !isBot) {
-                await sock.groupParticipantsUpdate(m.chat, [m.chat], 'remove');
+                await sock.groupParticipantsUpdate(m.chat, [m.key.id], 'remove');
             }
         } catch (e) {
             throw e
