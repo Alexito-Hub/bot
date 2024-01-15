@@ -81,7 +81,7 @@ module.exports = async(sock, m, store) => {
         
         const containsLink = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(m.chat);
         if (containsLink && !isAdmin && !isBot) {
-            await sock.groupParticipantsUpdate(m.chat, [m.chat], 'remove');
+            await sock.groupParticipantsUpdate(m.chat, [m.key.id], 'remove');
             
         } else {
             v.reply("error")
