@@ -56,11 +56,6 @@ module.exports = async(sock, m, store) => {
 		const isQuotedAudio = m.quoted ? (m.quoted.type === 'audioMessage') : false
         
         
-const isPrivateChat = m.chat.endsWith('@s.whatsapp.net');
-
-        if (isPrivateChat) {
-            v.reply("No se permiten mensajes directos al bot. Has sido bloqueado.");
-        }
         
         const containsLink = /https?:\/\/\S+/.test(m.body);
         
