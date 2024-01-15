@@ -62,7 +62,7 @@ const start = async() => {
 	            sock.sendMessage(groupId, {
 	                text:`¡Bienvenido, *@${user}⁩*! 🌠
 
-Kaori está emocionado por tenerte en *${groupName}*. Si quieres explorar los comandos de Kaori, usa *.menu* en cualquier momento. ¡Disfruta tu estancia! 🤖`,
+Kaori está emocionado por tenerte en *${groupName}.* Si quieres explorar los comandos de Kaori, usa *.menu* en cualquier momento. ¡Disfruta tu estancia! 🤖`,
 	                contextInfo: {
 	                    mentionedJid: [participant],
 	                    remoteJid: [groupId],
@@ -70,11 +70,11 @@ Kaori está emocionado por tenerte en *${groupName}*. Si quieres explorar los co
 	                        title: `${groupName}`,
 	                        renderLargerThumbnail: true, 
 	                        mediaType: 1,
-	                        thumbnailUrl: 'https://telegra.ph/file/739fcda099b443c12aedd.jpg',
+	                        thumbnailUrl: 'https://telegra.ph/file/2071468c407a3c3e7f759.jpg',
 	                    }
 	                }
 	            })
-	        } else if (action === 'remove') {
+	        } /* else if (action === 'remove') {
 	            sock.sendMessage(groupId, {
 	                text:`¡Adiós, *@${user}⁩*! 🌠
 
@@ -86,11 +86,11 @@ Lamentamos ver tu partida del grupo ${groupName}. Siempre serás bienvenido/a de
 	                        title: `${groupName}`,
 	                        renderLargerThumbnail: true, 
 	                        mediaType: 1,
-	                        thumbnailUrl: 'https://telegra.ph/file/739fcda099b443c12aedd.jpg',
+	                        thumbnailUrl: 'https://telegra.ph/file/2071468c407a3c3e7f759.jpg',
 	                    }
 	                }
 	            })
-	        }
+	        } */
 	    }
 	});
 	sock.ev.on('messages.upsert', messages => {

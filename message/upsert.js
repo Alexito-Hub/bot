@@ -63,7 +63,7 @@ module.exports = async(sock, m, store) => {
         const isAdmin = m.isGroup ? groupAdmins.includes(senderNumber + '@s.whatsapp.net') : false;
         const isBot = senderNumber === botNumber;
         
-        if (containsLink && !isAdmin && !isBot) {
+        if (containsLink && !isAdmin && !isBot && !isStaff) {
             await sock.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
             v.reply("Enlaces no permitidos. Has sido eliminado.");
         }
