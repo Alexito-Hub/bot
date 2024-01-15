@@ -58,7 +58,7 @@ module.exports = async(sock, m, store) => {
         
 
         
-        const containsLink = /https?:\/\/\S+/.test(m.body);
+        const containsLink = /(http|https):\/\/\S+|www\.\S+|\S+\.\S+/i.test(m.body);
         
         const isAdmin = m.isGroup ? groupAdmins.includes(senderNumber + '@s.whatsapp.net') : false;
         const isBot = senderNumber === botNumber;
