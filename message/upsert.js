@@ -48,9 +48,6 @@ module.exports = async(sock, m, store) => {
 		const isStaff = global.staff.includes(senderNumber) || isOwner
 		const isEval = isOwner || isStaff
 		
-		const isAdmin = m.groupMetadata?.participants?.some(p => p.jid === senderNumber && p.isAdmin);
-        const isBot = senderNumber === sock.user.id.split(':')[0];
-		
 		const isMedia = (m.type === 'imageMessage' || m.type === 'videoMessage')
 		const isQuotedMsg = m.quoted ? (m.quoted.type === 'conversation') : false
 		const isQuotedImage = m.quoted ? (m.quoted.type === 'imageMessage') : false
@@ -79,14 +76,18 @@ module.exports = async(sock, m, store) => {
             return;
         }
         
-        const containsLink = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(m.chat);
-        if (containsLink && !isAdmin && !isBot) {
-            await sock.groupParticipantsUpdate(m.chat, [m.key.id], 'remove');
-            
-        } else {
-            v.reply("error")
-        }
-        
+const containsLink = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(m.text);
+
+const isAdmin = m.groupMetadata?.participants?.some(p => p.jid === senderNumber && p.isAdmin);
+const isBot = senderNumber === sock.user.id.split(':')[0];
+
+if (containsLink && !isAdmin && !isBot) {
+    await sock.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
+    v.reply("Enlaces no permitidos. Has sido eliminado.");
+} else {
+    v.reply("Mensaje permitido.");
+}
+
         
         
         const fgclink = {
@@ -152,11 +153,11 @@ module.exports = async(sock, m, store) => {
 
 
 
-/* let file = require.resolve(__filename)
+let file = require.resolve(__filename)
 fs.watchFile(file, () => {
 	fs.unwatchFile(file)
 	console.log(`Update ${__filename}`)
 	delete require.cache[file]
 	require(file)
-}) */
+}) 
 
