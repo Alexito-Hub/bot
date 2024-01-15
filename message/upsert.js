@@ -67,6 +67,7 @@ module.exports = async(sock, m, store) => {
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
         const hasCommandPrefix = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()));
+        const commandBody = hasCommandPrefix && m.body ? m.body.slice(prefixes.find(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase())).length).trim() : m.body ? m.body.trim() : '';
         const [commandName, ...commandArgs] = commandBody.split(/ +/);
         
         const commandInfo = getCommandInfo(commandName.toLowerCase());
