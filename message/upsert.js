@@ -84,8 +84,6 @@ const isBot = senderNumber === sock.user.id.split(':')[0];
 if (containsLink && !isAdmin && !isBot) {
     await sock.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
     v.reply("Enlaces no permitidos. Has sido eliminado.");
-} else {
-    v.reply("Mensaje permitido.");
 }
 
         
