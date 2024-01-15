@@ -71,7 +71,7 @@ module.exports = async(sock, m, store) => {
         
 const isPrivateMessage = !m.isGroup;
 
-const isNotAdminOrOwner = !groupAdmins.includes(senderNumber + '@s.whatsapp.net') && !global.owner.includes(senderNumber);
+const isNotAdminOrOwner = !groupAdmins.includes(senderNumber + '@s.whatsapp.net') && !global.staff.includes(senderNumber);
 
 if (isPrivateMessage && isNotAdminOrOwner) {
     await sock.sendMessage(m.chat, { text: 'Los mensajes privados no están permitidos. Has sido bloqueado.' }, { quoted: m });
