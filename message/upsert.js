@@ -79,13 +79,12 @@ module.exports = async(sock, m, store) => {
             return;
         }
         
-        try {
-            const containsLink = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(m.chat);
-            if (containsLink && !isAdmin && !isBot) {
-                await sock.groupParticipantsUpdate(m.chat, [m.chat], 'remove');
-            }
-        } catch (e) {
-            throw e
+        const containsLink = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(m.chat);
+        if (containsLink && !isAdmin && !isBot) {
+            await sock.groupParticipantsUpdate(m.chat, [m.chat], 'remove');
+            
+        } else {
+            v.reply("error")
         }
         
         
