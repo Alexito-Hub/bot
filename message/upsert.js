@@ -55,14 +55,12 @@ module.exports = async(sock, m, store) => {
 		const isQuotedSticker = m.quoted ? (m.quoted.type === 'stickerMessage') : false
 		const isQuotedAudio = m.quoted ? (m.quoted.type === 'audioMessage') : false
         
-        function roundTime(time) {
-            return Math.round(time);
-            
-        }
+        const containsLink = /https?:\/\/\S+/.test(m.body);
         
-        const responseMs = Date.now();
-        const responseTime = roundTime(responseMs - m.messageTimestamp * 1000);
-        const messageRoundTime = (responseTime / 1000).toFixed(3);
+        if (containsLink && !groupAdmins && !botNumber) {
+            await sock.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
+            v.reply("Enlaces no permitidos. Has sido eliminado.");
+        }
         
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -75,14 +73,6 @@ module.exports = async(sock, m, store) => {
             await commandInfo.execute(sock, m, commandArgs, isOwner, groupAdmins, isBotAdmin);
             return;
         }
-        
-const containsLink = /https?:\/\/\S+/.test(m.body);
-
-if (containsLink && !groupAdmins && !botNumber) {
-    await sock.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
-    v.reply("Enlaces no permitidos. Has sido eliminado.");
-}
-
         
         
         const fgclink = {
