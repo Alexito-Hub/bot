@@ -28,7 +28,7 @@ module.exports = {
             vm.runInContext(pseudocode, sandbox);
             
             sleep(500)
-            await sock.sendMessage(m.chat, { text: '<process complete>' }, { quoted: m });
+            await sock.sendMessage(m.chat, { text: '*<process complete>*' }, { quoted: m });
         } catch (error) {
             console.error(error);
             await sock.sendMessage(m.chat, { text: 'Error' }, { quoted: m });
