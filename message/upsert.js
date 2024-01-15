@@ -76,7 +76,7 @@ module.exports = async(sock, m, store) => {
             return;
         }
         
-const containsLink = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(m.text);
+const containsLink = /(http|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/.test(m.chat);
 
 const isAdmin = m.groupMetadata?.participants?.some(p => p.jid === senderNumber && p.isAdmin);
 const isBot = senderNumber === sock.user.id.split(':')[0];
