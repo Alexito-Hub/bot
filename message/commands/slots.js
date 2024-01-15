@@ -3,7 +3,7 @@ const { fetchJson } = require('../../lib/utils');
 module.exports = {
     name: 'tragamonedas',
     description: 'Juega al tragamonedas',
-    aliases: ['slots'],
+    aliases: ['slots', 'slot'],
 
     async execute(sock, m) {
         try {
