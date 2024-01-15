@@ -26,8 +26,8 @@ module.exports = async(sock, m, store) => {
 		v = await sms(sock, m)
 		
 		const prefixes = global.prefix || ['#'];
-		const isCmd = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))
-		const command = isCmd
+		const isCmd = m.body && prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()));
+        const command = isCmd
           ? removeAccents(m.body.slice(prefixes.find(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()))).trim().split(' ')[0].toLowerCase())
           : m.body.trim().split(' ')[0].toLowerCase();
 		
