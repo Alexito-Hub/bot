@@ -63,7 +63,8 @@ module.exports = async(sock, m, store) => {
         const responseMs = Date.now();
         const responseTime = roundTime(responseMs - m.messageTimestamp * 1000);
         const messageRoundTime = (responseTime / 1000).toFixed(3);
-
+        
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
         const hasCommandPrefix = prefixes.some(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase()));
         const commandBody = hasCommandPrefix ? m.body.slice(prefixes.find(prefix => m.body.toLowerCase().startsWith(prefix.toLowerCase())).length).trim() : m.body.trim();

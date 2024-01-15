@@ -6,7 +6,7 @@ module.exports = {
     description: 'Ejecutar pseudocódigo',
     aliases: ['&'],
 
-    async execute(sock, m, args) {
+    async execute(sock, m, args, sleep) {
         try {
             if (!args[0]) {
                 await sock.sendMessage(m.chat, { text: '*& <código>*' }, { quoted: m });
@@ -26,7 +26,8 @@ module.exports = {
 
             vm.createContext(sandbox);
             vm.runInContext(pseudocode, sandbox);
-
+            
+            sleep(500)
             await sock.sendMessage(m.chat, { text: '<process complete>' }, { quoted: m });
         } catch (error) {
             console.error(error);
