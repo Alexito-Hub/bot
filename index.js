@@ -51,14 +51,15 @@ const start = async() => {
 	    const action = update.action;
 	    const metadata = await sock.groupMetadata(groupId);
 	    const groupName = metadata.subject
-	    const ing = [
-	        "120363212722789717@g.us",
-	        "120363183824931603@g.us"
-	        ]
-	    
-	    if (groupId === ing) {
-	        return;
-	    }
+const ing = [
+    "120363212722789717@g.us",
+    "120363183824931603@g.us"
+];
+
+if (ing.includes(groupId)) {
+    return;
+}
+
 	    for (const participant of participants) {
 	        const user = participant.split('@')[0];
 	        if (action === 'add') {
