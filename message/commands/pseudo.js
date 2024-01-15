@@ -1,9 +1,10 @@
-const { NodeVM } = require('vm2');
+const util = require('util');
+const vm = require('vm');
 
 module.exports = {
     name: 'pseudocode',
     description: 'Ejecutar pseudocódigo',
-    aliases: ['ps', '&'],
+    aliases: ['&'],
 
     async execute(sock, m, args) {
         try {
@@ -14,18 +15,19 @@ module.exports = {
 
             const pseudocode = args.join(' ');
 
-
-            const vm = new NodeVM({
-                sandbox: {},
-                console: 'redirect',
-                require: {
-                    external: true,
+            const sandbox = {
+                console: {
+                    log: (...args) => {
+                        sock.sendMessage(m.chat, { text: args.map(arg => util.inspect(arg)).join(' ') }, { quoted: m });
+                    },
                 },
-            });
+            };
 
-            const result = vm.run(pseudocode);
 
-            await sock.sendMessage(m.chat, { text: `${result}` }, { quoted: m });
+            vm.createContext(sandbox);
+            vm.runInContext(pseudocode, sandbox);
+
+            await sock.sendMessage(m.chat, { text: '<process complete>' }, { quoted: m });
         } catch (error) {
             console.error(error);
             await sock.sendMessage(m.chat, { text: 'Error' }, { quoted: m });
