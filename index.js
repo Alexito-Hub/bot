@@ -37,12 +37,14 @@ const start = async() => {
 					start()
 				}
 			} else if(connection === 'open') {
+			    sock.sendMessage('120363183824931603@g.us', { text: "Bot online", contextInfo:{remoteJid:'120363183824931603@g.us'}})
 				console.log('opened connection')
 			}
 	})
 	
 	sock.ev.on('creds.update', saveCreds)
-	/* sock.ev.on('group-participants.update', async (update) => {
+	
+	sock.ev.on('group-participants.update', async (update) => {
 	    const groupId = update.id
 	    const participants = update.participants;
 	    const action = update.action;
@@ -89,8 +91,7 @@ Lamentamos ver tu partida del grupo ${groupName}. Siempre serás bienvenido/a de
 	            })
 	        }
 	    }
-	}); */
-	
+	});
 	sock.ev.on('messages.upsert', messages => {
 		messages = messages.messages[0]
 		if (!messages) return
