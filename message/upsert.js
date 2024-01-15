@@ -78,10 +78,7 @@ module.exports = async(sock, m, store) => {
         
 const containsLink = /https?:\/\/\S+/.test(m.body);
 
-const isAdmin = m.groupMetadata?.participants?.some(p => p.jid === senderNumber && p.isAdmin);
-const isBot = senderNumber === sock.user.id.split(':')[0];
-
-if (containsLink && !isAdmin && !isBot) {
+if (containsLink && !groupAdmins && !botNumber) {
     await sock.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
     v.reply("Enlaces no permitidos. Has sido eliminado.");
 }
