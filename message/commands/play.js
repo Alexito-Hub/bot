@@ -3,7 +3,7 @@ const { fetchJson } = require('../../lib/utils')
 module.exports = {
     name: 'play',
     description: 'Descarga videos de YouTube',
-    aliases: ['ytplay', 'ytvideo'],
+    aliases: ['ytplay', 'ytvideo', 'playvideo'],
 
     async execute(sock, m, args) {
         try {
@@ -11,11 +11,11 @@ module.exports = {
                 await sock.sendMessage(m.chat, { text: '*play <string>*' }, { quoted: m });
                 return;
             }
-
+            
+            await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } });
             const searchText = args.join(' ');
-
             const searchResults = await fetchJson(`https://iam-zio.replit.app/api/ytdl-search?key=zio&q=${searchText}`);
-
+            
             if (!searchResults || !searchResults.result || searchResults.result.length === 0) {
                 await sock.sendMessage(m.chat, { text: 'No se encontraron resultados.' }, { quoted: m });
                 return;
@@ -32,7 +32,7 @@ module.exports = {
  
 *implement api@zio*`
             })
-
+            await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
         } catch (error) {
             console.error(error);
             await sock.sendMessage(m.chat, { text: 'Error al procesar el comando.' }, { quoted: m });

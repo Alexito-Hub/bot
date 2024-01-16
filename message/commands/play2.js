@@ -11,7 +11,7 @@ module.exports = {
                 await sock.sendMessage(m.chat, { text: '*play2 <string>*' }, { quoted: m });
                 return;
             }
-
+            await sock.sendMessage(m.chat, { react: { text: '🕛', key: m.key } });
             const searchText = args.join(' ');
 
             const searchResults = await fetchJson(`https://iam-zio.replit.app/api/ytdl-search?key=zio&q=${searchText}`);
@@ -32,7 +32,7 @@ module.exports = {
  ▢ *Descripción:* ${result.description}
  
 *implement api@zio*`
-            })
+            }, {quoted: m})
             await sock.sendMessage(m.chat, { audio: { 
                 url: `https://iam-zio.replit.app/api/ytdl-mp3?key=zio&q=${result.url}` }, 
                 mimetype: 'audio/mpeg', 
@@ -43,7 +43,9 @@ module.exports = {
                         thumbnailUrl: result.Thumbnail,
                         sourceUrl: result.url
                     }
-                }})
+                }
+            }, {quoted: m})
+                await sock.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
 
         } catch (error) {
             console.error(error);
