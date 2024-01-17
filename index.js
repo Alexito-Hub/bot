@@ -53,6 +53,7 @@ const start = async() => {
 	    const groupName = metadata.subject
 const ing = [
     "120363212722789717@g.us",
+    "120363205514266007@g.us",
     "120363183824931603@g.us"
 ];
 
