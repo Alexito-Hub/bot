@@ -7,6 +7,14 @@ const { Api, Json, removeAccents } = require('../lib/functions')
 const { client, sms, key } = require('../lib/simple')
 const { fetchJson } = require('../lib/utils');
 
+const {
+	default: makeWASocket,
+	useMultiFileAuthState,
+	DisconnectReason,
+	generateWAMessageFromContent,
+	getContentType
+} = require('@whiskeysockets/baileys');
+
 const commands = [];
 
 function getCommandInfo(commandName) {

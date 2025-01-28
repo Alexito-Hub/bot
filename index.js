@@ -37,67 +37,12 @@ const start = async() => {
 					start()
 				}
 			} else if(connection === 'open') {
-			    sock.sendMessage('120363183824931603@g.us', { text: `[ ! ] Kaori ya está en línea 🚀
-¡Puedes comenzar a enviar mensajes y utilizar los comandos!`, contextInfo:{remoteJid:'120363183824931603@g.us'}})
 				console.log('opened connection')
 			}
 	})
 	
 	sock.ev.on('creds.update', saveCreds)
 	
-	sock.ev.on('group-participants.update', async (update) => {
-	    const groupId = update.id
-	    const participants = update.participants;
-	    const action = update.action;
-	    const metadata = await sock.groupMetadata(groupId);
-	    const groupName = metadata.subject
-const ing = [
-    "120363212722789717@g.us",
-    "120363205514266007@g.us",
-    "120363183824931603@g.us"
-];
-
-if (ing.includes(groupId)) {
-    return;
-}
-
-	    for (const participant of participants) {
-	        const user = participant.split('@')[0];
-	        if (action === 'add') {
-	            sock.sendMessage(groupId, {
-	                text:`¡Bienvenido, *@${user}⁩*! 🌠
-
-Kaori está emocionado por tenerte en *${groupName}.* Si quieres explorar los comandos de Kaori, usa *.menu* en cualquier momento. ¡Disfruta tu estancia! 🤖`,
-	                contextInfo: {
-	                    mentionedJid: [participant],
-	                    remoteJid: [groupId],
-	                    externalAdReply: {
-	                        title: `${groupName}`,
-	                        renderLargerThumbnail: true, 
-	                        mediaType: 1,
-	                        thumbnailUrl: 'https://telegra.ph/file/2071468c407a3c3e7f759.jpg',
-	                    }
-	                }
-	            })
-	        } /* else if (action === 'remove') {
-	            sock.sendMessage(groupId, {
-	                text:`¡Adiós, *@${user}⁩*! 🌠
-
-Lamentamos ver tu partida del grupo ${groupName}. Siempre serás bienvenido/a de regreso si decides volver. ¡Hasta pronto y te deseamos lo mejor!`,
-	                contextInfo: {
-	                    mentionedJid: [participant],
-	                    remoteJid: [groupId],
-	                    externalAdReply: {
-	                        title: `${groupName}`,
-	                        renderLargerThumbnail: true, 
-	                        mediaType: 1,
-	                        thumbnailUrl: 'https://telegra.ph/file/2071468c407a3c3e7f759.jpg',
-	                    }
-	                }
-	            })
-	        } */
-	    }
-	});
 	sock.ev.on('messages.upsert', messages => {
 		messages = messages.messages[0]
 		if (!messages) return
